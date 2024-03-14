@@ -4,7 +4,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Loader2, Lock } from 'lucide-react';
+import { Loader2, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -12,8 +12,8 @@ import { formRegisterSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
-import { useToast } from '@/components/ui/use-toast';
 import { User } from '@prisma/client';
+import { notify } from '@/lib/notification';
 
 type CallbackReponse = {
   error?: string;
@@ -23,7 +23,7 @@ type CallbackReponse = {
 
 const RegisterForm = () => {
   const router = useRouter();
-  const { toast } = useToast();
+
   const registerForm = useForm<z.infer<typeof formRegisterSchema>>({
     resolver: zodResolver(formRegisterSchema),
     defaultValues: {
@@ -32,6 +32,8 @@ const RegisterForm = () => {
       password: '',
     },
   });
+
+  const { isSubmitting } = registerForm.formState;
 
   const handleRegisterForm = async (
     values: z.infer<typeof formRegisterSchema>,
@@ -51,16 +53,11 @@ const RegisterForm = () => {
     const callbackResponse: CallbackReponse = await response.json();
 
     if (callbackResponse.user) {
-      toast({
-        description: callbackResponse.message,
-      });
+      notify.success(callbackResponse.message);
       router.push('/login');
       router.refresh();
     } else {
-      toast({
-        description: callbackResponse.error,
-        variant: 'destructive',
-      });
+      notify.error(callbackResponse.error);
     }
   };
 
@@ -72,7 +69,7 @@ const RegisterForm = () => {
       >
         {/* header */}
         <div className="mb-6 flex items-center justify-center">
-          <Lock className="size-10" />
+          <ShieldCheck className="size-10" />
         </div>
 
         <div className="mb-6 flex flex-col items-center">
@@ -141,21 +138,11 @@ const RegisterForm = () => {
             </FormItem>
           )}
         />
-        <Button
-          disabled={registerForm.formState.isSubmitting}
-          type="submit"
-          className="w-full"
-        >
-          {registerForm.formState.isSubmitting && (
-            <Loader2 className="size-4 animate-spin" />
-          )}
+        <Button disabled={isSubmitting} type="submit" className="w-full">
+          {isSubmitting && <Loader2 className="size-4 animate-spin" />}
 
-          <span
-            className={`${registerForm.formState.isSubmitting ? 'ml-2' : null}`}
-          >
-            {registerForm.formState.isSubmitting
-              ? 'Creating Account...'
-              : 'Register'}
+          <span className={`${isSubmitting ? 'ml-2' : null}`}>
+            {isSubmitting ? 'Creating Account...' : 'Register'}
           </span>
         </Button>
         <p className="mt-2 text-sm text-muted-foreground">
