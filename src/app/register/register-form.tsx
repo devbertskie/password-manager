@@ -14,6 +14,7 @@ import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
 import { User } from '@prisma/client';
 import { notify } from '@/lib/notification';
+import paths from '@/lib/paths';
 
 type CallbackReponse = {
   error?: string;
@@ -54,7 +55,7 @@ const RegisterForm = () => {
 
     if (callbackResponse.user) {
       notify.success(callbackResponse.message);
-      router.push('/login');
+      router.push(paths.toLogin());
       router.refresh();
     } else {
       notify.error(callbackResponse.error);
@@ -147,7 +148,7 @@ const RegisterForm = () => {
         </Button>
         <p className="mt-2 text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Link href="/login" className="text-green-500 underline">
+          <Link href={paths.toLogin()} className="text-green-500 underline">
             Login instead
           </Link>
         </p>
