@@ -2,9 +2,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Lock } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react';
 
-const AuthenticationPage = () => {
+const LoginPage = () => {
   return (
     <div className="flex size-full items-center justify-center">
       {/* form login */}
@@ -55,9 +56,15 @@ const AuthenticationPage = () => {
           />
         </div>
         <Button className="w-full">Continue</Button>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Not yet registered?{' '}
+          <Link href="/register" className="text-green-500 underline">
+            Create an account
+          </Link>
+        </p>
       </form>
     </div>
   );
 };
 
-export default AuthenticationPage;
+export default LoginPage;
