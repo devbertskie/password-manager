@@ -35,7 +35,7 @@ const LoginForm = () => {
     });
 
     if (userSession?.error) {
-      notify.error('Invalid Login Credentials!');
+      notify.error(userSession.error);
     } else {
       notify.success('Authenticated!');
       router.push(paths.toDashboard());
