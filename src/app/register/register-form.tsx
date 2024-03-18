@@ -148,7 +148,7 @@ const RegisterForm = () => {
         </Button>
         <p className="mt-2 text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Link href={paths.toLogin()} className="text-green-500 underline">
+          <Link href={paths.toLogin()} className="text-primary underline">
             Login instead
           </Link>
         </p>
