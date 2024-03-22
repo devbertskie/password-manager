@@ -1,16 +1,28 @@
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Space_Grotesk as SpaceGrotesk, Inter } from 'next/font/google';
 import './globals.css';
+import { cn } from '@/lib/utils';
+import ProviderComponent from '@/components/layout/provider-component';
 
-import NotificationProvider from '@/context/notification-context';
-import ThemeProvider from '@/components/shared/theme-provider';
+const spaseGrotesk = SpaceGrotesk({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-space',
+});
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
-  title: 'Password Manager',
-  description: 'Secured vault for everybody!',
+  title: {
+    template: '%s | Password Manager',
+    default: 'Secure your Accounts',
+  },
 };
 
 export default function RootLayout({
@@ -19,16 +31,9 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NotificationProvider>{children}</NotificationProvider>
-        </ThemeProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(inter.variable, spaseGrotesk.variable)}>
+        <ProviderComponent>{children}</ProviderComponent>
       </body>
     </html>
   );

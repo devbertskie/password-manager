@@ -51,30 +51,43 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border scroll-smooth;
   }
-  html,
+
   body {
-    @apply bg-background text-foreground w-full h-full select-none cursor-default antialiased;
-    font-feature-settings:
-      'rlig' 1,
-      'calt' 1;
-    text-rendering: optimizeLegibility;
-  }
-
-  html::-webkit-scrollbar,
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  html,
-  .hide-scrollbar {
-    scrollbar-width: none;
+    @apply bg-background font-inter;
   }
 }
 
 @layer components {
-  .card-wrapper > * {
-    @apply overflow-auto whitespace-nowrap hide-scrollbar;
+  .sidebar {
+    @apply -left-[260px] lg:left-0;
+  }
+
+  .toggle-sidebar .sidebar {
+    @apply left-0 lg:-left-[260px];
+  }
+
+  .toggle-sidebar .main-container .main-content {
+    @apply ml-0;
+  }
+
+  .main-container .main-content {
+    @apply transition-all duration-300 lg:ml-[260px];
+  }
+
+  .toggle-sidebar .horizontal-logo,
+  .toggle-sidebar .collapse-icon {
+    @apply flex;
+  }
+
+  header {
+    @apply sticky top-0 z-20;
+  }
+}
+
+@layer utilities {
+  .icon-hover-primary {
+    @apply bg-primary/20 hover:bg-primary text-primary hover:text-muted;
   }
 }

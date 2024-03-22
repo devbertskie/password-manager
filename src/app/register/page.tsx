@@ -12,7 +12,7 @@ const RegisterPage = async () => {
   }
 
   return (
-    <div className="flex size-full items-center justify-center">
+    <div className="flex h-full min-h-screen items-center justify-center">
       <RegisterForm />
     </div>
   );

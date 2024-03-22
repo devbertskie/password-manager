@@ -13,7 +13,7 @@ const LoginPage = async () => {
   }
 
   return (
-    <div className="flex size-full items-center justify-center">
+    <div className="flex size-full h-full min-h-screen items-center justify-center">
       {/* form login */}
       <LoginForm />
     </div>
