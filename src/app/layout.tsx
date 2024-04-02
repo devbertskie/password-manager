@@ -5,6 +5,8 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import ProviderComponent from '@/components/layout/provider-component';
 
+export const runtime = 'edge';
+
 const spaseGrotesk = SpaceGrotesk({
   subsets: ['latin'],
   display: 'swap',
