@@ -66,7 +66,7 @@ const RegisterForm = () => {
     <Form {...registerForm}>
       <form
         onSubmit={registerForm.handleSubmit(handleRegisterForm)}
-        className="w-96"
+        className="w-96 rounded-xl bg-primary/5 p-8 shadow-xl"
       >
         {/* header */}
         <div className="mb-6 flex items-center justify-center">
@@ -93,6 +93,7 @@ const RegisterForm = () => {
                   autoCapitalize="off"
                   autoComplete="off"
                   placeholder="Enter your username"
+                  disabled={isSubmitting}
                 />
                 <FormMessage />
               </div>
@@ -114,6 +115,7 @@ const RegisterForm = () => {
                   autoCapitalize="off"
                   autoComplete="off"
                   placeholder="Enter your email"
+                  disabled={isSubmitting}
                 />
                 <FormMessage />
               </div>
@@ -133,6 +135,7 @@ const RegisterForm = () => {
                   {...field}
                   type="password"
                   placeholder="Enter your password"
+                  disabled={isSubmitting}
                 />
                 <FormMessage />
               </div>

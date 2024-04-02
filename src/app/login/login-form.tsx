@@ -47,7 +47,10 @@ const LoginForm = () => {
 
   return (
     <Form {...loginForm}>
-      <form onSubmit={loginForm.handleSubmit(handleLoginForm)} className="w-96">
+      <form
+        onSubmit={loginForm.handleSubmit(handleLoginForm)}
+        className="w-96 rounded-xl bg-primary/5 p-8 shadow-xl"
+      >
         {/* header */}
         <div className="mb-6 flex items-center justify-center">
           <Lock className="size-10" />
@@ -77,6 +80,7 @@ const LoginForm = () => {
                   autoCapitalize="off"
                   autoComplete="off"
                   placeholder="Enter your email"
+                  disabled={isSubmitting}
                 />
                 <FormMessage />
               </div>
@@ -96,6 +100,7 @@ const LoginForm = () => {
                   {...field}
                   type="password"
                   placeholder="Enter your password"
+                  disabled={isSubmitting}
                 />
                 <FormMessage />
               </div>
