@@ -1,7 +1,7 @@
 'use client';
 import { ChevronLeft, Home, ShieldCheck, SquareAsterisk } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '../ui/button';
 import { useApp } from '@/context/app-context';
 import SidebarProfile from './sidebar-profile';
@@ -9,10 +9,17 @@ import { usePathname } from 'next/navigation';
 import paths from '@/lib/paths';
 import { cn } from '@/lib/utils';
 import { SIDEBAR_CATEGORIES } from '@/constants';
+import isSmallScreen from '@/helpers/is-small-screen';
 
 const Sidebar = () => {
   const { toggleSidebar } = useApp();
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (isSmallScreen()) {
+      toggleSidebar();
+    }
+  }, [pathname]);
 
   const CategoriesComponent = () =>
     SIDEBAR_CATEGORIES.map((list) => {
