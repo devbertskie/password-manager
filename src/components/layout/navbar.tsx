@@ -16,6 +16,13 @@ const Navbar = () => {
         {/* WRAPPER */}
         <div className="flex w-full items-center border-b border-b-border bg-background px-5 py-4">
           <div className="horizontal-logo mr-2 flex items-center justify-center lg:hidden">
+            <Button
+              size="icon"
+              className="icon-hover-primary mr-4 size-8 rounded-full  transition-all duration-300"
+              onClick={() => toggleSidebar()}
+            >
+              <Menu className="size-6" />
+            </Button>
             <Link
               href="/"
               className="flex shrink-0 items-center transition-all duration-300"
@@ -25,14 +32,6 @@ const Navbar = () => {
                 PassManager
               </span>
             </Link>
-
-            <Button
-              size="icon"
-              className="icon-hover-primary ml-4 size-8 rounded-full  transition-all duration-300"
-              onClick={() => toggleSidebar()}
-            >
-              <Menu className="size-6" />
-            </Button>
           </div>
 
           <div className="mr-2 hidden sm:block">

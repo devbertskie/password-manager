@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { Space_Grotesk as SpaceGrotesk, Inter } from 'next/font/google';
+import { Space_Grotesk as SpaceGrotesk, Lexend } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import ProviderComponent from '@/components/layout/provider-component';
@@ -11,11 +11,11 @@ const spaseGrotesk = SpaceGrotesk({
   variable: '--font-space',
 });
 
-const inter = Inter({
+const lexend = Lexend({
   weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-lexend',
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.variable, spaseGrotesk.variable)}>
+      <body className={cn(lexend.variable, spaseGrotesk.variable)}>
         <ProviderComponent>{children}</ProviderComponent>
       </body>
     </html>

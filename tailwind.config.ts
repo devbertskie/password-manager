@@ -75,7 +75,7 @@ const config = {
     },
     fontFamily: {
       space: ['var(--font-space)'],
-      inter: ['var(--font-inter)'],
+      lexend: ['var(--font-lexend)'],
     },
   },
   plugins: [require('tailwindcss-animate')],

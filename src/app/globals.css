@@ -55,7 +55,7 @@
   }
 
   body {
-    @apply bg-background font-inter;
+    @apply bg-background font-lexend antialiased font-light text-sm;
   }
 }
 
