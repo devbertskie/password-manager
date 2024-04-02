@@ -1,20 +1,31 @@
 'use client';
 
 import React from 'react';
-import { Menu, Moon, SquareAsterisk, Sun } from 'lucide-react';
+import { Menu, Moon, Search, SquareAsterisk, Sun } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { useApp } from '@/context/app-context';
 import { useTheme } from 'next-themes';
+import { cn } from '@/lib/utils';
+import isSmallScreen from '@/helpers/is-small-screen';
+import UserNav from '../shared/user-nav';
 
 const Navbar = () => {
-  const { toggleSidebar } = useApp();
+  const { toggleSidebar, isSidebarOpen } = useApp();
   const { setTheme, theme } = useTheme();
+
   return (
     <header className="z-40">
       <div className="shadow-sm">
         {/* WRAPPER */}
-        <div className="flex w-full items-center border-b border-b-border bg-background px-5 py-4">
+        <div
+          className={cn(
+            isSidebarOpen && isSmallScreen()
+              ? 'justify-end'
+              : 'justify-between',
+            'flex w-full items-center border-b border-b-border justify-between bg-background  px-5 py-4 ',
+          )}
+        >
           <div className="horizontal-logo mr-2 flex items-center justify-center lg:hidden">
             <Button
               size="icon"
@@ -34,23 +45,34 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="mr-2 hidden sm:block">
-            <Button
-              type="button"
-              size="icon"
-              className="icon-hover-primary size-8  rounded-full transition-all duration-300"
-              onClick={() =>
-                theme === 'light' ? setTheme('dark') : setTheme('light')
-              }
-            >
-              {theme === 'light' ? (
-                <Moon className="size-6" />
-              ) : (
-                <Sun className="size-6" />
-              )}
-            </Button>
+          <div className="flex w-full items-center justify-end space-x-2">
+            <div className="flex items-center space-x-2">
+              <Button
+                type="button"
+                size="icon"
+                className="icon-hover-primary size-7 rounded-full transition-all duration-300"
+              >
+                <Search className="size-5" />
+              </Button>
+              <Button
+                type="button"
+                size="icon"
+                className="icon-hover-primary size-7 rounded-full transition-all duration-300"
+                onClick={() =>
+                  theme === 'light' ? setTheme('dark') : setTheme('light')
+                }
+              >
+                {theme === 'light' ? (
+                  <Moon className="size-5" />
+                ) : (
+                  <Sun className="size-5" />
+                )}
+              </Button>
+            </div>
+            <UserNav />
           </div>
         </div>
+
         {/* END WRAPPER */}
       </div>
     </header>
