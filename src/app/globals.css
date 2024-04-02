@@ -90,4 +90,8 @@
   .icon-hover-primary {
     @apply bg-primary/20 hover:bg-primary text-primary hover:text-muted;
   }
+
+  .transition-300 {
+    @apply transition-all duration-300;
+  }
 }
