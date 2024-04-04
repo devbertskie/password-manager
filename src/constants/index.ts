@@ -17,5 +17,16 @@ export const SIDEBAR_CATEGORIES = [
 
 export const USER_NAV_PROFILE = [
   { label: 'Profile', icon: UserCog, path: paths.toWeb() },
-  { label: 'Settings', icon: Settings, path: paths.toIdentities() },
+  { label: 'Settings', icon: Settings, path: paths.toSettings() },
+];
+
+export const SETTINGS_LIST = [
+  {
+    label: 'Profile',
+    path: paths.toSettings(),
+  },
+  {
+    label: 'Credentials',
+    path: paths.toChangePassword(),
+  },
 ];

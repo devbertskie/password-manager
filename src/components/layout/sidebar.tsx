@@ -12,11 +12,11 @@ import { SIDEBAR_CATEGORIES } from '@/constants';
 import isSmallScreen from '@/helpers/is-small-screen';
 
 const Sidebar = () => {
-  const { toggleSidebar } = useApp();
+  const { toggleSidebar, isSidebarOpen } = useApp();
   const pathname = usePathname();
 
   useEffect(() => {
-    if (isSmallScreen()) {
+    if (isSmallScreen() && !isSidebarOpen) {
       toggleSidebar();
     }
   }, [pathname]);

@@ -16,20 +16,20 @@ import { useSession } from 'next-auth/react';
 import { logOut } from '@/lib/sign-out';
 import { USER_NAV_PROFILE } from '@/constants';
 import { LogOut } from 'lucide-react';
+import Link from 'next/link';
 
 const UserNav = () => {
   const { data: userSession } = useSession();
   const UserNavDropDown = () =>
     USER_NAV_PROFILE.map((list) => (
-      <DropdownMenuItem
-        key={list.label}
-        className="transition-300 group flex items-center space-x-1 hover:bg-primary/10"
-      >
-        <list.icon className="transition-300 size-4 group-hover:text-primary" />
-        <span className="transition-300 group-hover:text-primary">
-          {list.label}
-        </span>
-      </DropdownMenuItem>
+      <Link key={list.label} href={list.path}>
+        <DropdownMenuItem className="transition-300 group flex items-center space-x-1 hover:bg-primary/10">
+          <list.icon className="transition-300 size-4 group-hover:text-primary" />
+          <span className="transition-300 group-hover:text-primary">
+            {list.label}
+          </span>
+        </DropdownMenuItem>
+      </Link>
     ));
 
   return (
