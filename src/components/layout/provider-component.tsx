@@ -3,14 +3,17 @@ import React, { PropsWithChildren } from 'react';
 import App from '@/App';
 import AppProvider from '@/context/app-context';
 import { SessionProvider } from 'next-auth/react';
+import { EdgeStoreProvider } from '@/lib/edgestore';
 
 const ProviderComponent = ({ children }: PropsWithChildren) => {
   return (
-    <AppProvider>
-      <SessionProvider>
-        <App>{children}</App>
-      </SessionProvider>
-    </AppProvider>
+    <SessionProvider>
+      <EdgeStoreProvider>
+        <AppProvider>
+          <App>{children}</App>
+        </AppProvider>
+      </EdgeStoreProvider>
+    </SessionProvider>
   );
 };
 

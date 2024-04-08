@@ -8,5 +8,6 @@ export const config = {
     '/identities',
     '/emails',
     '/notes',
+    '/settings',
   ],
 };

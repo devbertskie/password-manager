@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Button } from '../ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -17,9 +17,11 @@ import { logOut } from '@/lib/sign-out';
 import { USER_NAV_PROFILE } from '@/constants';
 import { LogOut } from 'lucide-react';
 import Link from 'next/link';
+import AvatarProfile from './avatar-profile';
 
 const UserNav = () => {
   const { data: userSession } = useSession();
+
   const UserNavDropDown = () =>
     USER_NAV_PROFILE.map((list) => (
       <Link key={list.label} href={list.path}>
@@ -37,10 +39,7 @@ const UserNav = () => {
       {/* trigger button */}
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative size-7 rounded-full">
-          <Avatar className="size-7">
-            <AvatarImage src="https://github.com/shadcn.png" alt="profile" />
-            <AvatarFallback>HB</AvatarFallback>
-          </Avatar>
+          <AvatarProfile className="size-7" />
         </Button>
       </DropdownMenuTrigger>
       {/* end trigger button */}

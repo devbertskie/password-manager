@@ -4,9 +4,11 @@ import {
   Mail,
   NotepadText,
   Settings,
-  UserCog,
   UserRound,
 } from 'lucide-react';
+
+export const MAX_IMAGE_SIZE = 5245880;
+export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
 
 export const SIDEBAR_CATEGORIES = [
   { label: 'Web Logins', icon: GlobeLock, path: paths.toWeb() },
@@ -16,7 +18,6 @@ export const SIDEBAR_CATEGORIES = [
 ];
 
 export const USER_NAV_PROFILE = [
-  { label: 'Profile', icon: UserCog, path: paths.toWeb() },
   { label: 'Settings', icon: Settings, path: paths.toSettings() },
 ];
 

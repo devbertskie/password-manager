@@ -10,6 +10,8 @@
     "prettier": "npx prettier --write ."
   },
   "dependencies": {
+    "@edgestore/react": "^0.1.6",
+    "@edgestore/server": "^0.1.6",
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.11.0",
     "@radix-ui/react-avatar": "^1.0.4",

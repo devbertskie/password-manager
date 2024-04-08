@@ -10,7 +10,7 @@ const NotificationProvider = ({ children }: PropsWithChildren) => {
         vertical: 'top',
         horizontal: 'center',
       }}
-      maxSnack={2}
+      maxSnack={1}
       autoHideDuration={1500}
     >
       {children}

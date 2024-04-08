@@ -44,6 +44,7 @@ export async function POST(request: Request) {
         username,
         email,
         password: hashedPassword,
+        image_url: '',
       },
     });
 

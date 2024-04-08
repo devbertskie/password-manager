@@ -10,7 +10,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
-  // secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       credentials: {
@@ -44,29 +44,37 @@ export const authOptions: NextAuthOptions = {
           id: String(existingUser.id),
           email: existingUser.email,
           username: existingUser.username,
+          picture: existingUser.image_url,
         };
       },
     }),
   ],
 
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, trigger, session, user }) {
+      if (trigger === 'update') {
+        return { ...token, ...session.user };
+      }
       if (user) {
         return {
           ...token,
           username: user.username,
+          userId: user.id,
+          picture: user.picture,
         };
       }
-
       return token;
     },
 
     async session({ session, token, user }) {
+      session.user = token as any;
       return {
         ...session,
         user: {
           ...session.user,
           username: token.username,
+          userId: token.sub,
+          picture: token.picture,
         },
       };
     },
