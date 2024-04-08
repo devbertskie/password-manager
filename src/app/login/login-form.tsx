@@ -49,7 +49,7 @@ const LoginForm = () => {
     <Form {...loginForm}>
       <form
         onSubmit={loginForm.handleSubmit(handleLoginForm)}
-        className="w-96 rounded-xl bg-primary/5 p-8 shadow-xl"
+        className="w-96 rounded-xl border border-border p-8 shadow-xl"
       >
         {/* header */}
         <div className="mb-6 flex items-center justify-center">
@@ -107,7 +107,11 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <Button disabled={isSubmitting} type="submit" className="w-full">
+        <Button
+          disabled={isSubmitting}
+          type="submit"
+          className="w-full bg-primary/10 text-primary hover:bg-primary/5 hover:text-muted-foreground"
+        >
           {isSubmitting && <Loader2 className="size-4 animate-spin" />}
 
           <span className={`${isSubmitting ? 'ml-2' : null}`}>

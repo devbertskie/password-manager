@@ -5,7 +5,7 @@ import { SETTINGS_LIST } from '@/constants';
 
 const SettingsLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="w-full space-y-6  p-10 pb-16 lg:mx-auto lg:max-w-4xl">
+    <div className="w-full space-y-6  p-8 pb-16 lg:mx-auto lg:max-w-4xl lg:p-10">
       <div className="rounded-md border border-border p-6">
         {/* start header */}
         <div className="space-y-0.5">
