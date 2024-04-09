@@ -44,3 +44,21 @@ export const avatarUploadSchema = z.object({
       `Only these types are allowed .jpg .png .jpeg`,
     ),
 });
+
+export const credentialFormSchema = z
+  .object({
+    currentPassword: z.string().min(1, 'Current Password is required'),
+    newPassword: z
+      .string()
+      .min(6, 'Password must be at least minimum of 6 characters'),
+    confirmPassword: z.string().min(1, 'Confirm Password is required'),
+  })
+  .refine(
+    (values) => {
+      return values.newPassword === values.confirmPassword;
+    },
+    {
+      message: 'Password must match!',
+      path: ['confirmPassword'],
+    },
+  );

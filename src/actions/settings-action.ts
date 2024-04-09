@@ -1,12 +1,13 @@
 'use server';
 
 import { db } from '@/db';
-import { profileFormSchema } from '@/lib/schema';
+import { credentialFormSchema, profileFormSchema } from '@/lib/schema';
 import { User } from '@prisma/client';
+import { compare, hash } from 'bcrypt';
 
 import { z } from 'zod';
 
-interface UpdateProfileResponse {
+interface UserResponseUpdateTypes {
   errorMsg?: string;
   message?: string;
   userData?: User;
@@ -16,7 +17,7 @@ export const updateProfile = async (
   values: z.infer<typeof profileFormSchema>,
   currenEmail: string,
   currentUsername: string,
-): Promise<UpdateProfileResponse | undefined> => {
+): Promise<UserResponseUpdateTypes | undefined> => {
   try {
     const checkIfUsernameIsValid = await db.user.findUnique({
       where: { username: values.username },
@@ -89,6 +90,61 @@ export const finduserByEmail = async (email: string) => {
     if (error instanceof Error) {
       console.log(error.message);
       return error;
+    }
+  }
+};
+
+// CHNANGE USER PASSWORD
+
+export const changePassword = async (
+  values: z.infer<typeof credentialFormSchema>,
+  email: string,
+): Promise<UserResponseUpdateTypes | undefined> => {
+  try {
+    const existingUser = await db.user.findUnique({
+      where: { email },
+    });
+
+    if (!existingUser) {
+      return {
+        errorMsg: 'User not found!',
+      };
+    }
+
+    if (values.newPassword.trim() !== values.confirmPassword.trim()) {
+      return {
+        errorMsg: 'Paswsword must match!',
+      };
+    }
+
+    const isPasswordValid = await compare(
+      values.currentPassword,
+      existingUser.password,
+    );
+
+    if (!isPasswordValid) {
+      return {
+        errorMsg: 'Current password incorrect!',
+      };
+    }
+
+    const newHashedPassword = await hash(values.newPassword, 10);
+
+    const updatedUser = await db.user.update({
+      where: { email },
+      data: { password: newHashedPassword },
+    });
+
+    return {
+      message: 'Credential updated!',
+      userData: updatedUser,
+    };
+  } catch (error) {
+    console.log(error);
+    if (error instanceof Error) {
+      return {
+        errorMsg: 'Failed to update credential',
+      };
     }
   }
 };

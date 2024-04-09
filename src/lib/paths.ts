@@ -8,7 +8,7 @@ const paths = {
   toEmails: () => '/emails',
   toNotes: () => '/notes',
   toSettings: () => '/settings',
-  toChangePassword: () => '/settings/change-password',
+  toChangePassword: () => '/settings/credential',
 };
 
 export default paths;

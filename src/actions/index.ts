@@ -1,1 +1,5 @@
-export { updateProfile, updateProfileImage } from './settings-action';
+export {
+  updateProfile,
+  updateProfileImage,
+  changePassword,
+} from './settings-action';

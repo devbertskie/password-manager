@@ -75,7 +75,7 @@ const ProfileForm = ({ session }: ProfileFormProps) => {
               <FormItem>
                 <FormControl>
                   <div className="flex flex-col space-y-4">
-                    <Label htmlFor="username">Username</Label>
+                    <Label htmlFor="username">Username </Label>
                     <Input
                       {...field}
                       type="text"
