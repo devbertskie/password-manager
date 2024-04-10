@@ -1,9 +1,9 @@
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
-import ProfileForm from './components/profile-form';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import AvatarFormUpload from './components/avatar-form-upload';
+import AvatarFormUpload from '@/components/pages/settings/avatar-form-upload';
+import ProfileForm from '@/components/pages/settings/profile-form';
 
 const ProfilePage = async () => {
   const session = await getServerSession(authOptions);

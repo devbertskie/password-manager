@@ -1,8 +1,8 @@
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
-import CredentialForm from '../components/credential-form';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import CredentialForm from '@/components/pages/settings/credential-form';
 
 const Credential = async () => {
   const session = await getServerSession(authOptions);

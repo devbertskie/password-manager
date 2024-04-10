@@ -1,7 +1,7 @@
 import { Separator } from '@/components/ui/separator';
 import React, { PropsWithChildren } from 'react';
-import SidebarNav from './components/sidebar-nav';
 import { SETTINGS_LIST } from '@/constants';
+import SidebarNav from '@/components/pages/settings/sidebar-nav';
 
 const SettingsLayout = ({ children }: PropsWithChildren) => {
   return (

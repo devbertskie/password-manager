@@ -87,6 +87,14 @@
 }
 
 @layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
   .icon-hover-primary {
     @apply bg-primary/20 hover:bg-primary text-primary hover:text-muted;
   }
