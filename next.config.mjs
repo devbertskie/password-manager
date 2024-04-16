@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    saltKey: process.env.SALT_KEY,
+  },
   images: {
     remotePatterns: [
       {

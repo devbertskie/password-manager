@@ -1,11 +1,17 @@
 'use client';
-import { ChevronLeft, Home, ShieldCheck, SquareAsterisk } from 'lucide-react';
+import {
+  ChevronLeft,
+  Home,
+  Settings,
+  ShieldCheck,
+  SquareAsterisk,
+} from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { Button } from '../ui/button';
 import { useApp } from '@/context/app-context';
 import SidebarProfile from './sidebar-profile';
-import { usePathname } from 'next/navigation';
+import { useSelectedLayoutSegment } from 'next/navigation';
 import paths from '@/lib/paths';
 import { cn } from '@/lib/utils';
 import { SIDEBAR_CATEGORIES } from '@/constants';
@@ -13,18 +19,23 @@ import isSmallScreen from '@/helpers/is-small-screen';
 
 const Sidebar = () => {
   const { toggleSidebar, isSidebarOpen } = useApp();
-  const pathname = usePathname();
+
+  const segment = useSelectedLayoutSegment();
+
+  const pathname = `/${segment}`;
 
   useEffect(() => {
     if (isSmallScreen() && !isSidebarOpen) {
       toggleSidebar();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const CategoriesComponent = () =>
     SIDEBAR_CATEGORIES.map((list) => {
       return (
-        <li
+        <Link
+          href={list.path}
           key={list.label}
           className={cn(
             pathname === list.path
@@ -33,13 +44,17 @@ const Sidebar = () => {
             'transition-300 group rounded-md px-3 py-2',
           )}
         >
-          <Link href={list.path} className="flex items-center space-x-2">
-            <list.icon className="transition-300 size-5 group-hover:text-primary" />
-            <span className="transition-300 group-hover:text-primary">
-              {list.label}
-            </span>
-          </Link>
-        </li>
+          <li>
+            <React.Fragment>
+              <div className="flex items-center space-x-2">
+                <list.icon className="transition-300 size-5 group-hover:text-primary" />
+                <span className="transition-300 group-hover:text-primary">
+                  {list.label}
+                </span>
+              </div>
+            </React.Fragment>
+          </li>
+        </Link>
       );
     });
 
@@ -71,7 +86,8 @@ const Sidebar = () => {
         {/* START Sidebar LIST */}
         <div className="flex h-[calc(100%_-_32px)] flex-col justify-between p-4">
           <ul className="flex flex-col space-y-3 tracking-wider text-muted-foreground/70">
-            <li
+            <Link
+              href={paths.toDashboard()}
               className={cn(
                 pathname === paths.toDashboard()
                   ? 'bg-primary/10 text-primary'
@@ -79,20 +95,22 @@ const Sidebar = () => {
                 'transition-300 group rounded-md px-3 py-2',
               )}
             >
-              <Link
-                href={paths.toDashboard()}
-                className="flex items-center space-x-2"
-              >
-                <Home className="transition-300 size-5 group-hover:text-primary" />
-                <span className="transition-300 group-hover:text-primary">
-                  Dashboard
-                </span>
-              </Link>
-            </li>
+              <li>
+                <>
+                  <div className="flex items-center space-x-2">
+                    <Home className="transition-300 size-5 group-hover:text-primary" />
+                    <span className="transition-300 group-hover:text-primary">
+                      Dashboard
+                    </span>
+                  </div>
+                </>
+              </li>
+            </Link>
             <h3 className="-mx-4 block border-l border-primary bg-primary/10 px-6 py-3 text-xs  uppercase text-muted-foreground">
               All Passwords
             </h3>
-            <li
+            <Link
+              href={paths.toPasswords()}
               className={cn(
                 pathname === paths.toPasswords()
                   ? 'bg-primary/10 text-primary'
@@ -100,20 +118,44 @@ const Sidebar = () => {
                 'transition-300 group rounded-md px-3 py-2',
               )}
             >
-              <Link
-                href={paths.toPasswords()}
-                className="flex items-center space-x-2"
-              >
-                <ShieldCheck className="transition-300 size-5 group-hover:text-primary" />
-                <span className="transition-300 group-hover:text-primary">
-                  Passwords
-                </span>
-              </Link>
-            </li>
+              <li>
+                <>
+                  <div className="flex items-center space-x-2">
+                    <ShieldCheck className="transition-300 size-5 group-hover:text-primary" />
+                    <span className="transition-300 group-hover:text-primary">
+                      Passwords
+                    </span>
+                  </div>
+                </>
+              </li>
+            </Link>
             <h3 className="-mx-4 block border-l border-primary bg-primary/10 px-6 py-3 text-xs  uppercase text-muted-foreground">
               Categories
             </h3>
             <CategoriesComponent />
+            <h3 className="-mx-4 block border-l border-primary bg-primary/10 px-6 py-3 text-xs  uppercase text-muted-foreground">
+              Others
+            </h3>
+            <Link
+              href={paths.toSettings()}
+              className={cn(
+                pathname === paths.toSettings()
+                  ? 'bg-primary/10 text-primary'
+                  : 'hover:bg-primary/10',
+                'transition-300 group rounded-md px-3 py-2',
+              )}
+            >
+              <li>
+                <>
+                  <div className="flex items-center space-x-2">
+                    <Settings className="transition-300 size-5 group-hover:text-primary" />
+                    <span className="transition-300 group-hover:text-primary">
+                      Settings
+                    </span>
+                  </div>
+                </>
+              </li>
+            </Link>
           </ul>
 
           <SidebarProfile />

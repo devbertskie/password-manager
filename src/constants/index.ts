@@ -1,4 +1,5 @@
 import paths from '@/lib/paths';
+
 import {
   GlobeLock,
   Mail,
@@ -8,6 +9,7 @@ import {
 } from 'lucide-react';
 
 export const MAX_IMAGE_SIZE = 5245880;
+
 export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
 
 export const SIDEBAR_CATEGORIES = [

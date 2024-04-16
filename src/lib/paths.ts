@@ -4,6 +4,7 @@ const paths = {
   toRegister: () => '/register',
   toPasswords: () => '/passwords',
   toWeb: () => '/web',
+  toWebItem: (id: string) => `/web/${id}`,
   toIdentities: () => '/identities',
   toEmails: () => '/emails',
   toNotes: () => '/notes',

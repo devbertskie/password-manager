@@ -1,18 +1,29 @@
 import React from 'react';
-import WebListItem from './web-list-item';
+import { fetchAllWebCredentialsByUser } from '@/actions';
 
-const WebCredentialsList = () => {
-  return (
-    <ul className="-ml-2 flex flex-col space-y-3 px-2">
-      <WebListItem />
-      <WebListItem />
-      <WebListItem />
-      <WebListItem />
-      <WebListItem />
-      <WebListItem />
-      <WebListItem />
-    </ul>
-  );
+import { notFound } from 'next/navigation';
+import DataListCredentials, {
+  WebCredentialType,
+} from '@/components/pages/shared/data-list-credentials';
+
+const WebCredentialsList = async () => {
+  const webCredentialsList = await fetchAllWebCredentialsByUser();
+
+  if (webCredentialsList?.errorMsg) {
+    return notFound();
+  }
+
+  if (!webCredentialsList?.webCredentialData) {
+    return notFound();
+  }
+
+  const webCredentialData: WebCredentialType[] =
+    webCredentialsList.webCredentialData.map((credential) => ({
+      ...credential,
+      __credentialType: 'Web',
+    }));
+
+  return <DataListCredentials<WebCredentialType> list={webCredentialData} />;
 };
 
 export default WebCredentialsList;

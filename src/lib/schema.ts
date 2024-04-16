@@ -62,3 +62,10 @@ export const credentialFormSchema = z
       path: ['confirmPassword'],
     },
   );
+
+export const webCredentialFormSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  siteUrl: z.string().url('Url is required'),
+  usernameOrEmail: z.string().min(1, 'Username/Email is required'),
+  password: z.string().min(1, 'Password is required'),
+});

@@ -45,6 +45,7 @@ export const authOptions: NextAuthOptions = {
           email: existingUser.email,
           username: existingUser.username,
           picture: existingUser.image_url,
+          userId: String(existingUser.id),
         };
       },
     }),

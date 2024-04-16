@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import paths from '@/lib/paths';
-import LoginPage from '../login/page';
+import LoginPage from '@/app/login/page';
 
 export default async function Home() {
   const session = await getServerSession();

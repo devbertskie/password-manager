@@ -8,11 +8,11 @@ import { EdgeStoreProvider } from '@/lib/edgestore';
 const ProviderComponent = ({ children }: PropsWithChildren) => {
   return (
     <SessionProvider>
-      <EdgeStoreProvider>
-        <AppProvider>
+      <AppProvider>
+        <EdgeStoreProvider>
           <App>{children}</App>
-        </AppProvider>
-      </EdgeStoreProvider>
+        </EdgeStoreProvider>
+      </AppProvider>
     </SessionProvider>
   );
 };

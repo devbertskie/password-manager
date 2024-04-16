@@ -1,8 +1,12 @@
 'use client';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+
 import { cn } from '@/lib/utils';
+import { WebCredential } from '@prisma/client';
+import * as Crypto from 'crypto-js';
 import {
   CheckCheck,
   Contact,
@@ -13,23 +17,41 @@ import {
   Lock,
   SquareArrowUpRight,
 } from 'lucide-react';
+import { notFound } from 'next/navigation';
 import React from 'react';
 import { useCopyToClipboard, useToggle } from 'usehooks-ts';
 
 interface WebCredentialPreviewProps {
   isEditable: boolean;
   onCancelEditable: () => void;
+  webCredential: WebCredential | null;
 }
 
 const WebCredentialPreview = ({
   isEditable,
   onCancelEditable,
+  webCredential,
 }: WebCredentialPreviewProps) => {
+  const SALT_KEY = process.env.saltKey;
   const [showPassword, toggleShowPassword] = useToggle(false);
 
   const [copiedUrl, copyUrl] = useCopyToClipboard();
   const [copiedUsername, copyUsername] = useCopyToClipboard();
   const [copiedPassword, copyPassword] = useCopyToClipboard();
+
+  if (!webCredential || !SALT_KEY) {
+    return notFound();
+  }
+
+  const decryptedUsernameOrEmail = Crypto.AES.decrypt(
+    webCredential?.user_email,
+    SALT_KEY,
+  ).toString(Crypto.enc.Utf8);
+
+  const decryptedPassword = Crypto.AES.decrypt(
+    webCredential?.password,
+    SALT_KEY,
+  ).toString(Crypto.enc.Utf8);
 
   return (
     <form className="mt-4 flex flex-col space-y-6">
@@ -47,7 +69,7 @@ const WebCredentialPreview = ({
               ) : (
                 <Copy
                   className="size-4"
-                  onClick={async () => copyUrl('Berto')}
+                  onClick={async () => copyUrl(webCredential?.site_url || '')}
                 />
               )}
             </div>
@@ -57,9 +79,12 @@ const WebCredentialPreview = ({
           </div>
           <Input
             type="url"
-            className={cn(!isEditable && 'focus-visible:ring-0', 'pl-10')}
+            className={cn(
+              !isEditable && 'focus-visible:ring-0',
+              'pl-10 truncate pr-16',
+            )}
             readOnly={!isEditable}
-            value="www.google.com"
+            value={webCredential?.site_url}
           />
         </div>
       </div>
@@ -73,7 +98,7 @@ const WebCredentialPreview = ({
               ) : (
                 <Copy
                   className="size-4"
-                  onClick={async () => copyUsername('Berto')}
+                  onClick={async () => copyUsername(decryptedUsernameOrEmail)}
                 />
               )}
             </div>
@@ -104,7 +129,7 @@ const WebCredentialPreview = ({
               ) : (
                 <Copy
                   className="size-4"
-                  onClick={async () => copyPassword('Berto')}
+                  onClick={async () => copyPassword(decryptedPassword)}
                 />
               )}
             </div>

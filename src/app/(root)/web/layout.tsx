@@ -1,32 +1,29 @@
-'use client';
-
-import MainAside from '@/components/pages/web/main-aside';
-
-import { Button } from '@/components/ui/button';
+import FeatureHeader from '@/components/pages/shared/feature-header';
+import React, { PropsWithChildren, Suspense } from 'react';
+import FeatureSidenav from '@/components/pages/shared/feature-sidenav';
+import { WebItemSkeleton } from '@/components/pages/web/web-loading-skeleton';
+import WebNewForm from '@/components/pages/web/web-new-form';
 import { Separator } from '@/components/ui/separator';
-import { Plus } from 'lucide-react';
-import React, { PropsWithChildren } from 'react';
+import WebCredentialsList from '@/components/pages/web/web-list';
 
 const WebCredentialsRootLayout = ({ children }: PropsWithChildren) => {
   return (
     <div className="mx-auto w-full max-w-6xl p-10 pb-16">
       <div className="rounded-md border border-border p-6">
-        <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <h3 className="text-2xl font-bold tracking-wider">
-              Web Credentials
-            </h3>
-            <p className="text-muted-foreground">Manage your web credentials</p>
-          </div>
-          {/* for modal */}
-          <Button className="flex items-center space-x-1 bg-primary/10 text-primary hover:bg-primary/10 hover:text-muted-foreground">
-            <Plus className="w-4" />
-            <span> New Credential</span>
-          </Button>
-        </div>
+        <FeatureHeader title="Web Credential">
+          <WebNewForm />
+        </FeatureHeader>
         <Separator className="my-6" />
 
-        <MainAside>{children}</MainAside>
+        <div className="flex space-x-6">
+          {/* sidenav hear */}
+          <FeatureSidenav>
+            <Suspense fallback={<WebItemSkeleton count={8} />}>
+              <WebCredentialsList />
+            </Suspense>
+          </FeatureSidenav>
+          <div className="flex-1">{children}</div>
+        </div>
       </div>
     </div>
   );
