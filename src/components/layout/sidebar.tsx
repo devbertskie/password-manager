@@ -7,7 +7,7 @@ import {
   SquareAsterisk,
 } from 'lucide-react';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { useApp } from '@/context/app-context';
 import SidebarProfile from './sidebar-profile';
@@ -18,18 +18,17 @@ import { SIDEBAR_CATEGORIES } from '@/constants';
 import isSmallScreen from '@/helpers/is-small-screen';
 
 const Sidebar = () => {
-  const { toggleSidebar, isSidebarOpen } = useApp();
-
   const segment = useSelectedLayoutSegment();
-
-  const pathname = `/${segment}`;
+  const { toggleSidebar, isSidebarOpen } = useApp();
+  const [pathname, setPathname] = useState('/');
 
   useEffect(() => {
     if (isSmallScreen() && !isSidebarOpen) {
       toggleSidebar();
     }
+    setPathname(`/${segment}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [segment]);
 
   const CategoriesComponent = () =>
     SIDEBAR_CATEGORIES.map((list) => {
@@ -38,7 +37,7 @@ const Sidebar = () => {
           href={list.path}
           key={list.label}
           className={cn(
-            pathname === list.path
+            list.path === pathname
               ? 'bg-primary/10 text-primary'
               : 'hover:bg-primary/10',
             'transition-300 group rounded-md px-3 py-2',

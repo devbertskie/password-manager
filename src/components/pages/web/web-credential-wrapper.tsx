@@ -7,6 +7,8 @@ import { useToggle } from 'usehooks-ts';
 import WebCredentialPreview from '@/components/pages/web/web-credential-preview';
 import { WebCredentialResponse } from '@/actions/web-credential-action';
 import { notify } from '@/lib/notification';
+import WebDeleteModalForm from './web-delete-modal-form';
+import { notFound } from 'next/navigation';
 
 interface CredentialItemProps {
   webCredentialResponse: WebCredentialResponse;
@@ -16,11 +18,16 @@ export default function WebCredentialWrapper({
   webCredentialResponse,
 }: CredentialItemProps) {
   const [isEditable, toggleEditable, setIsEditable] = useToggle(false);
+  const [openDialogMoadlDelete, , setOpenDialog] = useToggle(false);
   if (webCredentialResponse.errorMsg) {
     notify.error(webCredentialResponse.errorMsg);
   }
 
   const webCredential = webCredentialResponse?.webCredentialData;
+
+  if (!webCredential) {
+    return notFound();
+  }
 
   return (
     <>
@@ -45,6 +52,7 @@ export default function WebCredentialWrapper({
             size="icon"
             variant="destructive"
             className="icon-hover-error size-8 rounded-full transition-all duration-300"
+            onClick={() => setOpenDialog(true)}
           >
             <Trash2 className="size-4" />
           </Button>
@@ -60,6 +68,11 @@ export default function WebCredentialWrapper({
           onCancelEditable={() => setIsEditable(false)}
         />
       </div>
+      <WebDeleteModalForm
+        credentialId={webCredential?.id}
+        isOpen={openDialogMoadlDelete}
+        onClose={() => setOpenDialog(false)}
+      />
     </>
   );
 }
