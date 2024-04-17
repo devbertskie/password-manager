@@ -208,6 +208,7 @@ const WebNewForm = () => {
                   type="button"
                   onClick={handleCloseForm}
                   variant="outline"
+                  disabled={isSubmitting}
                 >
                   Cancel
                 </Button>

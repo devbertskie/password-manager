@@ -295,7 +295,11 @@ const WebCredentialPreview = ({
         />
         {isEditable && (
           <div className="flex items-center space-x-3 self-end">
-            <Button variant="outline" onClick={onCancelEditable}>
+            <Button
+              variant="outline"
+              disabled={isSubmitting}
+              onClick={onCancelEditable}
+            >
               Cancel
             </Button>
             <Button

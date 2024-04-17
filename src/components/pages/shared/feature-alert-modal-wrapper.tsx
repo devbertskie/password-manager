@@ -1,6 +1,5 @@
 import {
   AlertDialog,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -31,10 +30,7 @@ export default function AlertModalWrapper({
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          {children}
-        </AlertDialogFooter>
+        <AlertDialogFooter>{children}</AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   );
