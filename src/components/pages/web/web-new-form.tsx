@@ -116,7 +116,9 @@ const WebNewForm = () => {
                   <FormItem>
                     <FormControl>
                       <div className="flex flex-col space-y-2">
-                        <Label className="text-sm">Title</Label>
+                        <Label className="add-required text-sm after:ml-1">
+                          Title
+                        </Label>
                         <Input
                           {...field}
                           className="placeholder:text-xs"
@@ -137,7 +139,9 @@ const WebNewForm = () => {
                   <FormItem>
                     <FormControl>
                       <div className="flex flex-col space-y-2">
-                        <Label className="text-sm">Site URL</Label>
+                        <Label className="add-required text-sm after:ml-1">
+                          Site URL
+                        </Label>
                         <Input
                           {...field}
                           className="placeholder:text-xs"
@@ -159,7 +163,9 @@ const WebNewForm = () => {
                   <FormItem>
                     <FormControl>
                       <div className="flex flex-col space-y-2">
-                        <Label className="text-sm">Username / Email</Label>
+                        <Label className="add-required text-sm after:ml-1">
+                          Username / Email
+                        </Label>
                         <Input
                           {...field}
                           className="placeholder:text-xs"
@@ -180,7 +186,9 @@ const WebNewForm = () => {
                   <FormItem>
                     <FormControl>
                       <div className="flex flex-col space-y-2">
-                        <Label className="text-sm">Password</Label>
+                        <Label className="add-required text-sm after:ml-1">
+                          Password
+                        </Label>
                         <Input
                           {...field}
                           type="password"
@@ -210,9 +218,8 @@ const WebNewForm = () => {
                 >
                   {isSubmitting && <Loader2 className="size-4 animate-spin" />}
                   <span className={`${isSubmitting ? 'ml-2' : null}`}>
-                    {isSubmitting ? 'Saving...' : 'Create'}
+                    {isSubmitting ? 'Saving...' : 'Save'}
                   </span>
-                  Update
                 </Button>
               </DialogFooter>
             </form>

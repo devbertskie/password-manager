@@ -66,7 +66,6 @@ const WebCredentialPreview = ({
     SALT_KEY,
   ).toString(Crypto.enc.Utf8);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const updateForm = useForm<z.infer<typeof webCredentialFormSchema>>({
     resolver: zodResolver(webCredentialFormSchema),
     mode: 'onSubmit',
@@ -93,18 +92,25 @@ const WebCredentialPreview = ({
   };
 
   const {
-    formState: { isSubmitting, isDirty },
+    formState: { isSubmitting, isDirty, isSubmitSuccessful },
     reset,
+    getValues,
     clearErrors,
   } = updateForm;
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    if (!isEditable) {
+    if (!isEditable && !isSubmitSuccessful) {
       reset();
       clearErrors();
     }
-  }, [isEditable, clearErrors, reset, isDirty]);
+  }, [isEditable, clearErrors, reset, isSubmitSuccessful]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset(getValues());
+      onCancelEditable();
+    }
+  }, [getValues, isSubmitSuccessful, onCancelEditable, reset]);
 
   return (
     <Form {...updateForm}>
