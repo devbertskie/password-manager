@@ -8,14 +8,14 @@ import {
   SquareAsterisk,
 } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { useApp } from '@/context/app-context';
-import SidebarProfile from './sidebar-profile';
+import SidebarProfile from '@/components/layout/sidebar-profile';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import paths from '@/lib/paths';
 import { cn } from '@/lib/utils';
-import { SIDEBAR_CATEGORIES } from '@/constants';
 import isSmallScreen from '@/helpers/is-small-screen';
+import CategoriesItem from '@/components/layout/categories-item';
 
 const Sidebar = () => {
   const segment = useSelectedLayoutSegment();
@@ -29,33 +29,6 @@ const Sidebar = () => {
     setPathname(`/${segment}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [segment]);
-
-  const CategoriesComponent = () =>
-    SIDEBAR_CATEGORIES.map((list) => {
-      return (
-        <Link
-          href={list.path}
-          key={list.label}
-          className={cn(
-            list.path === pathname
-              ? 'bg-primary/10 text-primary'
-              : 'hover:bg-primary/10',
-            'transition-300 group rounded-md px-3 py-2',
-          )}
-        >
-          <li>
-            <React.Fragment>
-              <div className="flex items-center space-x-2">
-                <list.icon className="transition-300 size-5 group-hover:text-primary" />
-                <span className="transition-300 group-hover:text-primary">
-                  {list.label}
-                </span>
-              </div>
-            </React.Fragment>
-          </li>
-        </Link>
-      );
-    });
 
   return (
     <div>
@@ -131,7 +104,7 @@ const Sidebar = () => {
             <h3 className="-mx-4 block border-l border-primary bg-primary/10 px-6 py-3 text-xs  uppercase text-muted-foreground">
               Categories
             </h3>
-            <CategoriesComponent />
+            <CategoriesItem pathname={pathname} />
             <h3 className="-mx-4 block border-l border-primary bg-primary/10 px-6 py-3 text-xs  uppercase text-muted-foreground">
               Others
             </h3>
