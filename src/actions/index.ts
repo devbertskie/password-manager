@@ -9,4 +9,6 @@ export {
   fetchAllWebCredentialsByUser,
   fetchWebCredentialById,
   fetchAllCredentials,
+  deleteCredential,
+  updateCredentialById,
 } from './web-credential-action';

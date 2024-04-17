@@ -63,7 +63,7 @@ export default function WebCredentialWrapper({
 
       <div className="flex flex-col space-y-6 font-thin text-muted-foreground/70">
         <WebCredentialPreview
-          webCredential={webCredential ?? null}
+          webCredential={webCredential}
           isEditable={isEditable}
           onCancelEditable={() => setIsEditable(false)}
         />

@@ -9,6 +9,7 @@ import { revalidatePath } from 'next/cache';
 import paths from '@/lib/paths';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 
 const SALT_KEY = process.env.SALT_KEY!;
 
@@ -83,6 +84,9 @@ export const fetchAllWebCredentialsByUser = async (): Promise<
   try {
     const webCredentialsList = await db.webCredential.findMany({
       where: { userId: +session.user.userId },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
     return {
@@ -149,4 +153,77 @@ export const fetchAllCredentials = async (): Promise<
       };
     }
   }
+};
+
+export type State = {
+  message?: string;
+  errors?: null;
+};
+
+export const deleteCredential = async (
+  credentialId: string,
+  formState: State,
+) => {
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  if (!credentialId) {
+    return {
+      message: 'Failed to delete credential',
+    };
+  }
+
+  try {
+    await db.webCredential.delete({
+      where: { id: credentialId },
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      return {
+        message: 'Unable to delete data',
+      };
+    }
+  }
+  revalidatePath(paths.toWeb());
+  redirect(paths.toWeb());
+};
+
+export const updateCredentialById = async (
+  values: z.infer<typeof webCredentialFormSchema>,
+  credentialId: string,
+): Promise<WebCredentialResponse | undefined> => {
+  if (!credentialId) {
+    return {
+      errorMsg: 'Failed to update credential',
+    };
+  }
+  try {
+    const updatedCredential = await db.webCredential.update({
+      where: { id: credentialId },
+      data: {
+        user_email: encryptString(values.usernameOrEmail),
+        site_url: values.siteUrl,
+        password: encryptString(values.password),
+        title: values.title,
+      },
+    });
+    revalidatePath(paths.toWebItem(credentialId));
+    revalidatePath(paths.toWeb());
+
+    return {
+      message: 'Credential updated',
+      webCredentialData: updatedCredential,
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      return {
+        errorMsg: 'Unable to retrieve data',
+      };
+    }
+  }
+};
+
+const encryptString = (str: string): string => {
+  const encryptedString = AES.encrypt(str, SALT_KEY).toString();
+  return encryptedString;
 };
