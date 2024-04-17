@@ -3,9 +3,9 @@ import bycrypt from 'bcrypt';
 import { generateWebCredentials } from './data';
 
 const prisma = new PrismaClient();
+const webCredentials = generateWebCredentials();
 
 async function main() {
-  const webCredentials = generateWebCredentials();
   const hashedPassword = await bycrypt.hash('prince3231', 10);
   await prisma.user.create({
     data: {
