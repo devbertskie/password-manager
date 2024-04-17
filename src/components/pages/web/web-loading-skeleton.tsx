@@ -13,7 +13,7 @@ const WebItemSkeleton = ({ count }: WebItemSkeletonProps) => {
         .map((__, index) => (
           <li key={index} className="flex items-center space-x-2">
             <Skeleton className="size-8 rounded-full" />
-            <div className="flex flex-1 flex-col space-y-1 pr-3">
+            <div className="flex flex-1 flex-col space-y-1 md:pr-3">
               <Skeleton className="h-2.5 w-full" />
               <Skeleton className="h-2.5 w-full" />
             </div>

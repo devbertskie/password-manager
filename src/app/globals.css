@@ -102,13 +102,13 @@
 }
 
 @layer utilities {
-  /* .no-scrollbar::-webkit-scrollbar {
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
   .no-scrollbar {
     scrollbar-width: none;
-  } */
+  }
 
   .add-required {
     @apply after:text-red-500 after:content-['*'];

@@ -1,8 +1,11 @@
 'use client';
 import { cn } from '@/lib/utils';
+import { Star } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import React from 'react';
+import { Card, CardContent } from '../ui/card';
+import paths from '@/lib/paths';
 
 export type Item = {
   credentialId: string;
@@ -22,49 +25,68 @@ export default function CredentialItem({
   const segment = useSelectedLayoutSegment();
 
   return (
-    <Link href={link()}>
-      <li
-        className={cn(
-          segment === credentialId
-            ? 'border-l border-l-primary bg-primary/20'
-            : 'hover:bg-primary/20 bg-primary/10',
-          'transition-300 group cursor-pointer rounded-sm  px-4 py-3 text-muted-foreground/70 ',
-        )}
-      >
-        <div className="flex items-center space-x-4">
-          <Icon
-            className={cn(
-              segment === credentialId
-                ? 'text-primary'
-                : 'group-hover:text-primary',
-              'transition-300 size-5 ',
-            )}
-          />
-          <div className="flex flex-1 flex-col space-y-0.5">
-            <h3
+    <>
+      <Link href={link()} className="hidden md:block">
+        <li
+          className={cn(
+            segment === credentialId
+              ? 'border-l border-l-primary bg-primary/20'
+              : 'hover:bg-primary/20 bg-primary/10',
+            'transition-300 group cursor-pointer rounded-sm  px-4 py-3 text-muted-foreground/70 ',
+          )}
+        >
+          <div className="flex items-center space-x-4">
+            <Icon
               className={cn(
-                'transition-300 font-space max-w-32 text-sm tracking-wider truncate text-primary/60 group-hover:text-primary capitalize',
+                segment === credentialId
+                  ? 'text-primary'
+                  : 'group-hover:text-primary',
+                'transition-300 size-5 ',
               )}
-            >
-              {title}
-            </h3>
-            <p
-              className={cn(
-                'transition-300 text-xs max-w-32 truncate group-hover:text-muted-foreground ',
-              )}
-            >
-              {label}
-            </p>
-          </div>
+            />
+            <div className="flex flex-1 flex-col space-y-0.5">
+              <h3
+                className={cn(
+                  'transition-300 font-space max-w-32 text-sm tracking-wider truncate text-primary/60 group-hover:text-primary capitalize',
+                )}
+              >
+                {title}
+              </h3>
+              <p
+                className={cn(
+                  'transition-300 text-xs max-w-32 truncate group-hover:text-muted-foreground ',
+                )}
+              >
+                {label}
+              </p>
+            </div>
 
-          {/* <Badge
+            {/* <Badge
             variant="secondary"
             className="self-start align-baseline text-[10px] tracking-wider text-green-400"
           >
             Web
           </Badge> */}
-        </div>
-      </li>
-    </Link>
+          </div>
+        </li>
+      </Link>
+
+      <Card className="cursor-pointer bg-primary/10 md:hidden">
+        <CardContent className="p-3">
+          <Link href={paths.toWebItemMobile(credentialId)}>
+            <div className="flex items-center space-x-2 ">
+              <Icon className="text-primary" />
+              <div className="ml-2 flex-1 space-y-1 tracking-wider text-muted-foreground">
+                <h3 className=" line-clamp-1 font-space text-[14px] text-primary">
+                  {title}
+                </h3>
+                <p className="line-clamp-1 text-xs">{label}</p>
+              </div>
+              <Star />
+            </div>
+          </Link>
+        </CardContent>
+      </Card>
+    </>
   );
 }

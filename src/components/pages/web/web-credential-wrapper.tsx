@@ -32,7 +32,7 @@ export default function WebCredentialWrapper({
   return (
     <>
       <div className="flex items-center justify-between">
-        <h2 className="font-space text-lg tracking-wider">
+        <h2 className="line-clamp-1 font-space text-lg tracking-wider">
           {webCredential?.title}
         </h2>
         <div className="flex items-center space-x-2">

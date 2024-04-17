@@ -72,9 +72,9 @@ export const addCredential = async (
   revalidatePath(paths.toWeb());
 };
 
-export const fetchAllWebCredentialsByUser = async (): Promise<
-  AllWebCredentialsByUserResponse | undefined
-> => {
+export const fetchAllWebCredentialsByUser = async (
+  limit?: number,
+): Promise<AllWebCredentialsByUserResponse | undefined> => {
   const session = await getServerSession(authOptions);
   if (!session) {
     return {
@@ -87,6 +87,7 @@ export const fetchAllWebCredentialsByUser = async (): Promise<
       orderBy: {
         createdAt: 'desc',
       },
+      take: limit && limit,
     });
 
     return {

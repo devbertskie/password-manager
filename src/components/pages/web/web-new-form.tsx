@@ -90,7 +90,7 @@ const WebNewForm = () => {
       <Form {...webCredentialForm}>
         <Dialog open={openDialog} onOpenChange={handleCloseForm}>
           <DialogContent
-            className="top-[calc(100vh_-_70%)] sm:max-w-[425px]"
+            className="top-[calc(100vh_-_70%)] max-w-md md:max-w-lg"
             onEscapeKeyDown={(e) => e.preventDefault()}
             // onPointerDown={(e) => e.preventDefault()}
             onInteractOutside={(e) => e.preventDefault()}
@@ -203,18 +203,19 @@ const WebNewForm = () => {
                 )}
               />
 
-              <DialogFooter>
+              <DialogFooter className="flex flex-col items-stretch gap-y-3 md:flex-row md:items-center md:gap-x-3 md:gap-y-0 md:space-y-0">
                 <Button
                   type="button"
                   onClick={handleCloseForm}
                   variant="outline"
                   disabled={isSubmitting}
+                  className="md:order-first"
                 >
                   Cancel
                 </Button>
                 <Button
                   type="submit"
-                  className="bg-primary/10 text-primary hover:bg-primary/15 hover:text-foreground"
+                  className="order-first bg-primary/10 text-primary hover:bg-primary/15 hover:text-foreground"
                   disabled={isSubmitting}
                 >
                   {isSubmitting && <Loader2 className="size-4 animate-spin" />}

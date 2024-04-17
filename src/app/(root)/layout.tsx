@@ -6,9 +6,13 @@ import paths from '@/lib/paths';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
-import React, { PropsWithChildren } from 'react';
+import React, { ReactNode } from 'react';
 
-const RootLayout = async ({ children }: PropsWithChildren) => {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+const RootLayout = async ({ children }: RootLayoutProps) => {
   const session = await getServerSession();
   if (!session) {
     redirect(paths.toLogin());
@@ -27,6 +31,7 @@ const RootLayout = async ({ children }: PropsWithChildren) => {
           <div className="main-content flex min-h-screen w-full flex-col">
             {/* navbar */}
             <Navbar />
+
             {children}
           </div>
         </MainContainer>
