@@ -84,15 +84,34 @@
   header {
     @apply sticky top-0 z-20;
   }
+
+  .custom-scroll::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  .custom-scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .custom-scroll::-webkit-scrollbar-thumb {
+    @apply bg-primary/20;
+    border-radius: 2px;
+    opacity: 0.7;
+    outline: 0;
+  }
 }
 
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
+  /* .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
   .no-scrollbar {
     scrollbar-width: none;
+  } */
+
+  .add-required {
+    @apply after:text-red-500 after:content-['*'];
   }
 
   .icon-hover-primary {
