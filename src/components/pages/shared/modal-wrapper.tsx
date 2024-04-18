@@ -13,7 +13,7 @@ export default function ModalWrapper({ isOpen, children }: ModalWrapperProps) {
   const router = useRouter();
   return (
     <AlertDialog open={isOpen}>
-      <AlertDialogContent className="max-w-md md:w-full">
+      <AlertDialogContent className="max-w-xs sm:max-w-sm md:w-full">
         {children}
 
         <Button

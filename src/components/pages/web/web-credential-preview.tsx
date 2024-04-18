@@ -158,10 +158,12 @@ const WebCredentialPreview = ({
                   <div className="relative">
                     {!isEditable && (
                       <div className="absolute right-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2">
-                        <SquareArrowUpRight
-                          onClick={() => console.log('click')}
-                          className="size-4"
-                        />
+                        <a href={`${webCredential.site_url}`} target="_blank">
+                          <SquareArrowUpRight
+                            onClick={() => console.log('click')}
+                            className="size-4"
+                          />
+                        </a>
                         {copiedUrl ? (
                           <CheckCheck className="transition-300 size-4 text-green-400" />
                         ) : (
@@ -182,7 +184,7 @@ const WebCredentialPreview = ({
                       type="url"
                       className={cn(
                         !isEditable && 'focus-visible:ring-0',
-                        'pl-10 truncate pr-16',
+                        'pl-10 truncate pr-16 ',
                       )}
                       readOnly={!isEditable}
                       disabled={isSubmitting}
@@ -226,7 +228,7 @@ const WebCredentialPreview = ({
                       type="text"
                       className={cn(
                         !isEditable && 'focus-visible:ring-0',
-                        'pl-10',
+                        'pl-10 truncate pr-16',
                       )}
                       readOnly={!isEditable}
                       disabled={isSubmitting}
@@ -281,7 +283,7 @@ const WebCredentialPreview = ({
                       type={showPassword ? 'text' : 'password'}
                       className={cn(
                         !isEditable && 'focus-visible:ring-0',
-                        'pl-10',
+                        'pl-10 truncate pr-14',
                       )}
                       readOnly={!isEditable}
                       disabled={isSubmitting}

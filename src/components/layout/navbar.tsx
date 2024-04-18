@@ -50,14 +50,16 @@ const Navbar = () => {
               <Button
                 type="button"
                 size="icon"
-                className="icon-hover-primary size-7 rounded-full transition-all duration-300"
+                className="icon-hover-primary size-7 rounded-full p-1 transition-all duration-300"
+                asChild
               >
                 <Search className="size-5" />
               </Button>
               <Button
                 type="button"
                 size="icon"
-                className="icon-hover-primary size-7 rounded-full transition-all duration-300"
+                className="icon-hover-primary size-7 rounded-full p-1 transition-all duration-300"
+                asChild
                 onClick={() =>
                   theme === 'light' ? setTheme('dark') : setTheme('light')
                 }

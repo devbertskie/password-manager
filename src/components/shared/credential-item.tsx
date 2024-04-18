@@ -1,6 +1,5 @@
 'use client';
 import { cn } from '@/lib/utils';
-import { Star } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import React from 'react';
@@ -44,29 +43,22 @@ export default function CredentialItem({
                 'transition-300 size-5 ',
               )}
             />
-            <div className="flex flex-1 flex-col space-y-0.5">
+            <div className="flex max-w-56 flex-1 flex-col space-y-0.5">
               <h3
                 className={cn(
-                  'transition-300 font-space max-w-32 text-sm tracking-wider truncate text-primary/60 group-hover:text-primary capitalize',
+                  'transition-300 font-space truncate  text-sm  text-primary/60 group-hover:text-primary capitalize',
                 )}
               >
                 {title}
               </h3>
               <p
                 className={cn(
-                  'transition-300 text-xs max-w-32 truncate group-hover:text-muted-foreground ',
+                  'transition-300 text-xs truncate  group-hover:text-muted-foreground ',
                 )}
               >
                 {label}
               </p>
             </div>
-
-            {/* <Badge
-            variant="secondary"
-            className="self-start align-baseline text-[10px] tracking-wider text-green-400"
-          >
-            Web
-          </Badge> */}
           </div>
         </li>
       </Link>
@@ -74,15 +66,15 @@ export default function CredentialItem({
       <Card className="cursor-pointer bg-primary/10 md:hidden">
         <CardContent className="p-3">
           <Link href={paths.toWebItemMobile(credentialId)}>
-            <div className="flex items-center space-x-2 ">
-              <Icon className="text-primary" />
-              <div className="ml-2 flex-1 space-y-1 tracking-wider text-muted-foreground">
-                <h3 className=" line-clamp-1 font-space text-[14px] text-primary">
+            <div className="flex min-w-64 items-center space-x-2 min-[400px]:space-x-3">
+              <Icon className="hidden text-muted-foreground min-[400px]:block  min-[400px]:size-5" />
+              <div className="ml-2 max-w-64 flex-1  space-y-1 tracking-wider text-muted-foreground max-[400px]:max-w-52">
+                <h3 className="truncate font-space text-[14px] text-primary ">
                   {title}
                 </h3>
-                <p className="line-clamp-1 text-xs">{label}</p>
+                <p className="truncate text-xs  sm:text-sm">{label}</p>
               </div>
-              <Star />
+              {/* <Star className="xs:block hidden size-5 sm:size-6" /> */}
             </div>
           </Link>
         </CardContent>

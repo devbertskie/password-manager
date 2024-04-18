@@ -90,7 +90,7 @@ const WebNewForm = () => {
       <Form {...webCredentialForm}>
         <Dialog open={openDialog} onOpenChange={handleCloseForm}>
           <DialogContent
-            className="top-[calc(100vh_-_70%)] max-w-md md:max-w-lg"
+            className="top-[calc(100vh_-_70%)] max-w-xs sm:max-w-sm md:max-w-lg"
             onEscapeKeyDown={(e) => e.preventDefault()}
             // onPointerDown={(e) => e.preventDefault()}
             onInteractOutside={(e) => e.preventDefault()}
@@ -125,7 +125,7 @@ const WebNewForm = () => {
                           placeholder="Enter title"
                           disabled={isSubmitting}
                         />
-                        <FormMessage />
+                        <FormMessage className="text-[10px] sm:text-sm" />
                       </div>
                     </FormControl>
                   </FormItem>
@@ -203,7 +203,7 @@ const WebNewForm = () => {
                 )}
               />
 
-              <DialogFooter className="flex flex-col items-stretch gap-y-3 md:flex-row md:items-center md:gap-x-3 md:gap-y-0 md:space-y-0">
+              <DialogFooter className="flex flex-col items-stretch gap-y-3  md:flex-row md:items-center md:gap-x-2 md:gap-y-0 md:space-y-0">
                 <Button
                   type="button"
                   onClick={handleCloseForm}

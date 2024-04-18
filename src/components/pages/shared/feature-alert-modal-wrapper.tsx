@@ -25,7 +25,7 @@ export default function AlertModalWrapper({
 }: AlertModalWrapperProps) {
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
-      <AlertDialogContent className="max-w-md md:w-full">
+      <AlertDialogContent className="max-w-xs sm:max-w-sm md:w-full">
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
