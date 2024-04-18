@@ -13,6 +13,11 @@ import { redirect } from 'next/navigation';
 
 const SALT_KEY = process.env.SALT_KEY!;
 
+export type State = {
+  message?: string;
+  errors?: null;
+};
+
 export interface WebCredentialResponse {
   errorMsg?: string;
   message?: string;
@@ -156,38 +161,6 @@ export const fetchAllCredentials = async (): Promise<
   }
 };
 
-export type State = {
-  message?: string;
-  errors?: null;
-};
-
-export const deleteCredential = async (
-  credentialId: string,
-  formState: State,
-) => {
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
-  if (!credentialId) {
-    return {
-      message: 'Failed to delete credential',
-    };
-  }
-
-  try {
-    await db.webCredential.delete({
-      where: { id: credentialId },
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message);
-      return {
-        message: 'Unable to delete data',
-      };
-    }
-  }
-  revalidatePath(paths.toWeb());
-  redirect(paths.toWeb());
-};
-
 export const updateCredentialById = async (
   values: z.infer<typeof webCredentialFormSchema>,
   credentialId: string,
@@ -224,10 +197,42 @@ export const updateCredentialById = async (
   }
 };
 
+export const deleteCredential = async (
+  credentialId: string,
+  formState: State,
+) => {
+  if (!credentialId) {
+    return {
+      message: 'Failed to delete credential',
+    };
+  }
+
+  try {
+    await db.webCredential.delete({
+      where: { id: credentialId },
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      return {
+        message: 'Unable to delete data',
+      };
+    }
+  }
+  revalidatePath(paths.toWeb());
+  redirect(paths.toWeb());
+};
+
 export const markAsImportant = async (
   credentialId: string,
   formState: State,
 ) => {
+  if (!credentialId) {
+    return {
+      message: 'Failed to delete credential',
+    };
+  }
+
   const existingCredential = await fetchWebCredentialById(credentialId);
   if (existingCredential?.errorMsg || !existingCredential?.webCredentialData) {
     return {
@@ -246,7 +251,6 @@ export const markAsImportant = async (
     if (error instanceof Error) {
       console.log(error.message);
       return {
-        errors: error,
         message: 'Failed to update credential',
       };
     }
@@ -254,8 +258,8 @@ export const markAsImportant = async (
   revalidatePath(paths.toWeb());
   revalidatePath(paths.toWebItem(credentialId));
   revalidatePath(paths.toWebItemMobile(credentialId));
+
   return {
-    errors: null,
     message: 'Updated',
   };
 };
