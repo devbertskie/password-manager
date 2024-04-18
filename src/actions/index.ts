@@ -11,4 +11,5 @@ export {
   fetchAllCredentials,
   deleteCredential,
   updateCredentialById,
+  markAsImportant,
 } from './web-credential-action';

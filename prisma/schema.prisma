@@ -4,7 +4,7 @@
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -26,7 +26,8 @@ model User {
 model WebCredential {
   id        String    @id @default(uuid())
   title     String   @unique
-  site_url     String   
+  site_url     String
+  is_important Boolean @default(false)   
   user_email  String  
   password  String
   userId Int

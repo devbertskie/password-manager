@@ -3,13 +3,16 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import React from 'react';
-import { Card, CardContent } from '../ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import paths from '@/lib/paths';
+
+import Ribbon from '@/components/shared/ribbon';
 
 export type Item = {
   credentialId: string;
   title: string;
   label: string;
+  isImportant: boolean;
   Icon: React.ElementType;
   link: () => string;
 };
@@ -19,24 +22,26 @@ interface CredentialItemProps {
 }
 
 export default function CredentialItem({
-  data: { title, label, credentialId, link, Icon },
+  data: { title, label, credentialId, link, Icon, isImportant },
 }: CredentialItemProps) {
   const segment = useSelectedLayoutSegment();
 
   return (
     <>
-      <Link href={link()} className="hidden md:block">
+      <Link href={link()} className="hidden  md:block">
         <li
           className={cn(
             segment === credentialId
               ? 'border-l border-l-primary bg-primary/20'
               : 'hover:bg-primary/20 bg-primary/10',
-            'transition-300 group cursor-pointer rounded-sm  px-4 py-3 text-muted-foreground/70 ',
+            'transition-300 group cursor-pointer rounded-sm  px-4 py-3 text-muted-foreground/70 relative overflow-hidden',
           )}
         >
-          <div className="flex items-center space-x-4">
+          {isImportant && <Ribbon />}
+          <div className="flex  items-center space-x-4">
             <Icon
               className={cn(
+                isImportant && '!text-yellow-400',
                 segment === credentialId
                   ? 'text-primary'
                   : 'group-hover:text-primary',
@@ -63,11 +68,16 @@ export default function CredentialItem({
         </li>
       </Link>
 
-      <Card className="cursor-pointer bg-primary/10 md:hidden">
+      <Card className="relative cursor-pointer overflow-hidden bg-primary/10 md:hidden">
         <CardContent className="p-3">
           <Link href={paths.toWebItemMobile(credentialId)}>
             <div className="flex min-w-64 items-center space-x-2 min-[400px]:space-x-3">
-              <Icon className="hidden text-muted-foreground min-[400px]:block  min-[400px]:size-5" />
+              <Icon
+                className={cn(
+                  isImportant && '!text-yellow-400',
+                  'hidden text-muted-foreground min-[400px]:block  min-[400px]:size-5',
+                )}
+              />
               <div className="ml-2 max-w-64 flex-1  space-y-1 tracking-wider text-muted-foreground max-[400px]:max-w-52">
                 <h3 className="truncate font-space text-[14px] text-primary ">
                   {title}
@@ -78,6 +88,7 @@ export default function CredentialItem({
             </div>
           </Link>
         </CardContent>
+        {isImportant && <Ribbon />}
       </Card>
     </>
   );

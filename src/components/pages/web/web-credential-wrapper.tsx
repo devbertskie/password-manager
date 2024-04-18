@@ -9,6 +9,7 @@ import { WebCredentialResponse } from '@/actions/web-credential-action';
 import { notify } from '@/lib/notification';
 import WebDeleteModalForm from '@/components/pages/web/web-delete-modal-form';
 import { notFound } from 'next/navigation';
+import WebMarkAsImportant from './web-mark-as-important';
 
 interface CredentialItemProps {
   webCredentialResponse: WebCredentialResponse;
@@ -37,6 +38,11 @@ export default function WebCredentialWrapper({
         </h2>
 
         <div className="flex items-center space-x-2">
+          <WebMarkAsImportant
+            isImportant={webCredential.is_important}
+            credentialId={webCredential.id}
+          />
+
           <Button
             className="icon-hover-primary size-8 rounded-full transition-all duration-300 md:ml-4"
             size="icon"

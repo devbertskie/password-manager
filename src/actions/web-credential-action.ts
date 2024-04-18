@@ -52,6 +52,7 @@ export const addCredential = async (
         user_email: encryptedUsernameOrEmail,
         site_url: siteUrl,
         password: encryptedPassword,
+        is_important: values.isImportant,
         userId: +userId,
       },
     });
@@ -84,9 +85,8 @@ export const fetchAllWebCredentialsByUser = async (
   try {
     const webCredentialsList = await db.webCredential.findMany({
       where: { userId: +session.user.userId },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy: [{ is_important: 'desc' }, { updatedAt: 'desc' }],
+
       take: limit && limit,
     });
 
@@ -222,6 +222,42 @@ export const updateCredentialById = async (
       };
     }
   }
+};
+
+export const markAsImportant = async (
+  credentialId: string,
+  formState: State,
+) => {
+  const existingCredential = await fetchWebCredentialById(credentialId);
+  if (existingCredential?.errorMsg || !existingCredential?.webCredentialData) {
+    return {
+      message: 'Failed to update credential',
+    };
+  }
+
+  try {
+    await db.webCredential.update({
+      where: { id: credentialId },
+      data: {
+        is_important: !existingCredential.webCredentialData.is_important,
+      },
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      return {
+        errors: error,
+        message: 'Failed to update credential',
+      };
+    }
+  }
+  revalidatePath(paths.toWeb());
+  revalidatePath(paths.toWebItem(credentialId));
+  revalidatePath(paths.toWebItemMobile(credentialId));
+  return {
+    errors: null,
+    message: 'Updated',
+  };
 };
 
 const encryptString = (str: string): string => {

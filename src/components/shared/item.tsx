@@ -12,6 +12,7 @@ export const WebCredentialItem = ({ item }: ItemProps<WebCredentialType>) => {
     title: item.title,
     label: item.site_url,
     Icon: GlobeIcon,
+    isImportant: item.is_important,
     link: () => paths.toWebItem(item.id),
   };
   return <CredentialItem data={itemData} />;

@@ -68,4 +68,5 @@ export const webCredentialFormSchema = z.object({
   siteUrl: z.string().url('Url is required'),
   usernameOrEmail: z.string().min(1, 'Username/Email is required'),
   password: z.string().min(1, 'Password is required'),
+  isImportant: z.boolean().default(false).optional(),
 });

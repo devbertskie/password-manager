@@ -29,6 +29,8 @@ import { addCredential } from '@/actions';
 import { useSession } from 'next-auth/react';
 import { notify } from '@/lib/notification';
 import { useRouter } from 'next/navigation';
+import { Switch } from '@/components/ui/switch';
+import paths from '@/lib/paths';
 
 const WebNewForm = () => {
   const { data: session } = useSession();
@@ -61,6 +63,7 @@ const WebNewForm = () => {
     if (webCredentialResponse?.webCredentialData) {
       handleCloseForm();
       notify.success(webCredentialResponse.message);
+      router.push(paths.toWebItem(webCredentialResponse.webCredentialData.id));
       router.refresh();
     }
   };
@@ -191,6 +194,27 @@ const WebNewForm = () => {
                           disabled={isSubmitting}
                         />
                         <FormMessage className="text-[10px] sm:text-sm" />
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={webCredentialForm.control}
+                name="isImportant"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex items-center space-x-2">
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          id="mark-important"
+                        />
+                        <Label htmlFor="mark-important">
+                          Mark as Important
+                        </Label>
                       </div>
                     </FormControl>
                   </FormItem>

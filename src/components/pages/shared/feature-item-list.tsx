@@ -4,7 +4,7 @@ export default function FeatureItemList({ children }: PropsWithChildren) {
   return (
     <>
       {/* Desktop */}
-      <ul className="-ml-2  hidden flex-col space-y-3 pl-2 pr-4 md:flex">
+      <ul className=" -ml-2  hidden flex-col space-y-3 text-clip pl-2 pr-4 md:flex">
         {children}
       </ul>
 
