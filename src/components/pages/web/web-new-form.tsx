@@ -116,9 +116,7 @@ const WebNewForm = () => {
                   <FormItem>
                     <FormControl>
                       <div className="flex flex-col space-y-2">
-                        <Label className="add-required text-sm after:ml-1">
-                          Title
-                        </Label>
+                        <Label className="add-required text-sm">Title</Label>
                         <Input
                           {...field}
                           className="placeholder:text-xs"
@@ -139,9 +137,7 @@ const WebNewForm = () => {
                   <FormItem>
                     <FormControl>
                       <div className="flex flex-col space-y-2">
-                        <Label className="add-required text-sm after:ml-1">
-                          Site URL
-                        </Label>
+                        <Label className="add-required text-sm">Site URL</Label>
                         <Input
                           {...field}
                           className="placeholder:text-xs"
@@ -163,7 +159,7 @@ const WebNewForm = () => {
                   <FormItem>
                     <FormControl>
                       <div className="flex flex-col space-y-2">
-                        <Label className="add-required text-sm after:ml-1">
+                        <Label className="add-required text-sm">
                           Username / Email
                         </Label>
                         <Input
@@ -186,9 +182,7 @@ const WebNewForm = () => {
                   <FormItem>
                     <FormControl>
                       <div className="flex flex-col space-y-2">
-                        <Label className="add-required text-sm after:ml-1">
-                          Password
-                        </Label>
+                        <Label className="add-required text-sm">Password</Label>
                         <Input
                           {...field}
                           type="password"

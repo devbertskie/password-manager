@@ -125,7 +125,11 @@ const WebCredentialPreview = ({
             <FormItem>
               <FormControl>
                 <div className="flex flex-col space-y-2">
-                  <FormLabel className="text-xs">Title</FormLabel>
+                  <FormLabel
+                    className={cn(isEditable && 'add-required', 'text-xs')}
+                  >
+                    Title
+                  </FormLabel>
                   <div className="relative">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70">
                       <Globe className="size-4" />
@@ -154,7 +158,11 @@ const WebCredentialPreview = ({
             <FormItem>
               <FormControl>
                 <div className="flex flex-col space-y-2">
-                  <FormLabel className="text-xs">Site URL</FormLabel>
+                  <FormLabel
+                    className={cn(isEditable && 'add-required', 'text-xs')}
+                  >
+                    Site URL
+                  </FormLabel>
                   <div className="relative">
                     {!isEditable && (
                       <div className="absolute right-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2">
@@ -204,7 +212,11 @@ const WebCredentialPreview = ({
             <FormItem>
               <FormControl>
                 <div className="flex flex-col space-y-2">
-                  <FormLabel className="text-xs">Username / Email</FormLabel>
+                  <FormLabel
+                    className={cn(isEditable && 'add-required', 'text-xs')}
+                  >
+                    Username / Email
+                  </FormLabel>
                   <div className="relative">
                     {!isEditable && (
                       <div className="absolute right-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2">
@@ -248,7 +260,11 @@ const WebCredentialPreview = ({
             <FormItem>
               <FormControl>
                 <div className="flex flex-col space-y-2">
-                  <FormLabel className="text-xs">Password</FormLabel>
+                  <FormLabel
+                    className={cn(isEditable && 'add-required', 'text-xs')}
+                  >
+                    Password
+                  </FormLabel>
                   <div className="relative">
                     {!isEditable && (
                       <div className="absolute right-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2">

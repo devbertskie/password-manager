@@ -111,7 +111,7 @@
   }
 
   .add-required {
-    @apply after:text-red-500 after:content-['*'];
+    @apply after:text-red-500 after:content-['*'] after:ml-1;
   }
 
   .icon-hover-primary {
