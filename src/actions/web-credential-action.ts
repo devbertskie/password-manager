@@ -9,14 +9,12 @@ import { revalidatePath } from 'next/cache';
 import paths from '@/lib/paths';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+
+import { toFormState } from '@/helpers/to-form-state';
+import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { redirect } from 'next/navigation';
 
 const SALT_KEY = process.env.SALT_KEY!;
-
-export type State = {
-  message?: string;
-  errors?: null;
-};
 
 export interface WebCredentialResponse {
   errorMsg?: string;
@@ -197,47 +195,30 @@ export const updateCredentialById = async (
   }
 };
 
-export const deleteCredential = async (
-  credentialId: string,
-  formState: State,
-) => {
-  if (!credentialId) {
-    return {
-      message: 'Failed to delete credential',
-    };
-  }
-
+export const deleteCredential = async (credentialId: string) => {
   try {
+    if (!credentialId) {
+      toFormState('ERROR', 'Credential id not found');
+    }
     await db.webCredential.delete({
       where: { id: credentialId },
     });
+    revalidatePath(paths.toWeb());
+    // return toFormState('SUCCESS', 'Credential deleted');
   } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message);
-      return {
-        message: 'Unable to delete data',
-      };
-    }
+    fromErrorsToFormState(error);
   }
-  revalidatePath(paths.toWeb());
   redirect(paths.toWeb());
 };
 
-export const markAsImportant = async (
-  credentialId: string,
-  formState: State,
-) => {
+export const markAsImportant = async (credentialId: string) => {
   if (!credentialId) {
-    return {
-      message: 'Failed to delete credential',
-    };
+    return toFormState('ERROR', 'Failed to update credential');
   }
 
   const existingCredential = await fetchWebCredentialById(credentialId);
   if (existingCredential?.errorMsg || !existingCredential?.webCredentialData) {
-    return {
-      message: 'Failed to update credential',
-    };
+    return toFormState('ERROR', 'Failed to update credential');
   }
 
   try {
@@ -248,20 +229,13 @@ export const markAsImportant = async (
       },
     });
   } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message);
-      return {
-        message: 'Failed to update credential',
-      };
-    }
+    fromErrorsToFormState(error);
   }
   revalidatePath(paths.toWeb());
   revalidatePath(paths.toWebItem(credentialId));
   revalidatePath(paths.toWebItemMobile(credentialId));
 
-  return {
-    message: 'Updated',
-  };
+  return toFormState('SUCCESS', 'Credential updated');
 };
 
 const encryptString = (str: string): string => {

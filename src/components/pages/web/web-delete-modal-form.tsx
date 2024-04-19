@@ -1,11 +1,11 @@
 'use client';
-import { deleteCredential } from '@/actions';
-
 import React from 'react';
+import { deleteCredential } from '@/actions';
 import { useFormState } from 'react-dom';
-import DeleteButton from './delete-button-submit';
-import { notify } from '@/lib/notification';
-import AlertModalWrapper from '../shared/feature-alert-modal-wrapper';
+import DeleteButton from '@/components/pages/web/delete-button-submit';
+import AlertModalWrapper from '@/components/pages/shared/feature-alert-modal-wrapper';
+import { EmptyFormState } from '@/helpers/from-errors-to-formstate';
+import { useFormToastMessage } from '@/hooks/use-form-toast-message';
 
 interface WebDeleteModalFormProps {
   isOpen: boolean;
@@ -18,13 +18,12 @@ export default function WebDeleteModalForm({
   onClose,
   credentialId,
 }: WebDeleteModalFormProps) {
-  const initialState = { message: '', errors: {} };
-  const bindDeleteCredential = deleteCredential.bind(null, credentialId);
-  const [state, dispatch] = useFormState(bindDeleteCredential, initialState);
+  const [formState, dispatch] = useFormState(
+    deleteCredential.bind(null, credentialId),
+    EmptyFormState,
+  );
 
-  if (state.message) {
-    notify.error(state.message);
-  }
+  useFormToastMessage(formState);
 
   return (
     <AlertModalWrapper

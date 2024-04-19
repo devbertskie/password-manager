@@ -2,6 +2,8 @@
 'use client';
 import { markAsImportant } from '@/actions';
 import { Button } from '@/components/ui/button';
+import { EmptyFormState } from '@/helpers/from-errors-to-formstate';
+import { useFormToastMessage } from '@/hooks/use-form-toast-message';
 import { cn } from '@/lib/utils';
 
 import React from 'react';
@@ -16,12 +18,12 @@ export default function WebMarkAsImportant({
   isImportant,
   credentialId,
 }: WebMarkAsImportantProps) {
-  const initialState = { message: '', errors: {} };
-  const bindedMarkAsImportantAction = markAsImportant.bind(null, credentialId);
-  const [state, dispatch] = useFormState(
-    bindedMarkAsImportantAction,
-    initialState,
+  const [formState, dispatch] = useFormState(
+    markAsImportant.bind(null, credentialId),
+    EmptyFormState,
   );
+
+  useFormToastMessage(formState);
 
   return (
     <form action={dispatch}>

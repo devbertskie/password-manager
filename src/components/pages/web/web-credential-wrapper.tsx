@@ -5,36 +5,25 @@ import { Separator } from '@/components/ui/separator';
 import { ClipboardPen, Loader, Trash2 } from 'lucide-react';
 import { useToggle } from 'usehooks-ts';
 import WebCredentialPreview from '@/components/pages/web/web-credential-preview';
-import { WebCredentialResponse } from '@/actions/web-credential-action';
-import { notify } from '@/lib/notification';
 import WebDeleteModalForm from '@/components/pages/web/web-delete-modal-form';
-import { notFound } from 'next/navigation';
 import WebMarkAsImportant from './web-mark-as-important';
+import { WebCredential } from '@prisma/client';
 
 interface CredentialItemProps {
-  webCredentialResponse: WebCredentialResponse;
+  webCredential: WebCredential;
 }
 
 export default function WebCredentialWrapper({
-  webCredentialResponse,
+  webCredential,
 }: CredentialItemProps) {
   const [isEditable, toggleEditable, setIsEditable] = useToggle(false);
   const [openDialogMoadlDelete, , setOpenDialog] = useToggle(false);
-  if (webCredentialResponse.errorMsg) {
-    notify.error(webCredentialResponse.errorMsg);
-  }
-
-  const webCredential = webCredentialResponse?.webCredentialData;
-
-  if (!webCredential) {
-    return notFound();
-  }
 
   return (
     <>
       <div className="flex flex-col items-center justify-between space-y-3 md:flex-row md:space-y-0">
         <h2 className="rounded-sm bg-primary/10 px-3 py-1.5 text-center font-space text-sm tracking-wider text-primary md:line-clamp-1 md:text-left md:text-lg">
-          {webCredential?.title}
+          {webCredential.title}
         </h2>
 
         <div className="flex items-center space-x-2">
@@ -76,7 +65,7 @@ export default function WebCredentialWrapper({
         />
       </div>
       <WebDeleteModalForm
-        credentialId={webCredential?.id}
+        credentialId={webCredential.id}
         isOpen={openDialogMoadlDelete}
         onClose={() => setOpenDialog(false)}
       />

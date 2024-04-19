@@ -1,5 +1,6 @@
 import WebMobileCardWrapper from '@/components/pages/web/mobile/web-mobile-wrapper';
 import { WebItemSkeleton } from '@/components/pages/web/web-loading-skeleton';
+
 import { Info } from 'lucide-react';
 import React, { Suspense } from 'react';
 
