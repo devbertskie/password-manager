@@ -32,7 +32,9 @@ export default function WebMarkAsImportant({
         variant="ghost"
         type="submit"
         className={cn(
-          isImportant ? 'text-yellow-400 hover:text-yellow-400' : 'text-white',
+          isImportant
+            ? 'text-yellow-400 hover:text-yellow-400'
+            : 'text-black dark:text-white',
           'hover:bg-transparent',
         )}
       >
