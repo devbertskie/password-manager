@@ -1,8 +1,10 @@
-import { signOut } from 'next-auth/react';
+'use server';
+import { signOut } from '@/lib/auth';
 
 export const logOut = async () => {
   await signOut({
-    redirect: true,
-    callbackUrl: `${window.location.origin}/login`,
+    redirectTo: '/login',
+    // redirect: true,
+    // callbackUrl: `${window.location.origin}/login`,
   });
 };

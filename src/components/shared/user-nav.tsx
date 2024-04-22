@@ -12,12 +12,11 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 
-import { useSession } from 'next-auth/react';
-import { logOut } from '@/lib/sign-out';
 import { USER_NAV_PROFILE } from '@/constants';
 import { LogOut } from 'lucide-react';
 import Link from 'next/link';
 import AvatarProfile from './avatar-profile';
+import { signOut, useSession } from 'next-auth/react';
 
 const UserNav = () => {
   const { data: userSession } = useSession();
@@ -65,7 +64,7 @@ const UserNav = () => {
           {/* logout */}
           <DropdownMenuItem
             className="transition-300 group flex items-center space-x-1 hover:bg-primary/10"
-            onClick={logOut}
+            onClick={() => signOut()}
           >
             <LogOut className="transition-300 size-4 group-hover:text-primary" />
             <span className="transition-300 group-hover:text-primary">

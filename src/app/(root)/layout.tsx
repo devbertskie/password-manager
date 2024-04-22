@@ -2,8 +2,9 @@ import MainContainer from '@/components/layout/main-container';
 import Navbar from '@/components/layout/navbar';
 import Overlay from '@/components/layout/overlay';
 import Sidebar from '@/components/layout/sidebar';
+import { auth } from '@/lib/auth';
 import paths from '@/lib/paths';
-import { getServerSession } from 'next-auth';
+
 import { redirect } from 'next/navigation';
 
 import React, { ReactNode } from 'react';
@@ -13,7 +14,8 @@ interface RootLayoutProps {
 }
 
 const RootLayout = async ({ children }: RootLayoutProps) => {
-  const session = await getServerSession();
+  const session = await auth();
+  console.log(session);
   if (!session) {
     redirect(paths.toLogin());
   }

@@ -1,7 +1,7 @@
 'use client';
 import ThemeProvider from '@/components/shared/theme-provider';
-import { SnackbarProvider } from 'notistack';
 import { PropsWithChildren, createContext, useContext, useState } from 'react';
+import NotificationProvider from './notification-context';
 
 interface SidebarContextProps {
   isSidebarOpen: boolean;
@@ -28,16 +28,7 @@ const AppProvider = ({ children }: PropsWithChildren) => {
         enableSystem
         disableTransitionOnChange
       >
-        <SnackbarProvider
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-          autoHideDuration={1500}
-          maxSnack={2}
-        >
-          {children}
-        </SnackbarProvider>
+        <NotificationProvider>{children}</NotificationProvider>
       </ThemeProvider>
     </SidebarContext.Provider>
   );

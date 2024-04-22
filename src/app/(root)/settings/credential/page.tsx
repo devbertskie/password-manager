@@ -1,11 +1,10 @@
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import CredentialForm from '@/components/pages/settings/credential-form';
 
 const Credential = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   return (
     <div className="space-y-6">
       <div>

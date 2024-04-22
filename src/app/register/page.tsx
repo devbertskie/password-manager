@@ -1,5 +1,6 @@
 import React from 'react';
-import RegisterForm from './register-form';
+
+import RegisterForm from '@/components/pages/auth/register-form';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions } from '@/lib/auth';
