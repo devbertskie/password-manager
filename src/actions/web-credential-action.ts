@@ -7,12 +7,11 @@ import AES from 'crypto-js/aes';
 import { db } from '@/db';
 import { revalidatePath } from 'next/cache';
 import paths from '@/lib/paths';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
 
 import { toFormState } from '@/helpers/to-form-state';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { redirect } from 'next/navigation';
+import { auth } from '@/lib/auth';
 
 const SALT_KEY = process.env.SALT_KEY!;
 
@@ -66,7 +65,6 @@ export const addCredential = async (
     };
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message);
       return {
         errorMsg: 'Unable to add credential',
       };
@@ -79,7 +77,7 @@ export const addCredential = async (
 export const fetchAllWebCredentialsByUser = async (
   limit?: number,
 ): Promise<AllWebCredentialsByUserResponse | undefined> => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) {
     return {
       errorMsg: 'Unauthorized',
@@ -136,7 +134,7 @@ export const fetchWebCredentialById = async (
 export const fetchAllCredentials = async (): Promise<
   AllWebCredentialsByUserResponse | undefined
 > => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   try {
     if (!session) {
       throw new Error('Unauthorized');

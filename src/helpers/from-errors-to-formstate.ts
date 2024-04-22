@@ -1,6 +1,7 @@
 import { FormState } from '@/types';
 import { ZodError } from 'zod';
 import { toFormState } from '@/helpers/to-form-state';
+import { InvalidCredentialError } from '@/lib/errors';
 
 export const EmptyFormState: FormState = {
   status: 'UNSET' as const,
@@ -18,8 +19,13 @@ export const fromErrorsToFormState = (error: unknown): FormState => {
       timestamp: Date.now(),
     };
   }
+
+  if (error instanceof InvalidCredentialError) {
+    return toFormState('ERROR' as const, 'Invalid credential/password');
+  }
   if (error instanceof Error) {
-    toFormState('ERROR' as const, error.message);
+    console.log(error, 'Here in Error');
+    return toFormState('ERROR' as const, error.message);
   }
   return toFormState('ERROR' as const, 'Unknown error occured');
 };

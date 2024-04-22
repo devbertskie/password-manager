@@ -7,8 +7,8 @@ const NotificationProvider = ({ children }: PropsWithChildren) => {
   return (
     <SnackbarProvider
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
+        vertical: 'bottom',
+        horizontal: 'right',
       }}
       maxSnack={1}
       autoHideDuration={1500}

@@ -2,7 +2,9 @@ export {
   updateProfile,
   updateProfileImage,
   changePassword,
-} from './settings-action';
+} from '@/actions/settings-action';
+
+export { registerUser, authorizeUser } from '@/actions/auth-actions';
 
 export {
   addCredential,
@@ -12,4 +14,4 @@ export {
   deleteCredential,
   updateCredentialById,
   markAsImportant,
-} from './web-credential-action';
+} from '@/actions/web-credential-action';

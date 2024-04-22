@@ -1,12 +1,13 @@
 import React from 'react';
-import LoginForm from './login-form';
-import { getServerSession } from 'next-auth';
+
 import { redirect } from 'next/navigation';
-import { authOptions } from '@/lib/auth';
+
 import paths from '@/lib/paths';
+import LoginForm from '@/components/pages/auth/login-form';
+import { auth } from '@/lib/auth';
 
 const LoginPage = async () => {
-  const userSession = await getServerSession(authOptions);
+  const userSession = await auth();
 
   if (userSession) {
     redirect(paths.toDashboard());

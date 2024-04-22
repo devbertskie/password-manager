@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { Button } from '../ui/button';
-import { logOut } from '@/lib/sign-out';
 import { LogOut } from 'lucide-react';
 import AvatarProfile from '../shared/avatar-profile';
 
@@ -19,7 +18,7 @@ const SidebarProfile = () => {
         <Button
           size="icon"
           className="icon-hover-primary ml-4 size-8  rounded-full transition-all duration-300"
-          onClick={logOut}
+          onClick={() => signOut()}
         >
           <LogOut className="m-auto size-4" />
         </Button>

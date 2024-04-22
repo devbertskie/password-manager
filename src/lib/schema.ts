@@ -4,16 +4,26 @@ import { z } from 'zod';
 export const formRegisterSchema = z.object({
   username: z
     .string()
-    .min(6, { message: 'Username must contain at least 6 characters' }),
-  email: z.string().email({ message: 'Invalid email address' }),
+    .min(6, { message: 'Username must contain at least 6 characters' })
+    .trim(),
+  email: z
+    .string()
+    .email({ message: 'Invalid email address' })
+    .toLowerCase()
+    .trim(),
   password: z
     .string()
-    .min(6, { message: 'Username must contain at least 6 characters' }),
+    .min(6, { message: 'Username must contain at least 6 characters' })
+    .trim(),
 });
 
 export const formLoginSchema = z.object({
-  email: z.string().email({ message: 'Email is required' }),
-  password: z.string().min(1, { message: 'Password is required' }),
+  email: z
+    .string()
+    .email({ message: 'Email is required' })
+    .toLowerCase()
+    .trim(),
+  password: z.string().min(1, { message: 'Password is required' }).trim(),
 });
 
 export const profileFormSchema = z.object({

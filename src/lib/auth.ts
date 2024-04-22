@@ -1,9 +1,11 @@
 import { db } from '@/db';
 import { compare } from 'bcrypt';
-import { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth from 'next-auth';
 
-export const authOptions: NextAuthOptions = {
+import Credentials from 'next-auth/providers/credentials';
+import { InvalidCredentialError } from '@/lib/errors';
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: '/login',
   },
@@ -12,32 +14,31 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
-    CredentialsProvider({
+    Credentials({
       credentials: {
         email: {},
         password: {},
       },
-
-      async authorize(credentials, req) {
-        if (!credentials?.email || !credentials.password) {
-          throw new Error('Invalid credentials!');
+      authorize: async (credentials) => {
+        if (!credentials?.email || !credentials?.password) {
+          throw new InvalidCredentialError();
         }
 
         const existingUser = await db.user.findUnique({
-          where: { email: credentials.email },
+          where: { email: String(credentials.email) },
         });
 
         if (!existingUser) {
-          throw new Error('No credentials found!');
+          throw new InvalidCredentialError();
         }
 
         const isPasswordMatched = await compare(
-          credentials.password,
+          String(credentials.password),
           existingUser.password,
         );
 
         if (!isPasswordMatched) {
-          throw new Error('Invalid Credentials');
+          throw new InvalidCredentialError();
         }
 
         return {
@@ -69,15 +70,7 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token, user }) {
       session.user = token as any;
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          username: token.username,
-          userId: token.sub,
-          picture: token.picture,
-        },
-      };
+      return session;
     },
   },
-};
+});
