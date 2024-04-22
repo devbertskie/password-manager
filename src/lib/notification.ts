@@ -1,12 +1,7 @@
-import { OptionsObject, enqueueSnackbar } from 'notistack';
+import { toast } from 'sonner';
 
 export const notify = {
-  success: (message: string = 'Success') =>
-    enqueueSnackbar(message, { variant: 'success' }),
-  warning: (message: string = 'Warning!') =>
-    enqueueSnackbar(message, { variant: 'warning' }),
-  error: (message: string = 'Something went wrong!') =>
-    enqueueSnackbar(message, { variant: 'error' }),
-  persit: (message: string, options?: OptionsObject) =>
-    enqueueSnackbar(message, options),
+  success: (message: string = 'Success') => toast.success(message),
+  warning: (message: string = 'Warning!') => toast.warning(message),
+  error: (message: string = 'Something went wrong!') => toast.error(message),
 };

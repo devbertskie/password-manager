@@ -64,7 +64,12 @@ const UserNav = () => {
           {/* logout */}
           <DropdownMenuItem
             className="transition-300 group flex items-center space-x-1 hover:bg-primary/10"
-            onClick={() => signOut()}
+            onClick={() =>
+              signOut({
+                callbackUrl: `${window.location.origin}/login?logout=true`,
+                redirect: true,
+              })
+            }
           >
             <LogOut className="transition-300 size-4 group-hover:text-primary" />
             <span className="transition-300 group-hover:text-primary">

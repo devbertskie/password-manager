@@ -206,7 +206,7 @@ export const deleteCredential = async (credentialId: string) => {
   } catch (error) {
     fromErrorsToFormState(error);
   }
-  redirect(paths.toWeb());
+  redirect(`${paths.toWeb()}?deleted=true`);
 };
 
 export const markAsImportant = async (credentialId: string) => {

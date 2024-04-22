@@ -40,6 +40,7 @@ const LoginSubmitButton = () => {
 const LoginForm = () => {
   const params = useSearchParams();
   const isRegistered = Boolean(params.get('registered'));
+  const isLogout = Boolean(params.get('logout'));
   const [formState, dispatchLoginAction] = useFormState(
     authorizeUser,
     EmptyFormState,
@@ -49,7 +50,15 @@ const LoginForm = () => {
 
   return (
     <>
-      {isRegistered && <RedirectMessage type="SUCCESS" message="Registered!" />}
+      {isRegistered && (
+        <RedirectMessage
+          type="SUCCESS"
+          message="Your account was created 🎉. Please login"
+        />
+      )}
+      {isLogout && (
+        <RedirectMessage type="SUCCESS" message="Logout successfully 🎉" />
+      )}
 
       <form
         action={dispatchLoginAction}

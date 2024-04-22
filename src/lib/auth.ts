@@ -12,6 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: 'jwt',
   },
+  debug: false,
   secret: process.env.AUTH_SECRET,
   trustHost: true,
   providers: [

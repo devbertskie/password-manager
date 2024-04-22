@@ -65,7 +65,7 @@ export const authorizeUser = async (
     await signIn('credentials', {
       email,
       password,
-      redirectTo: '/dashboard',
+      redirectTo: '/dashboard?auth=true',
     });
   } catch (error) {
     if (isRedirectError(error)) {

@@ -23,8 +23,8 @@ export const fromErrorsToFormState = (error: unknown): FormState => {
   if (error instanceof InvalidCredentialError) {
     return toFormState('ERROR' as const, 'Invalid credential/password');
   }
+
   if (error instanceof Error) {
-    console.log(error, 'Here in Error');
     return toFormState('ERROR' as const, error.message);
   }
   return toFormState('ERROR' as const, 'Unknown error occured');

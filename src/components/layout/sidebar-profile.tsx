@@ -18,7 +18,12 @@ const SidebarProfile = () => {
         <Button
           size="icon"
           className="icon-hover-primary ml-4 size-8  rounded-full transition-all duration-300"
-          onClick={() => signOut()}
+          onClick={() =>
+            signOut({
+              callbackUrl: `${window.location.origin}/login?logout=true`,
+              redirect: true,
+            })
+          }
         >
           <LogOut className="m-auto size-4" />
         </Button>
