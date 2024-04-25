@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
-import { auth } from '@/lib/auth';
+import { auth } from '@/auth';
 import CredentialForm from '@/components/pages/settings/credential-form';
 
 const Credential = async () => {

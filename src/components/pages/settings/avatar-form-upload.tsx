@@ -38,7 +38,7 @@ const getImageData = (event: ChangeEvent<HTMLInputElement>) => {
 const AvatarFormUpload = () => {
   const { edgestore } = useEdgeStore();
   const { data: session, update } = useSession();
-  const [previewUrl, setPreviewUrl] = useState(session?.user.picture);
+  const [previewUrl, setPreviewUrl] = useState(session?.user.image);
 
   const avatarForm = useForm<z.infer<typeof avatarUploadSchema>>({
     mode: 'onSubmit',
@@ -67,7 +67,7 @@ const AvatarFormUpload = () => {
           ...session,
           user: {
             ...session?.user,
-            picture: updatedImageUrl?.image_url,
+            image: updatedImageUrl?.image_url,
           },
         };
         update(updatedSession);
@@ -108,7 +108,7 @@ const AvatarFormUpload = () => {
                         <Loader2 className="size-4 animate-spin" />
                       </div>
                       <AvatarProfile
-                        imgSrc={previewUrl}
+                        imgSrc={previewUrl || ''}
                         className="z-10 size-16 lg:size-20"
                       />
                       <Input

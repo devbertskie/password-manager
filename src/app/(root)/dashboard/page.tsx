@@ -1,5 +1,5 @@
 import RedirectMessage from '@/components/pages/auth/redirect-message';
-import { auth } from '@/lib/auth';
+import { auth } from '@/auth';
 import paths from '@/lib/paths';
 import { redirect } from 'next/navigation';
 import React from 'react';

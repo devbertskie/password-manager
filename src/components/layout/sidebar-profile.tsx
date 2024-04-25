@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
 import { signOut, useSession } from 'next-auth/react';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
-import AvatarProfile from '../shared/avatar-profile';
+import AvatarProfile from '@/components/shared/avatar-profile';
 
 const SidebarProfile = () => {
   const { data: userSession } = useSession();

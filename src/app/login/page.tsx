@@ -4,12 +4,12 @@ import { redirect } from 'next/navigation';
 
 import paths from '@/lib/paths';
 import LoginForm from '@/components/pages/auth/login-form';
-import { auth } from '@/lib/auth';
+import { auth } from '@/auth';
 
 const LoginPage = async () => {
-  const userSession = await auth();
+  const session = await auth();
 
-  if (userSession) {
+  if (session) {
     redirect(paths.toDashboard());
   }
 

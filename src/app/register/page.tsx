@@ -5,7 +5,7 @@ import RegisterForm from '@/components/pages/auth/register-form';
 import { redirect } from 'next/navigation';
 
 import paths from '@/lib/paths';
-import { auth } from '@/lib/auth';
+import { auth } from '@/auth';
 
 const RegisterPage = async () => {
   const session = await auth();

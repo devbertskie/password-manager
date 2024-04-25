@@ -17,6 +17,8 @@ model User {
   email     String   @unique
   username  String   @unique
   password  String
+  emailVerified DateTime?
+  role UserRole @default(User)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   image_url String   @default("")
@@ -35,4 +37,9 @@ model WebCredential {
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+  User
+  ADMIN
 }

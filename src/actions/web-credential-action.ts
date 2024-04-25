@@ -11,7 +11,7 @@ import paths from '@/lib/paths';
 import { toFormState } from '@/helpers/to-form-state';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { redirect } from 'next/navigation';
-import { auth } from '@/lib/auth';
+import { auth } from '@/auth';
 
 const SALT_KEY = process.env.SALT_KEY!;
 
@@ -78,14 +78,14 @@ export const fetchAllWebCredentialsByUser = async (
   limit?: number,
 ): Promise<AllWebCredentialsByUserResponse | undefined> => {
   const session = await auth();
-  if (!session) {
+  if (!session || !session.user) {
     return {
       errorMsg: 'Unauthorized',
     };
   }
   try {
     const webCredentialsList = await db.webCredential.findMany({
-      where: { userId: +session.user.userId },
+      where: { userId: Number(session.user.id) },
       orderBy: [{ is_important: 'desc' }, { updatedAt: 'desc' }],
 
       take: limit && limit,
@@ -96,7 +96,6 @@ export const fetchAllWebCredentialsByUser = async (
     };
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message);
       return {
         errorMsg: 'Unable to retrieve data',
       };
@@ -135,13 +134,14 @@ export const fetchAllCredentials = async (): Promise<
   AllWebCredentialsByUserResponse | undefined
 > => {
   const session = await auth();
+  if (!session || !session.user) {
+    return {
+      errorMsg: 'Unauthorized',
+    };
+  }
   try {
-    if (!session) {
-      throw new Error('Unauthorized');
-    }
-
     const webData = await db.webCredential.findMany({
-      where: { userId: +session?.user.userId },
+      where: { userId: Number(session.user.id) },
     });
 
     return {

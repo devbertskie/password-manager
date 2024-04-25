@@ -10,10 +10,11 @@ interface AvatarProfileProps extends React.HtmlHTMLAttributes<HTMLElement> {
 
 const AvatarProfile = ({ className, imgSrc, ...rest }: AvatarProfileProps) => {
   const { data: session } = useSession();
+  if (!session || !session.user) return null;
   return (
     <Avatar {...rest} className={cn(className)}>
       <AvatarImage
-        src={imgSrc || (session ? session?.user.picture : '')}
+        src={imgSrc || session.user.image || ''}
         alt="profile"
         className="object-cover"
       />

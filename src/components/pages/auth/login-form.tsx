@@ -71,11 +71,10 @@ const LoginForm = () => {
 
         <div className="mb-6 flex flex-col items-center">
           <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight">
-            Secure Access to Your Passwords
+            Authenticate
           </h1>
           <p className="text-center text-sm text-muted-foreground">
-            Safeguarding your passwords has never been easier. Just enter your
-            email and master password to access your encrypted vault.
+            Login to proceed
           </p>
         </div>
 

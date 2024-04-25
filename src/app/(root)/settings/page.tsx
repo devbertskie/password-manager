@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
-import { auth } from '@/lib/auth';
+import { auth } from '@/auth';
 import AvatarFormUpload from '@/components/pages/settings/avatar-form-upload';
 import ProfileForm from '@/components/pages/settings/profile-form';
 

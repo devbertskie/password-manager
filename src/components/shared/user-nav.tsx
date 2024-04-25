@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
-import { Button } from '../ui/button';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 import {
   DropdownMenuContent,
@@ -10,12 +11,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 
 import { USER_NAV_PROFILE } from '@/constants';
 import { LogOut } from 'lucide-react';
-import Link from 'next/link';
-import AvatarProfile from './avatar-profile';
+import AvatarProfile from '@/components/shared/avatar-profile';
 import { signOut, useSession } from 'next-auth/react';
 
 const UserNav = () => {

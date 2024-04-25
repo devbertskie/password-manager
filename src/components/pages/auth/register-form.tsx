@@ -51,6 +51,9 @@ const RegisterForm = () => {
         <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight">
           Create an Account
         </h1>
+        <p className="text-center text-sm text-muted-foreground">
+          Signup to get started
+        </p>
       </div>
 
       {/* username */}

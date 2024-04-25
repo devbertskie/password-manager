@@ -2,7 +2,7 @@ import MainContainer from '@/components/layout/main-container';
 import Navbar from '@/components/layout/navbar';
 import Overlay from '@/components/layout/overlay';
 import Sidebar from '@/components/layout/sidebar';
-import { auth } from '@/lib/auth';
+import { auth } from '@/auth';
 import paths from '@/lib/paths';
 
 import { redirect } from 'next/navigation';
