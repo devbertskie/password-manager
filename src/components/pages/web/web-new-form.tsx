@@ -53,7 +53,7 @@ const WebNewForm = () => {
   ) => {
     const webCredentialResponse = await addCredential(
       values,
-      session?.user.userId!,
+      session?.user.id!,
     );
     if (webCredentialResponse?.errorMsg) {
       notify.error(webCredentialResponse.errorMsg);

@@ -1,5 +1,6 @@
 'use client';
 import { changePassword } from '@/actions';
+import { signOutUser } from '@/actions/auth-actions';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -13,7 +14,6 @@ import { Label } from '@/components/ui/label';
 import { notify } from '@/lib/notification';
 import paths from '@/lib/paths';
 import { credentialFormSchema } from '@/lib/schema';
-import { logOut } from '@/lib/sign-out';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { Session } from 'next-auth';
@@ -46,7 +46,7 @@ const CredentialForm = ({ session }: CredentialFormProps) => {
     } else {
       if (userResponseData?.userData) {
         notify.success(userResponseData.message);
-        await logOut();
+        await signOutUser();
       }
     }
   };

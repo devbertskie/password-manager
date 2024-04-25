@@ -7,7 +7,7 @@ import DataListCredentials, {
 } from '@/components/pages/shared/data-list-credentials';
 
 const WebMobileCardWrapper = async () => {
-  const webCredentialsList = await fetchAllWebCredentialsByUser(10);
+  const webCredentialsList = await fetchAllWebCredentialsByUser();
 
   if (webCredentialsList?.errorMsg) {
     return notFound();

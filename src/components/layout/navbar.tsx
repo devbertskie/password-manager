@@ -1,18 +1,17 @@
 'use client';
 
 import React from 'react';
-import { Menu, Moon, Search, SquareAsterisk, Sun } from 'lucide-react';
+import { Menu, Search, SquareAsterisk } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { useApp } from '@/context/app-context';
-import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import isSmallScreen from '@/helpers/is-small-screen';
-import UserNav from '../shared/user-nav';
+import UserNav from '@/components/shared/user-nav';
+import ToggleMode from '../pages/shared/toggle-mode';
 
 const Navbar = () => {
   const { toggleSidebar, isSidebarOpen } = useApp();
-  const { setTheme, theme } = useTheme();
 
   return (
     <header className="z-40">
@@ -48,28 +47,14 @@ const Navbar = () => {
           <div className="flex w-full items-center justify-end space-x-2">
             <div className="flex items-center space-x-2">
               <Button
-                type="button"
-                size="icon"
                 className="icon-hover-primary size-7 rounded-full p-1 transition-all duration-300"
                 asChild
               >
                 <Search className="size-5" />
               </Button>
-              <Button
-                type="button"
-                size="icon"
-                className="icon-hover-primary size-7 rounded-full p-1 transition-all duration-300"
-                asChild
-                onClick={() =>
-                  theme === 'light' ? setTheme('dark') : setTheme('light')
-                }
-              >
-                {theme === 'light' ? (
-                  <Moon className="size-5" />
-                ) : (
-                  <Sun className="size-5" />
-                )}
-              </Button>
+              <div>
+                <ToggleMode />
+              </div>
             </div>
             <UserNav />
           </div>

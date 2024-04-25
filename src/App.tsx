@@ -1,7 +1,7 @@
 'use client';
 import React, { PropsWithChildren } from 'react';
-import { useApp } from './context/app-context';
-import { cn } from './lib/utils';
+import { useApp } from '@/context/app-context';
+import { cn } from '@/lib/utils';
 
 const App = ({ children }: PropsWithChildren) => {
   const { isSidebarOpen } = useApp();

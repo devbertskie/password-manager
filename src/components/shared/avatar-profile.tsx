@@ -1,18 +1,16 @@
+'use client';
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { cn } from '@/lib/utils';
-import { auth } from '@/auth';
+import { useSession } from 'next-auth/react';
 
 interface AvatarProfileProps extends React.HtmlHTMLAttributes<HTMLElement> {
   imgSrc?: string;
 }
 
-const AvatarProfile = async ({
-  className,
-  imgSrc,
-  ...rest
-}: AvatarProfileProps) => {
-  const session = await auth();
+const AvatarProfile = ({ className, imgSrc, ...rest }: AvatarProfileProps) => {
+  // const session = await auth();
+  const { data: session } = useSession();
 
   if (!session) return null;
 
