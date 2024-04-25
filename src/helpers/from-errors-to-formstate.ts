@@ -1,7 +1,7 @@
 import { FormState } from '@/types';
 import { ZodError } from 'zod';
 import { toFormState } from '@/helpers/to-form-state';
-import { InvalidCredentialError } from '@/lib/errors';
+import { AuthError } from 'next-auth';
 
 export const EmptyFormState: FormState = {
   status: 'UNSET' as const,
@@ -20,8 +20,15 @@ export const fromErrorsToFormState = (error: unknown): FormState => {
     };
   }
 
-  if (error instanceof InvalidCredentialError) {
-    return toFormState('ERROR' as const, 'Invalid credential/password');
+  if (error instanceof AuthError) {
+    switch (error.type) {
+      case 'CredentialsSignin':
+        return toFormState('ERROR', 'Invalid Credentials');
+      case 'AccessDenied':
+        return toFormState('ERROR', 'Account not verified/disabled');
+      default:
+        return toFormState('ERROR', 'We cant provide access');
+    }
   }
 
   if (error instanceof Error) {

@@ -1,11 +1,11 @@
 import { NextAuthConfig } from 'next-auth';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { formLoginSchema } from './lib/schema';
-import { db } from './db';
-import { compare } from 'bcrypt';
+import { formLoginSchema } from '@/lib/schema';
+import { db } from '@/db';
+import { compare } from 'bcryptjs';
 
-export const authConfig = {
+export default {
   providers: [
     CredentialsProvider({
       credentials: {},

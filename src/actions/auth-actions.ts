@@ -4,7 +4,7 @@ import { db } from '@/db';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 
 import { toFormState } from '@/helpers/to-form-state';
-import { signIn } from '@/lib/auth';
+import { signIn, signOut } from '@/auth';
 import { formLoginSchema, formRegisterSchema } from '@/lib/schema';
 import { FormState } from '@/types';
 import { hash } from 'bcrypt';
@@ -74,4 +74,10 @@ export const authorizeUser = async (
     return fromErrorsToFormState(error);
   }
   return formState;
+};
+
+export const signOutUser = async () => {
+  await signOut({
+    redirectTo: '/login',
+  });
 };

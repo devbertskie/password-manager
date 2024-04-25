@@ -16,7 +16,8 @@ import {
 import { USER_NAV_PROFILE } from '@/constants';
 import { LogOut } from 'lucide-react';
 import AvatarProfile from '@/components/shared/avatar-profile';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { signOutUser } from '@/actions/auth-actions';
 
 const UserNav = () => {
   const { data: userSession } = useSession();
@@ -64,12 +65,7 @@ const UserNav = () => {
           {/* logout */}
           <DropdownMenuItem
             className="transition-300 group flex items-center space-x-1 hover:bg-primary/10"
-            onClick={() =>
-              signOut({
-                callbackUrl: `${window.location.origin}/login?logout=true`,
-                redirect: true,
-              })
-            }
+            onClick={async () => await signOutUser()}
           >
             <LogOut className="transition-300 size-4 group-hover:text-primary" />
             <span className="transition-300 group-hover:text-primary">

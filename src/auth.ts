@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import NextAuth, { type DefaultSession } from 'next-auth';
-import { authConfig } from '@/auth.config';
+import authConfig from '@/auth.config';
 import { JWT } from 'next-auth/jwt';
 import { db } from './db';
 import { UserRole } from '@prisma/client';
@@ -22,11 +22,11 @@ declare module 'next-auth/jwt' {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
   pages: {
     signIn: '/login',
     error: '/error',
   },
-  secret: process.env.AUTH_SECRET,
   session: {
     strategy: 'jwt',
   },
