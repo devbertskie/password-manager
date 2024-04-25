@@ -10,6 +10,8 @@ import { FormState } from '@/types';
 import { hash } from 'bcrypt';
 import { isRedirectError } from 'next/dist/client/components/redirect';
 import { redirect } from 'next/navigation';
+import { createQueryString } from '@/helpers/create-query-string';
+import paths from '@/lib/paths';
 
 export const registerUser = async (
   formState: FormState,
@@ -47,7 +49,7 @@ export const registerUser = async (
     return fromErrorsToFormState(error);
   }
 
-  redirect('/login?registered=true');
+  redirect(createQueryString(paths.toLogin(), 'registered', 'true'));
 };
 
 export const authorizeUser = async (
@@ -65,7 +67,7 @@ export const authorizeUser = async (
     await signIn('credentials', {
       email,
       password,
-      redirectTo: '/dashboard?auth=true',
+      redirectTo: createQueryString(paths.toDashboard(), 'auth', 'true'),
     });
   } catch (error) {
     if (isRedirectError(error)) {
@@ -78,6 +80,6 @@ export const authorizeUser = async (
 
 export const signOutUser = async () => {
   await signOut({
-    redirectTo: '/login',
+    redirectTo: createQueryString(paths.toLogin(), 'logout', 'true'),
   });
 };

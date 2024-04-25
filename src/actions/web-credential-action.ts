@@ -12,6 +12,7 @@ import { toFormState } from '@/helpers/to-form-state';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
+import { createQueryString } from '@/helpers/create-query-string';
 
 const SALT_KEY = process.env.SALT_KEY!;
 
@@ -201,12 +202,12 @@ export const deleteCredential = async (credentialId: string) => {
     await db.webCredential.delete({
       where: { id: credentialId },
     });
-    revalidatePath(paths.toWeb());
     // return toFormState('SUCCESS', 'Credential deleted');
   } catch (error) {
-    fromErrorsToFormState(error);
+    return fromErrorsToFormState(error);
   }
-  redirect(`${paths.toWeb()}?deleted=true`);
+  revalidatePath(paths.toWeb());
+  redirect(createQueryString(paths.toWeb(), 'deleted', 'true'));
 };
 
 export const markAsImportant = async (credentialId: string) => {

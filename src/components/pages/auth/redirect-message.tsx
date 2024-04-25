@@ -1,7 +1,7 @@
 'use client';
 import { notify } from '@/lib/notification';
 import { FormState } from '@/types';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 interface RedirectMessageProps {
   type: FormState['status'];
@@ -12,13 +12,17 @@ export default function RedirectMessage({
   type,
   message,
 }: RedirectMessageProps) {
-  useEffect(() => {
+  const flashMessage = useCallback(() => {
     if (type === 'ERROR') {
       notify.error(message);
     } else {
       notify.success(message);
     }
-  }, [message, type]);
+  }, [type, message]);
+
+  useEffect(() => {
+    flashMessage();
+  }, [flashMessage]);
 
   return null;
 }

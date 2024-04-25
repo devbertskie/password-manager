@@ -39,8 +39,8 @@ const LoginSubmitButton = () => {
 
 const LoginForm = () => {
   const params = useSearchParams();
-  const isRegistered = Boolean(params.get('registered'));
-  const isLogout = Boolean(params.get('logout'));
+  const isRegistered = params.get('registered') === 'true';
+  const isLogout = params.get('logout') === 'true';
   const [formState, dispatchLoginAction] = useFormState(
     authorizeUser,
     EmptyFormState,
