@@ -15,7 +15,6 @@ interface RootLayoutProps {
 
 const RootLayout = async ({ children }: RootLayoutProps) => {
   const session = await auth();
-  console.log(session);
   if (!session) {
     redirect(paths.toLogin());
   }

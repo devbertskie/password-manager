@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import { NextResponse } from 'next/server';
 import authConfig from '@/auth.config';
 import { routes } from '@/lib/routes';
+import paths from '@/lib/paths';
 
 export const { auth: authMiddleware } = NextAuth(authConfig);
 export default authMiddleware((request) => {
@@ -25,7 +26,7 @@ export default authMiddleware((request) => {
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    return NextResponse.redirect(new URL('/login', nextUrl));
+    return NextResponse.redirect(new URL(paths.toLogin(), nextUrl));
   }
 
   return NextResponse.next();
