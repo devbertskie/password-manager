@@ -22,7 +22,7 @@ export default function WebCredentialWrapper({
   return (
     <>
       <div className="flex flex-col items-center justify-between space-y-3 md:flex-row md:space-y-0">
-        <h2 className="rounded-sm bg-primary/10 px-3 py-1.5 text-center font-space text-sm tracking-wider text-primary md:line-clamp-1 md:text-left md:text-lg">
+        <h2 className="rounded-sm  px-3 py-1.5 text-center font-space text-sm tracking-wider text-primary md:line-clamp-1 md:text-left md:text-lg">
           {webCredential.title}
         </h2>
 

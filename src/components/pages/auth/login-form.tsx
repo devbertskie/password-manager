@@ -18,8 +18,9 @@ const LoginSubmitButton = () => {
   return (
     <Button
       disabled={pending}
+      variant="default"
       type="submit"
-      className="w-full bg-primary/10 text-primary hover:bg-primary/5 hover:text-muted-foreground"
+      className="w-full"
     >
       {pending && <Loader2 className="size-4 animate-spin" />}
 
@@ -46,11 +47,11 @@ const LoginForm = () => {
       >
         {/* header */}
         <div className="mb-6 flex items-center justify-center">
-          <Lock className="size-10" />
+          <Lock className="size-10 text-primary" />
         </div>
 
         <div className="mb-6 flex flex-col items-center">
-          <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight">
+          <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight text-primary">
             Authenticate
           </h1>
           <p className="text-center text-sm text-muted-foreground">
@@ -60,7 +61,9 @@ const LoginForm = () => {
 
         {/* email */}
         <div className="mb-4 grid gap-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email" className="add-required">
+            Email
+          </Label>
           <Input
             id="email"
             name="email"
@@ -74,7 +77,9 @@ const LoginForm = () => {
 
         {/* password */}
         <div className="mb-6 grid gap-y-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password" className="add-required">
+            Password
+          </Label>
           <Input
             id="password"
             name="password"

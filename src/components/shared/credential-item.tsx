@@ -32,7 +32,7 @@ export default function CredentialItem({
         <li
           className={cn(
             segment === credentialId
-              ? 'border-l border-l-primary bg-primary/20'
+              ? 'border-l border-l-primary bg-primary/80'
               : 'hover:bg-primary/20 bg-primary/10',
             'transition-300 group cursor-pointer rounded-sm  px-4 py-3 text-muted-foreground/70 relative overflow-hidden',
           )}
@@ -43,7 +43,7 @@ export default function CredentialItem({
               className={cn(
                 isImportant && '!text-yellow-400',
                 segment === credentialId
-                  ? 'text-primary'
+                  ? 'text-accent'
                   : 'group-hover:text-primary',
                 'transition-300 size-5 ',
               )}
@@ -51,14 +51,20 @@ export default function CredentialItem({
             <div className="flex max-w-56 flex-1 flex-col space-y-0.5">
               <h3
                 className={cn(
-                  'transition-300 font-space truncate  text-sm  text-primary/60 group-hover:text-primary capitalize',
+                  segment === credentialId
+                    ? 'text-black font-semibold'
+                    : 'text-primary/60 group-hover:text-primary',
+                  'transition-300 font-space truncate  text-sm  capitalize',
                 )}
               >
                 {title}
               </h3>
               <p
                 className={cn(
-                  'transition-300 text-xs truncate  group-hover:text-muted-foreground ',
+                  segment === credentialId
+                    ? 'text-black font-normal'
+                    : 'group-hover:text-muted-foreground ',
+                  'transition-300 text-xs truncate  ',
                 )}
               >
                 {label}

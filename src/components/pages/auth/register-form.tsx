@@ -18,8 +18,9 @@ const RegisterButtonSubmit = () => {
   return (
     <Button
       disabled={pending}
+      variant="default"
       type="submit"
-      className="w-full bg-primary/10 text-primary hover:bg-primary/5 hover:text-muted-foreground"
+      className="w-full"
     >
       {pending && <Loader2 className="size-4 animate-spin" />}
 
@@ -44,11 +45,11 @@ const RegisterForm = () => {
     >
       {/* header */}
       <div className="mb-6 flex items-center justify-center">
-        <ShieldCheck className="size-10" />
+        <ShieldCheck className="size-10 text-primary" />
       </div>
 
       <div className="mb-6 flex flex-col items-center">
-        <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight">
+        <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight text-primary">
           Create an Account
         </h1>
         <p className="text-center text-sm text-muted-foreground">
@@ -58,7 +59,9 @@ const RegisterForm = () => {
 
       {/* username */}
       <div className="mb-4 grid gap-y-2">
-        <Label htmlFor="username">Username</Label>
+        <Label htmlFor="username" className="add-required">
+          Username
+        </Label>
         <Input
           name="username"
           id="username"
@@ -72,7 +75,9 @@ const RegisterForm = () => {
 
       {/* email */}
       <div className="mb-4 grid gap-y-2">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email" className="add-required">
+          Email
+        </Label>
         <Input
           name="email"
           id="email"
@@ -86,7 +91,9 @@ const RegisterForm = () => {
 
       {/* password */}
       <div className="mb-6 grid gap-y-2">
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="password" className="add-required">
+          Password
+        </Label>
         <Input
           name="password"
           id="password"

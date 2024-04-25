@@ -140,7 +140,7 @@ const AvatarFormUpload = () => {
                   <Button
                     disabled={!isDirty || isSubmitting}
                     type="submit"
-                    className="transition-300 group flex items-center rounded-md bg-primary/10 px-4 py-3 text-primary hover:bg-primary/15 hover:text-foreground"
+                    className="transition-300 group flex items-center rounded-md  px-4 py-3"
                   >
                     {isSubmitting ? (
                       <Loader2 className="size-4 animate-spin" />

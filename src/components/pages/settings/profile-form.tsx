@@ -63,10 +63,6 @@ const ProfileForm = ({ session }: ProfileFormProps) => {
         onSubmit={profileForm.handleSubmit(handleUpdateProfile)}
         className="flex flex-col space-y-6"
       >
-        {/* profile pic */}
-
-        {/* end profile pic */}
-        {/* username */}
         <FormField
           control={profileForm.control}
           name="username"
@@ -75,7 +71,9 @@ const ProfileForm = ({ session }: ProfileFormProps) => {
               <FormItem>
                 <FormControl>
                   <div className="flex flex-col space-y-4">
-                    <Label htmlFor="username">Username </Label>
+                    <Label htmlFor="username" className="add-required">
+                      Username{' '}
+                    </Label>
                     <Input
                       {...field}
                       type="text"
@@ -99,7 +97,9 @@ const ProfileForm = ({ session }: ProfileFormProps) => {
               <FormItem>
                 <div className="mb-6 flex flex-col space-y-4">
                   {/* email */}
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email" className="add-required">
+                    Email
+                  </Label>
                   <Input
                     {...field}
                     type="text"
@@ -119,11 +119,7 @@ const ProfileForm = ({ session }: ProfileFormProps) => {
           <Button variant="outline" disabled={isSubmitting} asChild>
             <Link href={paths.toDashboard()}>Cancel</Link>
           </Button>
-          <Button
-            type="submit"
-            className="bg-primary/10 text-primary hover:bg-primary/15 hover:text-foreground"
-            disabled={!isDirty || isSubmitting}
-          >
+          <Button type="submit" disabled={!isDirty || isSubmitting}>
             {isSubmitting && <Loader2 className="size-4 animate-spin" />}
 
             <span className={`${isSubmitting ? 'ml-2' : null}`}>

@@ -84,7 +84,7 @@ const WebNewForm = () => {
     <>
       <Button
         onClick={() => setOpenDialog(true)}
-        className="flex items-center space-x-1 bg-primary/10 text-primary hover:bg-primary/10 hover:text-muted-foreground"
+        className="flex items-center space-x-1"
       >
         <Plus className="w-4" />
         <span> New Credential</span>
@@ -233,7 +233,7 @@ const WebNewForm = () => {
                 </Button>
                 <Button
                   type="submit"
-                  className="order-first bg-primary/10 text-primary hover:bg-primary/15 hover:text-foreground"
+                  className="order-first"
                   disabled={isSubmitting}
                 >
                   {isSubmitting && <Loader2 className="size-4 animate-spin" />}

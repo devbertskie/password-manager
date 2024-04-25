@@ -62,7 +62,7 @@ const Sidebar = () => {
               href={paths.toDashboard()}
               className={cn(
                 pathname === paths.toDashboard()
-                  ? 'bg-primary/10 text-primary'
+                  ? 'bg-primary'
                   : 'hover:bg-primary/10',
                 'transition-300 group rounded-md px-3 py-2',
               )}
@@ -70,8 +70,26 @@ const Sidebar = () => {
               <li>
                 <>
                   <div className="flex items-center space-x-2">
-                    <Home className="transition-300 size-5 group-hover:text-primary" />
+                    {/* <Home className="transition-300 size-5 group-hover:text-primary" />
                     <span className="transition-300 group-hover:text-primary">
+                      Dashboard
+                    </span> */}
+                    <Home
+                      className={cn(
+                        pathname === paths.toDashboard()
+                          ? 'text-accent'
+                          : 'group-hover:text-primary',
+                        'transition-300 size-5 ',
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        pathname === paths.toDashboard()
+                          ? 'text-accent'
+                          : 'group-hover:text-primary',
+                        'transition-300 size-5 ',
+                      )}
+                    >
                       Dashboard
                     </span>
                   </div>
@@ -85,7 +103,7 @@ const Sidebar = () => {
               href={paths.toPasswords()}
               className={cn(
                 pathname === paths.toPasswords()
-                  ? 'bg-primary/10 text-primary'
+                  ? 'bg-primary'
                   : 'hover:bg-primary/10',
                 'transition-300 group rounded-md px-3 py-2',
               )}
@@ -93,8 +111,22 @@ const Sidebar = () => {
               <li>
                 <>
                   <div className="flex items-center space-x-2">
-                    <ShieldCheck className="transition-300 size-5 group-hover:text-primary" />
-                    <span className="transition-300 group-hover:text-primary">
+                    <ShieldCheck
+                      className={cn(
+                        pathname === paths.toPasswords()
+                          ? 'text-accent'
+                          : 'group-hover:text-primary',
+                        'transition-300 size-5 ',
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        pathname === paths.toPasswords()
+                          ? 'text-accent'
+                          : 'group-hover:text-primary',
+                        'transition-300',
+                      )}
+                    >
                       Passwords
                     </span>
                   </div>
@@ -112,7 +144,7 @@ const Sidebar = () => {
               href={paths.toSettings()}
               className={cn(
                 pathname === paths.toSettings()
-                  ? 'bg-primary/10 text-primary'
+                  ? 'bg-primary'
                   : 'hover:bg-primary/10',
                 'transition-300 group rounded-md px-3 py-2',
               )}
@@ -120,8 +152,22 @@ const Sidebar = () => {
               <li>
                 <>
                   <div className="flex items-center space-x-2">
-                    <Settings className="transition-300 size-5 group-hover:text-primary" />
-                    <span className="transition-300 group-hover:text-primary">
+                    <Settings
+                      className={cn(
+                        pathname === paths.toSettings()
+                          ? 'text-accent'
+                          : 'group-hover:text-primary',
+                        'transition-300 size-5',
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        pathname === paths.toSettings()
+                          ? 'text-accent'
+                          : 'group-hover:text-primary',
+                        'transition-300',
+                      )}
+                    >
                       Settings
                     </span>
                   </div>

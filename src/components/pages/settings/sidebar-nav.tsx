@@ -29,9 +29,9 @@ const SidebarNav = ({ className, items, ...props }: SidebarNavProps) => {
           className={cn(
             buttonVariants({ variant: 'ghost' }),
             pathname === item.path
-              ? 'bg-primary/10 text-primary hover:bg-primary/10 hover:text-primary'
+              ? 'bg-primary text-accent hover:bg-primary hover:text-accent'
               : 'hover:underline hover:bg-transparent',
-            'justify-start',
+            'justify-start ',
           )}
         >
           {item.label}

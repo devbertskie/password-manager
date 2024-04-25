@@ -14,17 +14,29 @@ export default function CategoriesItem({ pathname }: CategoriesItemProps) {
         href={list.path}
         key={list.label}
         className={cn(
-          list.path === pathname
-            ? 'bg-primary/10 text-primary'
-            : 'hover:bg-primary/10',
+          list.path === pathname ? 'bg-primary' : 'hover:bg-primary/10',
           'transition-300 group rounded-md px-3 py-2',
         )}
       >
         <li>
           <React.Fragment>
             <div className="flex items-center space-x-2">
-              <list.icon className="transition-300 size-5 group-hover:text-primary" />
-              <span className="transition-300 group-hover:text-primary">
+              <list.icon
+                className={cn(
+                  list.path === pathname
+                    ? 'text-accent'
+                    : 'group-hover:text-primary',
+                  'transition-300 size-5 ',
+                )}
+              />
+              <span
+                className={cn(
+                  list.path === pathname
+                    ? 'text-accent'
+                    : 'group-hover:text-primary',
+                  'transition-300 ',
+                )}
+              >
                 {list.label}
               </span>
             </div>

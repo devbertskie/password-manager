@@ -317,11 +317,7 @@ const WebCredentialPreview = ({
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              className="bg-primary/10 text-primary hover:bg-primary/15 hover:text-foreground"
-              disabled={isSubmitting || !isDirty}
-            >
+            <Button type="submit" disabled={isSubmitting || !isDirty}>
               {isSubmitting && <Loader2 className="size-4 animate-spin" />}
               <span className={`${isSubmitting ? 'ml-2' : null}`}>
                 {isSubmitting ? 'Updating...' : 'Update Credential'}
