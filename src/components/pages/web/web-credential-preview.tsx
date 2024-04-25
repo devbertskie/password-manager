@@ -17,7 +17,7 @@ import { webCredentialFormSchema } from '@/lib/schema';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { WebCredential } from '@prisma/client';
-import * as Crypto from 'crypto-js';
+import Crypto from 'crypto-js';
 import {
   CheckCheck,
   Contact,
@@ -53,9 +53,6 @@ const WebCredentialPreview = ({
   const [copiedUsername, copyUsername] = useCopyToClipboard();
   const [copiedPassword, copyPassword] = useCopyToClipboard();
 
-  // if (!webCredential || !SALT_KEY) {
-  //   return notFound();
-  // }
   const decryptedUsernameOrEmail = Crypto.AES.decrypt(
     webCredential?.user_email,
     SALT_KEY,

@@ -13,6 +13,8 @@ interface RootLayoutProps {
   children: ReactNode;
 }
 
+export const dynamic = 'force-dynamic';
+
 const RootLayout = async ({ children }: RootLayoutProps) => {
   const session = await auth();
   if (!session) {
