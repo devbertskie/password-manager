@@ -1,12 +1,11 @@
-'use client';
-
-import { Toaster } from '@/components/ui/sonner';
+import { FlashToaster } from '@/components/shared/feedback/flash-toaster';
 import React, { PropsWithChildren } from 'react';
 
 const NotificationProvider = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <Toaster richColors duration={1500} position="bottom-right" />
+      <FlashToaster />
+
       {children}
     </>
   );

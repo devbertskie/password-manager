@@ -10,8 +10,9 @@ import { FormState } from '@/types';
 import { hash } from 'bcrypt';
 import { isRedirectError } from 'next/dist/client/components/redirect';
 import { redirect } from 'next/navigation';
-import { createQueryString } from '@/helpers/create-query-string';
 import paths from '@/lib/paths';
+import { routes } from '@/lib/routes';
+import { setFlash } from '@/components/shared/feedback';
 
 export const registerUser = async (
   formState: FormState,
@@ -48,8 +49,12 @@ export const registerUser = async (
   } catch (error) {
     return fromErrorsToFormState(error);
   }
-
-  redirect(createQueryString(paths.toLogin(), 'registered', 'true'));
+  setFlash({
+    type: 'SUCCESS',
+    message: 'Account created successfully',
+    timestamp: Date.now(),
+  });
+  redirect(paths.toLogin());
 };
 
 export const authorizeUser = async (
@@ -67,8 +72,8 @@ export const authorizeUser = async (
     await signIn('credentials', {
       email,
       password,
-      redirectTo: createQueryString(paths.toDashboard(), 'auth', 'true'),
-    });
+      redirectTo: routes.defaultRedirect,
+    }).then(() => {});
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
@@ -79,7 +84,12 @@ export const authorizeUser = async (
 };
 
 export const signOutUser = async () => {
+  setFlash({
+    type: 'SUCCESS',
+    message: 'Logout successfully',
+    timestamp: Date.now(),
+  });
   await signOut({
-    redirectTo: createQueryString(paths.toLogin(), 'logout', 'true'),
+    redirectTo: paths.toLogin(),
   });
 };

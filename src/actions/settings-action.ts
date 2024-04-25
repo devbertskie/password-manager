@@ -73,7 +73,6 @@ export const updateProfileImage = async (imageUrl: string, email: string) => {
     });
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message);
       return error;
     }
   }
@@ -88,7 +87,6 @@ export const finduserByEmail = async (email: string) => {
     });
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message);
       return error;
     }
   }
@@ -140,7 +138,6 @@ export const changePassword = async (
       userData: updatedUser,
     };
   } catch (error) {
-    console.log(error);
     if (error instanceof Error) {
       return {
         errorMsg: 'Failed to update credential',

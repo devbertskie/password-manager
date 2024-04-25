@@ -12,7 +12,8 @@ import { toFormState } from '@/helpers/to-form-state';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
-import { createQueryString } from '@/helpers/create-query-string';
+
+import { setFlash } from '@/components/shared/feedback';
 
 const SALT_KEY = process.env.SALT_KEY!;
 
@@ -123,7 +124,6 @@ export const fetchWebCredentialById = async (
     };
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message);
       return {
         errorMsg: 'Unable to retrieve data',
       };
@@ -206,8 +206,14 @@ export const deleteCredential = async (credentialId: string) => {
   } catch (error) {
     return fromErrorsToFormState(error);
   }
+
   revalidatePath(paths.toWeb());
-  redirect(createQueryString(paths.toWeb(), 'deleted', 'true'));
+  setFlash({
+    type: 'SUCCESS',
+    message: 'Credential deleted',
+    timestamp: Date.now(),
+  });
+  redirect(paths.toWeb());
 };
 
 export const markAsImportant = async (credentialId: string) => {

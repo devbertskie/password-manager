@@ -1,24 +1,17 @@
 'use client';
 
+import React from 'react';
 import { Button } from '@/components/ui/button';
-
 import { Input } from '@/components/ui/input';
-
 import paths from '@/lib/paths';
-
 import { Label } from '@radix-ui/react-label';
 import { Loader2, Lock } from 'lucide-react';
-
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import React from 'react';
-
-import RedirectMessage from '@/components/pages/auth/redirect-message';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authorizeUser } from '@/actions';
 import { EmptyFormState } from '@/helpers/from-errors-to-formstate';
 import { useFormToastMessage } from '@/hooks/use-form-toast-message';
-import FieldError from './field-error';
+import FieldError from '@/components/pages/auth/field-error';
 
 const LoginSubmitButton = () => {
   const { pending } = useFormStatus();
@@ -38,9 +31,6 @@ const LoginSubmitButton = () => {
 };
 
 const LoginForm = () => {
-  const params = useSearchParams();
-  const isRegistered = params.get('registered') === 'true';
-  const isLogout = params.get('logout') === 'true';
   const [formState, dispatchLoginAction] = useFormState(
     authorizeUser,
     EmptyFormState,
@@ -50,16 +40,6 @@ const LoginForm = () => {
 
   return (
     <>
-      {isRegistered && (
-        <RedirectMessage
-          type="SUCCESS"
-          message="Your account was created 🎉. Please login"
-        />
-      )}
-      {isLogout && (
-        <RedirectMessage type="SUCCESS" message="Logout successfully 🎉" />
-      )}
-
       <form
         action={dispatchLoginAction}
         className="w-96 rounded-xl border border-border p-8 shadow-xl"

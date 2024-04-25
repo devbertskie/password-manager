@@ -2,8 +2,9 @@
 import NextAuth, { type DefaultSession } from 'next-auth';
 import authConfig from '@/auth.config';
 import { JWT } from 'next-auth/jwt';
-import { db } from './db';
+import { db } from '@/db';
 import { UserRole } from '@prisma/client';
+import { setFlash } from '@/components/shared/feedback';
 
 declare module 'next-auth' {
   interface Session {
@@ -39,6 +40,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       });
       if (!currentUser) return false;
       if (!currentUser.emailVerified) return false;
+      setFlash({
+        type: 'SUCCESS',
+        message: 'Welcome back 🎉',
+        timestamp: Date.now(),
+      });
       return true;
     },
     async jwt({ token, trigger, session }) {

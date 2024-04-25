@@ -4,6 +4,7 @@ import { Space_Grotesk as SpaceGrotesk, Lexend } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import ProviderComponent from '@/components/layout/provider-component';
+import { FlashToaster } from '@/components/shared/feedback';
 
 const spaseGrotesk = SpaceGrotesk({
   subsets: ['latin'],
@@ -33,7 +34,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(lexend.variable, spaseGrotesk.variable)}>
-        <ProviderComponent>{children}</ProviderComponent>
+        <ProviderComponent>
+          <FlashToaster />
+          {children}
+        </ProviderComponent>
       </body>
     </html>
   );
