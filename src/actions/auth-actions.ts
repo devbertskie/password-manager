@@ -66,6 +66,13 @@ export const registerUser = async (
     // send to email
     const { error } = await sendEmailverification(generatedToken);
     if (error) {
+      // if there is error sending the token: FALLBACK
+      // delete the current token
+      await deleteEmailVerificationById(generatedToken.id);
+      // delete the user
+      await db.user.delete({
+        where: { id: createdUser.id },
+      });
       return toFormState('ERROR', 'Something went wrong. Sending the token');
     }
   } catch (error) {
