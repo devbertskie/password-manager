@@ -40,64 +40,62 @@ const LoginForm = () => {
   useFormToastMessage(formState);
 
   return (
-    <>
-      <form
-        action={dispatchLoginAction}
-        className="w-96 rounded-xl border border-border p-8 shadow-xl"
-      >
-        {/* header */}
-        <div className="mb-6 flex items-center justify-center">
-          <Lock className="size-10 text-primary" />
-        </div>
+    <form
+      action={dispatchLoginAction}
+      className="w-96 rounded-xl border border-border p-8 shadow-xl"
+    >
+      {/* header */}
+      <div className="mb-6 flex items-center justify-center">
+        <Lock className="size-10 text-primary" />
+      </div>
 
-        <div className="mb-6 flex flex-col items-center">
-          <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight text-primary">
-            Authenticate
-          </h1>
-          <p className="text-center text-sm text-muted-foreground">
-            Login to proceed
-          </p>
-        </div>
-
-        {/* email */}
-        <div className="mb-4 grid gap-y-2">
-          <Label htmlFor="email" className="add-required">
-            Email
-          </Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            autoCapitalize="off"
-            autoComplete="off"
-            placeholder="Enter your email"
-          />
-          <FieldError formState={formState} name="email" />
-        </div>
-
-        {/* password */}
-        <div className="mb-6 grid gap-y-2">
-          <Label htmlFor="password" className="add-required">
-            Password
-          </Label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="******"
-          />
-          <FieldError formState={formState} name="password" />
-        </div>
-
-        <LoginSubmitButton />
-        <p className="mt-2 text-sm text-muted-foreground">
-          Not yet registered?{' '}
-          <Link href={paths.toRegister()} className="text-primary underline">
-            Create an account
-          </Link>
+      <div className="mb-6 flex flex-col items-center">
+        <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight text-primary">
+          Authenticate
+        </h1>
+        <p className="text-center text-sm text-muted-foreground">
+          Login to proceed
         </p>
-      </form>
-    </>
+      </div>
+
+      {/* email */}
+      <div className="mb-4 grid gap-y-2">
+        <Label htmlFor="email" className="add-required">
+          Email
+        </Label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          autoCapitalize="off"
+          autoComplete="off"
+          placeholder="Enter your email"
+        />
+        <FieldError formState={formState} name="email" />
+      </div>
+
+      {/* password */}
+      <div className="mb-6 grid gap-y-2">
+        <Label htmlFor="password" className="add-required">
+          Password
+        </Label>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="******"
+        />
+        <FieldError formState={formState} name="password" />
+      </div>
+
+      <LoginSubmitButton />
+      <p className="mt-2 text-sm text-muted-foreground">
+        Not yet registered?{' '}
+        <Link href={paths.toRegister()} className="text-primary underline">
+          Create an account
+        </Link>
+      </p>
+    </form>
   );
 };
 

@@ -39,6 +39,16 @@ model WebCredential {
   updatedAt DateTime @updatedAt
 }
 
+model EmailVerification {
+  id String @id @default(cuid())
+  email String
+  token String
+  attempt Int @default(1)
+  expiresAt DateTime
+
+  @@unique([email, token])
+}
+
 enum UserRole {
   User
   ADMIN
