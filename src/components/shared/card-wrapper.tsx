@@ -12,7 +12,7 @@ export default function Wrapper({
   ...rest
 }: WrapperProps) {
   return (
-    <Card {...rest} className={cn('w-[25rem]', className)}>
+    <Card {...rest} className={cn('w-96', className)}>
       {children}
     </Card>
   );

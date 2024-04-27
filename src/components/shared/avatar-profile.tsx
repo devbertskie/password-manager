@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { cn } from '@/lib/utils';
 import { useSession } from 'next-auth/react';
 
-interface AvatarProfileProps extends React.HtmlHTMLAttributes<HTMLElement> {
+interface AvatarProfileProps extends React.HTMLAttributes<HTMLElement> {
   imgSrc?: string;
 }
 
