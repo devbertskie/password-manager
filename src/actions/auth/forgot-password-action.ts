@@ -59,6 +59,8 @@ export const forgotPassword = async (
             'New Reset password confirmation sent!',
           );
         }
+      } else {
+        return toFormState('ERROR', 'Login Attempts Lmit Error');
       }
     }
 
