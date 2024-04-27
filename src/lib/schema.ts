@@ -80,3 +80,23 @@ export const webCredentialFormSchema = z.object({
   password: z.string().min(1, 'Password is required'),
   isImportant: z.boolean().default(false).optional(),
 });
+
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .email({ message: 'Email is required' })
+    .toLowerCase()
+    .trim(),
+});
+
+export const resetPasswordSchema = z
+  .object({
+    newPassword: z.string().min(1, { message: 'New password is required' }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: 'Confirm password is required' }),
+  })
+  .refine((values) => values.newPassword === values.confirmPassword, {
+    path: ['confirmPassword'],
+    message: 'Password must match!',
+  });

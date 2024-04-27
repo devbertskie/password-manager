@@ -18,7 +18,7 @@ import {
   isTokenExpire,
   updateToken,
 } from '@/lib/token';
-import { sendEmailverification } from '@/lib/mail';
+import { sendEmailVerification } from '@/lib/mail';
 import {
   deleteEmailVerificationById,
   fetchEmailVerificationByEmail,
@@ -64,7 +64,7 @@ export const registerUser = async (
 
     const generatedToken = await generateVerificationToken(createdUser.email);
     // send to email
-    const { error } = await sendEmailverification(generatedToken);
+    const { error } = await sendEmailVerification(generatedToken);
     if (error) {
       // if there is error sending the token: FALLBACK
       // delete the current token
@@ -114,7 +114,7 @@ export const authorizeUser = async (
         const updatedExisitingToken = await updateToken(existingToken);
 
         if (updatedExisitingToken) {
-          const { error } = await sendEmailverification(updatedExisitingToken);
+          const { error } = await sendEmailVerification(updatedExisitingToken);
           if (error) {
             return toFormState('ERROR', 'Unable to sent verification token');
           }

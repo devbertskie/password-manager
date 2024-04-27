@@ -11,6 +11,7 @@ const paths = {
   toNotes: () => '/notes',
   toSettings: () => '/settings',
   toChangePassword: () => '/settings/credential',
+  toForgotPassword: () => '/forgot-password',
 };
 
 export default paths;

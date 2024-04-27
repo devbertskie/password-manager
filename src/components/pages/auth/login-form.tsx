@@ -87,6 +87,14 @@ const LoginForm = () => {
         />
         <FieldError formState={formState} name="password" />
       </div>
+      <p className="-mt-6 mb-4 text-sm text-muted-foreground">
+        <Link
+          href={paths.toForgotPassword()}
+          className="text-primary underline"
+        >
+          Forgot Password?
+        </Link>
+      </p>
 
       <LoginSubmitButton />
       <p className="mt-2 text-sm text-muted-foreground">

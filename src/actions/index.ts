@@ -15,3 +15,6 @@ export {
   updateCredentialById,
   markAsImportant,
 } from '@/actions/web-credential-action';
+
+export { forgotPassword } from '@/actions/auth/forgot-password-action';
+export { resetPassword } from '@/actions/auth/reset-password-action';

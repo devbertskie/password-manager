@@ -1,5 +1,12 @@
 const publicRoutes = ['/'];
-const authRoutes = ['/login', '/register', '/error', '/verify'];
+const authRoutes = [
+  '/login',
+  '/register',
+  '/error',
+  '/verify',
+  '/forgot-password',
+  '/reset-password',
+];
 const apiPrefix = '/api/auth';
 const DEFAULT_URL_REDIRECT = '/dashboard';
 
