@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
 import AvatarProfile from '@/components/shared/avatar-profile';
-import { signOutUser } from '@/actions/auth-actions';
+import { signOutUser } from '@/actions';
 
 const SidebarProfile = () => {
   const { data: userSession } = useSession();

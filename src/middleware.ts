@@ -26,7 +26,16 @@ export default authMiddleware((request) => {
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    return NextResponse.redirect(new URL(paths.toLogin(), nextUrl));
+    let callbackUrl = currentUrlPath;
+    if (nextUrl.search) {
+      callbackUrl += nextUrl.search;
+    }
+
+    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+
+    return NextResponse.redirect(
+      new URL(`${paths.toLogin()}?callbackUrl=${encodedCallbackUrl}`, nextUrl),
+    );
   }
 
   return NextResponse.next();

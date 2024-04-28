@@ -12,6 +12,9 @@ import { registerUser } from '@/actions';
 import { EmptyFormState } from '@/helpers/from-errors-to-formstate';
 import { useFormToastMessage } from '@/hooks/use-form-toast-message';
 import FieldError from '@/components/pages/auth/field-error';
+import CardHeader from '@/components/shared/card-header';
+import Wrapper from '@/components/shared/card-wrapper';
+import { CardContent } from '@/components/ui/card';
 
 const RegisterButtonSubmit = () => {
   const { pending } = useFormStatus();
@@ -39,78 +42,71 @@ const RegisterForm = () => {
 
   useFormToastMessage(formState);
   return (
-    <form
-      action={dispatchRegisterUserAction}
-      className="w-96 rounded-xl border border-border p-8 shadow-xl"
-    >
-      {/* header */}
-      <div className="mb-6 flex items-center justify-center">
-        <ShieldCheck className="size-10 text-primary" />
-      </div>
+    <Wrapper>
+      <CardHeader
+        Icon={ShieldCheck}
+        title="Create an Account"
+        label="Sign up to get started"
+      />
 
-      <div className="mb-6 flex flex-col items-center">
-        <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight text-primary">
-          Create an Account
-        </h1>
-        <p className="text-center text-sm text-muted-foreground">
-          Signup to get started
-        </p>
-      </div>
+      <CardContent>
+        <form action={dispatchRegisterUserAction}>
+          {/* username */}
+          <div className="mb-4 grid gap-y-2">
+            <Label htmlFor="username" className="add-required">
+              Username
+            </Label>
+            <Input
+              name="username"
+              id="username"
+              type="text"
+              autoCapitalize="off"
+              autoComplete="off"
+              placeholder="Enter your username"
+            />
+            <FieldError formState={formState} name="username" />
+          </div>
 
-      {/* username */}
-      <div className="mb-4 grid gap-y-2">
-        <Label htmlFor="username" className="add-required">
-          Username
-        </Label>
-        <Input
-          name="username"
-          id="username"
-          type="text"
-          autoCapitalize="off"
-          autoComplete="off"
-          placeholder="Enter your username"
-        />
-        <FieldError formState={formState} name="username" />
-      </div>
+          {/* email */}
+          <div className="mb-4 grid gap-y-2">
+            <Label htmlFor="email" className="add-required">
+              Email
+            </Label>
+            <Input
+              name="email"
+              id="email"
+              type="email"
+              autoCapitalize="off"
+              autoComplete="off"
+              placeholder="Enter your email"
+            />
+            <FieldError formState={formState} name="email" />
+          </div>
 
-      {/* email */}
-      <div className="mb-4 grid gap-y-2">
-        <Label htmlFor="email" className="add-required">
-          Email
-        </Label>
-        <Input
-          name="email"
-          id="email"
-          type="email"
-          autoCapitalize="off"
-          autoComplete="off"
-          placeholder="Enter your email"
-        />
-        <FieldError formState={formState} name="email" />
-      </div>
+          {/* password */}
+          <div className="mb-6 grid gap-y-2">
+            <Label htmlFor="password" className="add-required">
+              Password
+            </Label>
+            <Input
+              name="password"
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+            />
+            <FieldError formState={formState} name="password" />
+          </div>
 
-      {/* password */}
-      <div className="mb-6 grid gap-y-2">
-        <Label htmlFor="password" className="add-required">
-          Password
-        </Label>
-        <Input
-          name="password"
-          id="password"
-          type="password"
-          placeholder="Enter your password"
-        />
-        <FieldError formState={formState} name="password" />
-      </div>
-
-      <RegisterButtonSubmit />
-      <p className="mt-2 text-sm text-muted-foreground">
-        Already have an account?{' '}
-        <Link href={paths.toLogin()} className="text-primary underline">
-          Login instead
-        </Link>
-      </p>
-    </form>
+          <RegisterButtonSubmit />
+          <p className="mt-2 text-sm text-muted-foreground">
+            Already have an account?{' '}
+            <Link href={paths.toLogin()} className="text-primary underline">
+              Login instead
+            </Link>
+          </p>
+        </form>
+      </CardContent>
+    </Wrapper>
   );
 };
 

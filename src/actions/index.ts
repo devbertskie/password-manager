@@ -4,8 +4,6 @@ export {
   changePassword,
 } from '@/actions/settings-action';
 
-export { registerUser, authorizeUser } from '@/actions/auth-actions';
-
 export {
   addCredential,
   fetchAllWebCredentialsByUser,
@@ -18,3 +16,7 @@ export {
 
 export { forgotPassword } from '@/actions/auth/forgot-password-action';
 export { resetPassword } from '@/actions/auth/reset-password-action';
+export { authorizeUser } from '@/actions/auth/authorize-user-action';
+export { signOutUser } from '@/actions/auth/sign-out-action';
+export { verifyUserEmail } from '@/actions/auth/verify-user-email-action';
+export { registerUser } from '@/actions/auth/register-user-action';

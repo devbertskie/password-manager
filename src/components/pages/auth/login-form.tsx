@@ -12,6 +12,10 @@ import { authorizeUser } from '@/actions';
 import { EmptyFormState } from '@/helpers/from-errors-to-formstate';
 import { useFormToastMessage } from '@/hooks/use-form-toast-message';
 import FieldError from '@/components/pages/auth/field-error';
+import Wrapper from '@/components/shared/card-wrapper';
+import { CardContent } from '@/components/ui/card';
+import CardHeader from '@/components/shared/card-header';
+import { useSearchParams } from 'next/navigation';
 
 const LoginSubmitButton = () => {
   const { pending } = useFormStatus();
@@ -32,78 +36,69 @@ const LoginSubmitButton = () => {
 };
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
   const [formState, dispatchLoginAction] = useFormState(
-    authorizeUser,
+    authorizeUser.bind(null, callbackUrl),
     EmptyFormState,
   );
 
   useFormToastMessage(formState);
 
   return (
-    <form
-      action={dispatchLoginAction}
-      className="w-96 rounded-xl border border-border p-8 shadow-xl"
-    >
-      {/* header */}
-      <div className="mb-6 flex items-center justify-center">
-        <Lock className="size-10 text-primary" />
-      </div>
+    <Wrapper>
+      <CardHeader Icon={Lock} title="Authenticate" label="Login to proceed" />
 
-      <div className="mb-6 flex flex-col items-center">
-        <h1 className="mb-2 text-center text-2xl font-semibold tracking-tight text-primary">
-          Authenticate
-        </h1>
-        <p className="text-center text-sm text-muted-foreground">
-          Login to proceed
-        </p>
-      </div>
+      <CardContent>
+        <form action={dispatchLoginAction}>
+          {/* email */}
+          <div className="mb-4 grid gap-y-2">
+            <Label htmlFor="email" className="add-required">
+              Email
+            </Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              autoCapitalize="off"
+              autoComplete="off"
+              placeholder="Enter your email"
+            />
+            <FieldError formState={formState} name="email" />
+          </div>
 
-      {/* email */}
-      <div className="mb-4 grid gap-y-2">
-        <Label htmlFor="email" className="add-required">
-          Email
-        </Label>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          autoCapitalize="off"
-          autoComplete="off"
-          placeholder="Enter your email"
-        />
-        <FieldError formState={formState} name="email" />
-      </div>
+          {/* password */}
+          <div className="mb-6 grid gap-y-2">
+            <Label htmlFor="password" className="add-required">
+              Password
+            </Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="******"
+            />
+            <FieldError formState={formState} name="password" />
+          </div>
+          <p className="-mt-6 mb-4 text-sm text-muted-foreground">
+            <Link
+              href={paths.toForgotPassword()}
+              className="text-primary underline"
+            >
+              Forgot Password?
+            </Link>
+          </p>
 
-      {/* password */}
-      <div className="mb-6 grid gap-y-2">
-        <Label htmlFor="password" className="add-required">
-          Password
-        </Label>
-        <Input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="******"
-        />
-        <FieldError formState={formState} name="password" />
-      </div>
-      <p className="-mt-6 mb-4 text-sm text-muted-foreground">
-        <Link
-          href={paths.toForgotPassword()}
-          className="text-primary underline"
-        >
-          Forgot Password?
-        </Link>
-      </p>
-
-      <LoginSubmitButton />
-      <p className="mt-2 text-sm text-muted-foreground">
-        Not yet registered?{' '}
-        <Link href={paths.toRegister()} className="text-primary underline">
-          Create an account
-        </Link>
-      </p>
-    </form>
+          <LoginSubmitButton />
+          <p className="mt-2 text-sm text-muted-foreground">
+            Not yet registered?{' '}
+            <Link href={paths.toRegister()} className="text-primary underline">
+              Create an account
+            </Link>
+          </p>
+        </form>
+      </CardContent>
+    </Wrapper>
   );
 };
 

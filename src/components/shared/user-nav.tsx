@@ -17,7 +17,7 @@ import { USER_NAV_PROFILE } from '@/constants';
 import { LogOut } from 'lucide-react';
 import AvatarProfile from '@/components/shared/avatar-profile';
 import { useSession } from 'next-auth/react';
-import { signOutUser } from '@/actions/auth-actions';
+import { signOutUser } from '@/actions';
 
 const UserNav = () => {
   const { data: userSession } = useSession();

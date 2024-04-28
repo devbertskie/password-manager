@@ -1,5 +1,5 @@
 'use client';
-import { verifyUserEmail } from '@/actions/auth-actions';
+import { verifyUserEmail } from '@/actions';
 import StatusFeedback from '@/components/shared/feedback/status-feedback';
 import { Button } from '@/components/ui/button';
 import {
