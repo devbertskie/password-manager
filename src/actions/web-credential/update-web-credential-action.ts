@@ -3,11 +3,8 @@
 import { encryptText } from '@/lib/encrypt-text';
 import paths from '@/lib/paths';
 import { webCredentialFormSchema } from '@/lib/schema';
-import {
-  CredentialDataType,
-  fetchWebcredentialById,
-  updateWebCredentialById,
-} from '@/query/web-credential-query';
+import { fetchWebcredentialById, updateWebCredentialById } from '@/query';
+import { CredentialDataType } from '@/query/web-credential-query';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 

@@ -42,3 +42,7 @@ export const deleteCredentialById = (credentialId: string) => {
     where: { id: credentialId },
   });
 };
+
+export const fetchAllCredentials = () => {
+  return db.webCredential.findMany();
+};

@@ -1,7 +1,7 @@
 'use server';
 
 import { getCurrentUser } from '@/lib/current-user';
-import { fetchWebcredentialById } from '@/query/web-credential-query';
+import { fetchWebcredentialById } from '@/query';
 
 export const fetchCredentialById = async (webCredentialId: string) => {
   try {

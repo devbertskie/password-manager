@@ -17,7 +17,6 @@ export const authorizeUser = async (
   formData: FormData,
 ) => {
   try {
-    console.log(callbackUrl);
     const schemaData = formLoginSchema.safeParse(Object.fromEntries(formData));
     const verificationLimitAttempts = process.env.VERIFICATION_LIMIT_ATTEMPTS;
 

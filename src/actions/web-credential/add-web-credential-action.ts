@@ -4,10 +4,9 @@ import { getCurrentUser } from '@/lib/current-user';
 import { encryptText } from '@/lib/encrypt-text';
 import paths from '@/lib/paths';
 import { webCredentialFormSchema } from '@/lib/schema';
-import {
-  CredentialDataType,
-  createWebCredential,
-} from '@/query/web-credential-query';
+import { CredentialDataType } from '@/query/web-credential-query';
+import { createWebCredential } from '@/query';
+
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 

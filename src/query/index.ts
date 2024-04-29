@@ -10,3 +10,12 @@ export {
   fetchForgotPasswordVerificationByToken,
   deleteForgotPasswordVerificationById,
 } from '@/query/forgot-password-verification-query';
+
+export {
+  fetchAllCredentials,
+  fetchAllWebCredentialsByUserId,
+  fetchWebcredentialById,
+  createWebCredential,
+  deleteCredentialById,
+  updateWebCredentialById,
+} from '@/query/web-credential-query';

@@ -4,7 +4,7 @@ import { db } from '@/db';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { toFormState } from '@/helpers/to-form-state';
 import paths from '@/lib/paths';
-import { fetchWebcredentialById } from '@/query/web-credential-query';
+import { fetchWebcredentialById } from '@/query';
 import { revalidatePath } from 'next/cache';
 
 export const markAsImportant = async (credentialId: string) => {

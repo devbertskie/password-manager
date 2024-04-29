@@ -4,7 +4,7 @@ import { setFlash } from '@/components/shared/feedback';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { toFormState } from '@/helpers/to-form-state';
 import paths from '@/lib/paths';
-import { deleteCredentialById } from '@/query/web-credential-query';
+import { deleteCredentialById } from '@/query';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
