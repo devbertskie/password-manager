@@ -1,6 +1,6 @@
 'use client';
-import { changePassword } from '@/actions';
-import { signOutUser } from '@/actions/auth-actions';
+import { changePassword, signOutUser } from '@/actions';
+import { ExtendedUser } from '@/auth';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -16,17 +16,16 @@ import paths from '@/lib/paths';
 import { credentialFormSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import { Session } from 'next-auth';
 import Link from 'next/link';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 interface CredentialFormProps {
-  session: Session | null;
+  currentUser: ExtendedUser | null;
 }
 
-const CredentialForm = ({ session }: CredentialFormProps) => {
+const CredentialForm = ({ currentUser }: CredentialFormProps) => {
   const credentialForm = useForm<z.infer<typeof credentialFormSchema>>({
     mode: 'onSubmit',
     resolver: zodResolver(credentialFormSchema),
@@ -40,7 +39,7 @@ const CredentialForm = ({ session }: CredentialFormProps) => {
   const handleUpdateCredential = async (
     values: z.infer<typeof credentialFormSchema>,
   ) => {
-    const userResponseData = await changePassword(values, session?.user.email!);
+    const userResponseData = await changePassword(values, currentUser?.email!);
     if (userResponseData?.errorMsg) {
       notify.error(userResponseData.errorMsg);
     } else {

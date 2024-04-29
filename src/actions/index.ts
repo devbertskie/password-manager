@@ -4,19 +4,18 @@ export {
   changePassword,
 } from '@/actions/settings-action';
 
-export {
-  addCredential,
-  fetchAllWebCredentialsByUser,
-  fetchWebCredentialById,
-  fetchAllCredentials,
-  deleteCredential,
-  updateCredentialById,
-  markAsImportant,
-} from '@/actions/web-credential-action';
-
+// AUTH
 export { forgotPassword } from '@/actions/auth/forgot-password-action';
 export { resetPassword } from '@/actions/auth/reset-password-action';
 export { authorizeUser } from '@/actions/auth/authorize-user-action';
 export { signOutUser } from '@/actions/auth/sign-out-action';
 export { verifyUserEmail } from '@/actions/auth/verify-user-email-action';
 export { registerUser } from '@/actions/auth/register-user-action';
+
+// WEB CREDENTIALS
+export { fetchAllCredentialsByUser } from '@/actions/web-credential/fetch-all-web-credentials-action';
+export { fetchCredentialById } from '@/actions/web-credential/fetch-web-credential-by-id-action';
+export { addCredential } from '@/actions/web-credential/add-web-credential-action';
+export { updateCredentialById } from '@/actions/web-credential/update-web-credential-action';
+export { deleteCredential } from '@/actions/web-credential/delete-credential-action';
+export { markAsImportant } from '@/actions/web-credential/mark-important-action';

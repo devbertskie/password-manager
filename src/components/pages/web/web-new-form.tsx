@@ -26,14 +26,12 @@ import { useForm } from 'react-hook-form';
 import { useToggle } from 'usehooks-ts';
 import { z } from 'zod';
 import { addCredential } from '@/actions';
-import { useSession } from 'next-auth/react';
 import { notify } from '@/lib/notification';
-import { useRouter } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { Switch } from '@/components/ui/switch';
 import paths from '@/lib/paths';
 
 const WebNewForm = () => {
-  const { data: session } = useSession();
   const router = useRouter();
   // eslint-disable-next-line no-unused-vars
   const [openDialog, toggleDiaglog, setOpenDialog] = useToggle(false);
@@ -51,19 +49,16 @@ const WebNewForm = () => {
   const handleAddWebCredential = async (
     values: z.infer<typeof webCredentialFormSchema>,
   ) => {
-    const webCredentialResponse = await addCredential(
-      values,
-      session?.user.id!,
-    );
-    if (webCredentialResponse?.errorMsg) {
-      notify.error(webCredentialResponse.errorMsg);
-      return;
+    const webCredentialData = await addCredential(values);
+
+    if (!webCredentialData) {
+      return notFound();
     }
 
-    if (webCredentialResponse?.webCredentialData) {
+    if (webCredentialData) {
       handleCloseForm();
-      notify.success(webCredentialResponse.message);
-      router.push(paths.toWebItem(webCredentialResponse.webCredentialData.id));
+      notify.success('New crendential added');
+      router.push(paths.toWebItem(webCredentialData.id));
       router.refresh();
     }
   };

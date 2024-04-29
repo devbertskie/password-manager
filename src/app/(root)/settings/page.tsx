@@ -1,11 +1,11 @@
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
-import { auth } from '@/auth';
 import AvatarFormUpload from '@/components/pages/settings/avatar-form-upload';
 import ProfileForm from '@/components/pages/settings/profile-form';
+import { getCurrentUser } from '@/lib/current-user';
 
 const ProfilePage = async () => {
-  const session = await auth();
+  const currentUser = await getCurrentUser();
   return (
     <div className="space-y-6">
       <div>
@@ -15,7 +15,7 @@ const ProfilePage = async () => {
       <Separator />
       <div className="flex flex-col space-y-6">
         <AvatarFormUpload />
-        <ProfileForm session={session} />
+        <ProfileForm currentUser={currentUser} />
       </div>
     </div>
   );

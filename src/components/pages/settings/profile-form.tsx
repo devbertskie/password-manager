@@ -1,6 +1,6 @@
 'use client';
-import { updateProfile } from '@/actions';
-import { signOutUser } from '@/actions/auth-actions';
+import { updateProfile, signOutUser } from '@/actions';
+import { ExtendedUser } from '@/auth';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -16,22 +16,21 @@ import paths from '@/lib/paths';
 import { profileFormSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import { Session } from 'next-auth';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 interface ProfileFormProps {
-  session: Session | null;
+  currentUser: ExtendedUser | null;
 }
 
-const ProfileForm = ({ session }: ProfileFormProps) => {
+const ProfileForm = ({ currentUser }: ProfileFormProps) => {
   const profileForm = useForm<z.infer<typeof profileFormSchema>>({
     mode: 'onSubmit',
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      username: session?.user.username,
-      email: session?.user.email!,
+      username: currentUser?.username,
+      email: currentUser?.email!,
     },
   });
 
@@ -44,8 +43,8 @@ const ProfileForm = ({ session }: ProfileFormProps) => {
   ) => {
     const userResponse = await updateProfile(
       values,
-      session?.user.email!,
-      session?.user.username!,
+      currentUser?.email!,
+      currentUser?.username!,
     );
     if (userResponse?.errorMsg) {
       notify.error(userResponse.errorMsg);

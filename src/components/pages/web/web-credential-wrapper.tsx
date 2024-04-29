@@ -6,7 +6,7 @@ import { ClipboardPen, Loader, Trash2 } from 'lucide-react';
 import { useToggle } from 'usehooks-ts';
 import WebCredentialPreview from '@/components/pages/web/web-credential-preview';
 import WebDeleteModalForm from '@/components/pages/web/web-delete-modal-form';
-import WebMarkAsImportant from './web-mark-as-important';
+import WebMarkAsImportant from '@/components/pages/web/web-mark-as-important';
 import { WebCredential } from '@prisma/client';
 
 interface CredentialItemProps {

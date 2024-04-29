@@ -1,10 +1,11 @@
 import FeatureHeader from '@/components/pages/shared/feature-header';
 import React, { ReactNode, Suspense } from 'react';
 import FeatureSidenav from '@/components/pages/shared/feature-sidenav';
-import { WebItemSkeleton } from '@/components/pages/web/web-loading-skeleton';
+
 import WebNewForm from '@/components/pages/web/web-new-form';
 import { Separator } from '@/components/ui/separator';
-import WebCredentialsList from '@/components/pages/web/web-list';
+import WebCredentialsList from '@/components/pages/web/web-credential-list';
+import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
 
 interface WebCredentialsRootLayoutProps {
   modal: ReactNode;
@@ -26,7 +27,7 @@ const WebCredentialsRootLayout = ({
         <div className="hidden space-x-6 md:flex">
           {/* sidenav hear */}
           <FeatureSidenav>
-            <Suspense fallback={<WebItemSkeleton count={8} />}>
+            <Suspense fallback={<SideItemSkeleton count={8} />}>
               <WebCredentialsList />
             </Suspense>
           </FeatureSidenav>

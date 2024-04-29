@@ -1,13 +1,14 @@
+import CredentialItemSkeleton from '@/components/pages/shared/credential-item-skeleton';
 import ModalWrapper from '@/components/pages/shared/modal-wrapper';
-import CredentialSkeleton from '@/components/pages/web/credential-skeleton';
+
 import WebPreviewPage from '@/components/pages/web/web-preview';
 import { notFound } from 'next/navigation';
 
 import React, { Suspense } from 'react';
 
 interface WebMobilePopUpProps {
-  params?: {
-    id?: string;
+  params: {
+    id: string;
   };
 }
 
@@ -18,7 +19,7 @@ export default function WebMobilePopUp({ params }: WebMobilePopUpProps) {
   return (
     <ModalWrapper isOpen>
       <div className="space-y-3">
-        <Suspense fallback={<CredentialSkeleton />}>
+        <Suspense fallback={<CredentialItemSkeleton />}>
           <WebPreviewPage params={params} />
         </Suspense>
       </div>

@@ -6,12 +6,14 @@ import { db } from '@/db';
 import { UserRole } from '@prisma/client';
 import { setFlash } from '@/components/shared/feedback';
 
+export type ExtendedUser = {
+  username: string;
+  role: UserRole;
+} & DefaultSession['user'];
+
 declare module 'next-auth' {
   interface Session {
-    user: {
-      username: string;
-      role: UserRole;
-    } & DefaultSession['user'];
+    user: ExtendedUser;
   }
 }
 

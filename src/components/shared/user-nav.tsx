@@ -16,11 +16,11 @@ import {
 import { USER_NAV_PROFILE } from '@/constants';
 import { LogOut } from 'lucide-react';
 import AvatarProfile from '@/components/shared/avatar-profile';
-import { useSession } from 'next-auth/react';
 import { signOutUser } from '@/actions';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 const UserNav = () => {
-  const { data: userSession } = useSession();
+  const currentUser = useCurrentUser();
 
   const UserNavDropDown = () =>
     USER_NAV_PROFILE.map((list) => (
@@ -53,9 +53,9 @@ const UserNav = () => {
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1 font-space">
             <p className="text-sm font-medium leading-none text-primary">
-              @{userSession?.user.username}
+              @{currentUser?.username}
             </p>
-            <p className="text-sm">{userSession?.user.email}</p>
+            <p className="text-sm">{currentUser?.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

@@ -1,27 +1,24 @@
 import React from 'react';
 
 import { notFound } from 'next/navigation';
-import { fetchAllWebCredentialsByUser } from '@/actions';
+import { fetchAllCredentialsByUser } from '@/actions';
 import DataListCredentials, {
   WebCredentialType,
 } from '@/components/pages/shared/data-list-credentials';
 
 const WebMobileCardWrapper = async () => {
-  const webCredentialsList = await fetchAllWebCredentialsByUser();
+  const webCredentialsList = await fetchAllCredentialsByUser();
 
-  if (webCredentialsList?.errorMsg) {
+  if (!webCredentialsList) {
     return notFound();
   }
 
-  if (!webCredentialsList?.webCredentialData) {
-    return notFound();
-  }
-
-  const webCredentialData: WebCredentialType[] =
-    webCredentialsList.webCredentialData.map((credential) => ({
+  const webCredentialData: WebCredentialType[] = webCredentialsList.map(
+    (credential) => ({
       ...credential,
       __credentialType: 'Web',
-    }));
+    }),
+  );
   return <DataListCredentials<WebCredentialType> list={webCredentialData} />;
 };
 

@@ -1,21 +1,21 @@
-import CredentialSkeleton from '@/components/pages/web/credential-skeleton';
+// import { fetchAllCredentialsByUser } from '@/actions';
+import CredentialSkeleton from '@/components/pages/shared/credential-item-skeleton';
 import WebPreviewPage from '@/components/pages/web/web-preview';
-import { db } from '@/db';
 import { notFound } from 'next/navigation';
 
 import React, { Suspense } from 'react';
 
 interface WebCredentialPreviewListProps {
-  params?: {
-    id?: string;
+  params: {
+    id: string;
   };
 }
-export async function generateStaticParams() {
-  const credentials = await db.webCredential.findMany();
-  return credentials.map((credential) => ({
-    id: credential.id,
-  }));
-}
+// export async function generateStaticParams() {
+//   const credentials = await fetchAllCredentialsByUser();
+//   return credentials.map((credential) => ({
+//     id: credential.id,
+//   }));
+// }
 
 const WebCredentialPreviewList = ({
   params,

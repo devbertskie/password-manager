@@ -1,10 +1,10 @@
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
-import { auth } from '@/auth';
 import CredentialForm from '@/components/pages/settings/credential-form';
+import { getCurrentUser } from '@/lib/current-user';
 
 const Credential = async () => {
-  const session = await auth();
+  const currentUser = await getCurrentUser();
   return (
     <div className="space-y-6">
       <div>
@@ -15,7 +15,7 @@ const Credential = async () => {
       </div>
       <Separator />
       <div className="flex flex-col space-y-6">
-        <CredentialForm session={session} />
+        <CredentialForm currentUser={currentUser} />
       </div>
     </div>
   );

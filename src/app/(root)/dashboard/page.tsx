@@ -1,14 +1,9 @@
-import { auth } from '@/auth';
-import paths from '@/lib/paths';
-import { redirect } from 'next/navigation';
+import { getCurrentUser } from '@/lib/current-user';
+
 import React from 'react';
 
 const DashboardPage = async () => {
-  const session = await auth();
-
-  if (!session) {
-    redirect(paths.toLogin());
-  }
+  const currentUser = await getCurrentUser();
 
   return (
     <>
