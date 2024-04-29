@@ -88,7 +88,7 @@ const WebNewForm = () => {
       <Form {...webCredentialForm}>
         <Dialog open={openDialog} onOpenChange={handleCloseForm}>
           <DialogContent
-            className="top-[calc(100vh_-_70%)] max-w-sm md:max-w-lg"
+            className=" top-[calc(100vh_-_50%)] max-w-sm sm:top-[calc(100vh_-_70%)] md:max-w-lg"
             onEscapeKeyDown={(e) => e.preventDefault()}
             // onPointerDown={(e) => e.preventDefault()}
             onInteractOutside={(e) => e.preventDefault()}
