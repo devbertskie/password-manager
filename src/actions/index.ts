@@ -22,3 +22,7 @@ export { changePassword } from '@/actions/settings/update-password-action';
 // EMAILS
 
 export { fetchAllEmailCredentials } from '@/actions/emails/fetch-all-email-credentials-action';
+export { fetchEmailCredentialById } from '@/actions/emails/fetch-email-credential-by-id-action';
+export { markEmailAsImportant } from '@/actions/emails/mark-important-action';
+export { deleteEmailCredential } from '@/actions/emails/delete-credential-action';
+export { updateEmailCredentialById } from '@/actions/emails/update-email-credential-action';

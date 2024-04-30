@@ -1,7 +1,7 @@
+import { useFormStatus } from 'react-dom';
 import { AlertDialogCancel } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
-import { useFormStatus } from 'react-dom';
 
 const DeleteButton = () => {
   const { pending } = useFormStatus();

@@ -1,25 +1,25 @@
 'use client';
 import React from 'react';
-import { deleteCredential } from '@/actions';
-import { useFormState } from 'react-dom';
-import DeleteButton from '@/components/pages/shared/delete-button-submit';
 import AlertModalWrapper from '@/components/pages/shared/feature-alert-modal-wrapper';
+import DeleteButton from '@/components/pages/shared/delete-button-submit';
+import { useFormState } from 'react-dom';
 import { EmptyFormState } from '@/helpers/from-errors-to-formstate';
 import { useFormToastMessage } from '@/hooks/use-form-toast-message';
+import { deleteEmailCredential } from '@/actions';
 
-interface WebDeleteModalFormProps {
+interface EmailDeleteModalFormProps {
   isOpen: boolean;
   onClose: () => void;
   credentialId: string;
 }
 
-export default function WebDeleteModalForm({
+export default function EmailDeleteModalForm({
   isOpen,
   onClose,
   credentialId,
-}: WebDeleteModalFormProps) {
+}: EmailDeleteModalFormProps) {
   const [formState, dispatch] = useFormState(
-    deleteCredential.bind(null, credentialId),
+    deleteEmailCredential.bind(null, credentialId),
     EmptyFormState,
   );
 

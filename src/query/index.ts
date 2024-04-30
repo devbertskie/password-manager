@@ -25,4 +25,5 @@ export { fetchUserByEmail, fetchUserById } from '@/query/user-query';
 export {
   fetchAllEmailCredentialsByUser,
   fetchEmailCredentialById,
+  deleteEmailCredentialById,
 } from '@/query/email-credential-query';

@@ -37,16 +37,8 @@ export const updateCredentialById = async (
     revalidatePath(paths.toWebItem(credentialId));
     revalidatePath(paths.toWeb());
 
-    return {
-      message: 'Credential updated',
-      webCredentialData: updatedCredential,
-    };
+    return updatedCredential;
   } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message);
-      return {
-        errorMsg: 'Unable to retrieve data',
-      };
-    }
+    throw new Error('Something went wrong');
   }
 };

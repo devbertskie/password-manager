@@ -1,4 +1,4 @@
-import { GlobeIcon } from 'lucide-react';
+import { GlobeIcon, Mail } from 'lucide-react';
 import { ItemProps } from '@/components/pages/shared/data-list-credentials';
 import CredentialItem, { Item } from '@/components/shared/credential-item';
 import paths from '@/lib/paths';
@@ -23,7 +23,7 @@ export const EmailCredentialItem = ({
     credentialId: item.id || '',
     title: item.title || '',
     label: item.siteUrl || '',
-    Icon: GlobeIcon,
+    Icon: Mail,
     isImportant: item.isImportant || false,
     desktopLink: () => paths.toEmailItem(item.id || ''),
     mobileLink: () => paths.toEmailItemMobile(item.id || ''),

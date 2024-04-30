@@ -1,6 +1,11 @@
 'use client';
 
-import { updateCredentialById } from '@/actions';
+import React, { useEffect } from 'react';
+import { updateEmailCredentialById } from '@/actions';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { useCopyToClipboard, useToggle } from 'usehooks-ts';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -12,15 +17,14 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { notify } from '@/lib/notification';
-import { webCredentialFormSchema } from '@/lib/schema';
+import { emailCredentialFormSchema } from '@/lib/schema';
 
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { WebCredential } from '@prisma/client';
+import { EmailCredential } from '@prisma/client';
 import Crypto from 'crypto-js';
 import {
   CheckCheck,
-  Contact,
   Copy,
   Eye,
   EyeOff,
@@ -28,57 +32,56 @@ import {
   Globe,
   Loader2,
   Lock,
+  Mail,
   SquareArrowUpRight,
 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useCopyToClipboard, useToggle } from 'usehooks-ts';
-import { z } from 'zod';
 
-interface WebCredentialPreviewProps {
+interface EmailCredentialPreviewProps {
   isEditable: boolean;
   onCancelEditable: () => void;
-  webCredential: WebCredential;
+  emailCredential: EmailCredential;
 }
 
-const WebCredentialPreview = ({
+const EmailCredentialPreview = ({
   isEditable,
   onCancelEditable,
-  webCredential,
-}: WebCredentialPreviewProps) => {
+  emailCredential,
+}: EmailCredentialPreviewProps) => {
   const SALT_KEY = process.env.saltKey!;
   const [showPassword, toggleShowPassword] = useToggle(false);
   const router = useRouter();
   const [copiedUrl, copyUrl] = useCopyToClipboard();
-  const [copiedUsername, copyUsername] = useCopyToClipboard();
+  const [copiedEmail, copyEmail] = useCopyToClipboard();
   const [copiedPassword, copyPassword] = useCopyToClipboard();
 
-  const decryptedUsernameOrEmail = Crypto.AES.decrypt(
-    webCredential?.user_email,
+  const decryptedEmail = Crypto.AES.decrypt(
+    emailCredential?.email,
     SALT_KEY,
   ).toString(Crypto.enc.Utf8);
 
   const decryptedPassword = Crypto.AES.decrypt(
-    webCredential?.password,
+    emailCredential?.password,
     SALT_KEY,
   ).toString(Crypto.enc.Utf8);
 
-  const updateForm = useForm<z.infer<typeof webCredentialFormSchema>>({
-    resolver: zodResolver(webCredentialFormSchema),
+  const updateForm = useForm<z.infer<typeof emailCredentialFormSchema>>({
+    resolver: zodResolver(emailCredentialFormSchema),
     mode: 'onSubmit',
     defaultValues: {
-      usernameOrEmail: decryptedUsernameOrEmail,
+      email: decryptedEmail,
       password: decryptedPassword,
-      title: webCredential.title,
-      siteUrl: webCredential.site_url,
+      title: emailCredential.title,
+      siteUrl: emailCredential.siteUrl,
     },
   });
 
   const onUpdateForm = async (
-    values: z.infer<typeof webCredentialFormSchema>,
+    values: z.infer<typeof emailCredentialFormSchema>,
   ) => {
-    const updateResponse = await updateCredentialById(values, webCredential.id);
+    const updateResponse = await updateEmailCredentialById(
+      values,
+      emailCredential.id,
+    );
     if (updateResponse) {
       notify.success('Credential updated');
       router.refresh();
@@ -160,7 +163,7 @@ const WebCredentialPreview = ({
                   <div className="relative">
                     {!isEditable && (
                       <div className="absolute right-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2">
-                        <a href={`${webCredential.site_url}`} target="_blank">
+                        <a href={`${emailCredential.siteUrl}`} target="_blank">
                           <SquareArrowUpRight className="size-4" />
                         </a>
                         {copiedUrl ? (
@@ -169,7 +172,7 @@ const WebCredentialPreview = ({
                           <Copy
                             className="size-4"
                             onClick={async () =>
-                              copyUrl(webCredential?.site_url || '')
+                              copyUrl(emailCredential?.siteUrl || '')
                             }
                           />
                         )}
@@ -198,37 +201,37 @@ const WebCredentialPreview = ({
 
         <FormField
           control={updateForm.control}
-          name="usernameOrEmail"
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormControl>
                 <div className="flex flex-col space-y-2">
                   <FormLabel
+                    htmlFor="email"
                     className={cn(isEditable && 'add-required', 'text-xs')}
                   >
-                    Username / Email
+                    Email
                   </FormLabel>
                   <div className="relative">
                     {!isEditable && (
                       <div className="absolute right-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2">
-                        {copiedUsername ? (
+                        {copiedEmail ? (
                           <CheckCheck className="transition-300 size-4 text-green-400" />
                         ) : (
                           <Copy
                             className="size-4"
-                            onClick={async () =>
-                              copyUsername(decryptedUsernameOrEmail)
-                            }
+                            onClick={async () => copyEmail(decryptedEmail)}
                           />
                         )}
                       </div>
                     )}
                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70">
-                      <Contact className="size-4" />
+                      <Mail className="size-4" />
                     </div>
                     <Input
                       {...field}
-                      type="text"
+                      id="emal"
+                      type="email"
                       className={cn(
                         !isEditable && 'focus-visible:ring-0',
                         'pl-10 truncate pr-16',
@@ -324,4 +327,4 @@ const WebCredentialPreview = ({
   );
 };
 
-export default WebCredentialPreview;
+export default EmailCredentialPreview;

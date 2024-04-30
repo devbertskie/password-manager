@@ -2,20 +2,21 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { EmailCredential } from '@prisma/client';
 import { ClipboardPen, Loader, Trash2 } from 'lucide-react';
 import { useToggle } from 'usehooks-ts';
-import WebCredentialPreview from '@/components/pages/web/web-credential-preview';
-import WebDeleteModalForm from '@/components/pages/web/web-delete-modal-form';
-import WebMarkAsImportant from '@/components/pages/web/web-mark-as-important';
-import { WebCredential } from '@prisma/client';
 
-interface WebCredentialWrapperProps {
-  webCredential: WebCredential;
+import EmailMarkAsImportant from '@/components/pages/email/email-mark-as-important';
+import EmailCredentialPreview from '@/components/pages/email/email-credential-preview';
+import EmailDeleteModalForm from '@/components/pages/email/email-delete-modal-form';
+
+interface EmailCredentialWrapperProps {
+  emailCredential: EmailCredential;
 }
 
-export default function WebCredentialWrapper({
-  webCredential,
-}: WebCredentialWrapperProps) {
+export default function EmailCredentialWrapper({
+  emailCredential,
+}: EmailCredentialWrapperProps) {
   const [isEditable, toggleEditable, setIsEditable] = useToggle(false);
   const [openDialogMoadlDelete, , setOpenDialog] = useToggle(false);
 
@@ -23,13 +24,13 @@ export default function WebCredentialWrapper({
     <>
       <div className="flex flex-col items-center justify-between space-y-3 md:flex-row md:space-y-0">
         <h2 className="rounded-sm  px-3 py-1.5 text-center font-space text-sm tracking-wider text-primary md:line-clamp-1 md:text-left md:text-lg">
-          {webCredential.title}
+          {emailCredential.title}
         </h2>
 
         <div className="flex items-center space-x-2">
-          <WebMarkAsImportant
-            isImportant={webCredential.is_important}
-            credentialId={webCredential.id}
+          <EmailMarkAsImportant
+            isImportant={emailCredential.isImportant}
+            credentialId={emailCredential.id}
           />
 
           <Button
@@ -58,14 +59,14 @@ export default function WebCredentialWrapper({
       <Separator />
 
       <div className="flex flex-col space-y-6 font-thin text-muted-foreground/70">
-        <WebCredentialPreview
-          webCredential={webCredential}
+        <EmailCredentialPreview
+          emailCredential={emailCredential}
           isEditable={isEditable}
           onCancelEditable={() => setIsEditable(false)}
         />
       </div>
-      <WebDeleteModalForm
-        credentialId={webCredential.id}
+      <EmailDeleteModalForm
+        credentialId={emailCredential.id}
         isOpen={openDialogMoadlDelete}
         onClose={() => setOpenDialog(false)}
       />
