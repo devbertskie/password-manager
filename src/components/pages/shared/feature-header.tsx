@@ -2,10 +2,12 @@ import React, { PropsWithChildren } from 'react';
 
 interface FeatureHeaderProps {
   title: string;
+  label: string;
 }
 
 export default function FeatureHeader({
   title,
+  label,
   children,
 }: PropsWithChildren<FeatureHeaderProps>) {
   return (
@@ -14,7 +16,7 @@ export default function FeatureHeader({
         <h3 className="text-xl font-bold tracking-wider md:text-2xl">
           {title}
         </h3>
-        <p className="text-muted-foreground">Manage your web credentials</p>
+        <p className="text-muted-foreground">{label}</p>
       </div>
       {/* for modal */}
       {children}

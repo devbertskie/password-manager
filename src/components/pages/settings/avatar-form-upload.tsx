@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ALLOWED_IMAGE_TYPES } from '@/constants';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useEdgeStore } from '@/lib/edgestore';
 import { notify } from '@/lib/notification';
@@ -109,6 +110,7 @@ const AvatarFormUpload = () => {
                         {...rest}
                         type="file"
                         className="hidden"
+                        accept={ALLOWED_IMAGE_TYPES.join(', ')}
                         id="upload-file"
                         onChange={(event) => {
                           const { files, displayUrl } = getImageData(event);

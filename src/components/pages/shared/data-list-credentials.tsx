@@ -1,15 +1,14 @@
 'use client';
-import { WebCredential } from '@prisma/client';
 import React from 'react';
 import { Info } from 'lucide-react';
 import FeatureItemList from '@/components/pages/shared/feature-item-list';
-import { WebCredentialItem } from '@/components/shared/item';
+import {
+  EmailCredentialItem,
+  WebCredentialItem,
+} from '@/components/shared/item';
+import { EmailCredentialType, WebCredentialType } from '@/types';
 
-export type WebCredentialType = WebCredential & {
-  __credentialType: 'Web';
-};
-
-type CredentialTarget = WebCredentialType;
+type CredentialTarget = WebCredentialType | EmailCredentialType;
 
 export interface ItemProps<T extends CredentialTarget> {
   item: T;
@@ -18,6 +17,8 @@ const FeatureItem = <T extends CredentialTarget>({ item }: ItemProps<T>) => {
   switch (item.__credentialType) {
     case 'Web':
       return <WebCredentialItem item={item} />;
+    case 'Email':
+      return <EmailCredentialItem item={item} />;
     default:
       return null;
   }

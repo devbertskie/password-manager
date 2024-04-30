@@ -23,6 +23,7 @@ model User {
   updatedAt DateTime @updatedAt
   image_url String   @default("")
   webCredentials WebCredential[]
+  emailCredentials EmailCredential[]
 }
 
 model WebCredential {
@@ -31,6 +32,20 @@ model WebCredential {
   site_url     String
   is_important Boolean @default(false)   
   user_email  String  
+  password  String
+  userId Int
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EmailCredential {
+  id        String    @id @default(uuid())
+  title     String   @unique
+  siteUrl     String @map("site_url")
+  isImportant Boolean @map("is_important") @default(false)   
+  email  String  
   password  String
   userId Int
 

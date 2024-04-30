@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import paths from '@/lib/paths';
 
 import Ribbon from '@/components/shared/ribbon';
 
@@ -14,7 +13,8 @@ export type Item = {
   label: string;
   isImportant: boolean;
   Icon: React.ElementType;
-  link: () => string;
+  desktopLink: () => string;
+  mobileLink: () => string;
 };
 
 interface CredentialItemProps {
@@ -22,13 +22,21 @@ interface CredentialItemProps {
 }
 
 export default function CredentialItem({
-  data: { title, label, credentialId, link, Icon, isImportant },
+  data: {
+    title,
+    label,
+    credentialId,
+    desktopLink,
+    mobileLink,
+    Icon,
+    isImportant,
+  },
 }: CredentialItemProps) {
   const segment = useSelectedLayoutSegment();
 
   return (
     <>
-      <Link href={link()} className="hidden  md:block">
+      <Link href={desktopLink()} className="hidden  md:block">
         <li
           className={cn(
             segment === credentialId
@@ -76,7 +84,7 @@ export default function CredentialItem({
 
       <Card className="relative cursor-pointer overflow-hidden bg-primary/10 md:hidden">
         <CardContent className="p-3">
-          <Link href={paths.toWebItemMobile(credentialId)}>
+          <Link href={mobileLink()}>
             <div className="flex min-w-64 items-center space-x-2 min-[400px]:space-x-3">
               <Icon
                 className={cn(

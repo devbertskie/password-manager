@@ -21,3 +21,8 @@ export {
 } from '@/query/web-credential-query';
 
 export { fetchUserByEmail, fetchUserById } from '@/query/user-query';
+
+export {
+  fetchAllEmailCredentialsByUser,
+  fetchEmailCredentialById,
+} from '@/query/email-credential-query';

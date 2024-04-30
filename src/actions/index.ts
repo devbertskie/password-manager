@@ -18,3 +18,7 @@ export { markAsImportant } from '@/actions/web-credential/mark-important-action'
 export { updateProfileImage } from '@/actions/settings/update-profile-image-action';
 export { updateProfile } from '@/actions/settings/update-profile-details-action';
 export { changePassword } from '@/actions/settings/update-password-action';
+
+// EMAILS
+
+export { fetchAllEmailCredentials } from '@/actions/emails/fetch-all-email-credentials-action';
