@@ -10,7 +10,6 @@ import isSmallScreen from '@/helpers/is-small-screen';
 import UserNav from '@/components/shared/user-nav';
 import ToggleMode from '../pages/shared/toggle-mode';
 
-
 const Navbar = () => {
   const { toggleSidebar, isSidebarOpen } = useApp();
 
