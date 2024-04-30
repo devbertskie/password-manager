@@ -16,8 +16,10 @@ import paths from '@/lib/paths';
 import { cn } from '@/lib/utils';
 import isSmallScreen from '@/helpers/is-small-screen';
 import CategoriesItem from '@/components/layout/categories-item';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 const Sidebar = () => {
+  const currentUser = useCurrentUser();
   const segment = useSelectedLayoutSegment();
   const { toggleSidebar, isSidebarOpen } = useApp();
   const [pathname, setPathname] = useState('/');
@@ -70,10 +72,6 @@ const Sidebar = () => {
               <li>
                 <>
                   <div className="flex items-center space-x-2">
-                    {/* <Home className="transition-300 size-5 group-hover:text-primary" />
-                    <span className="transition-300 group-hover:text-primary">
-                      Dashboard
-                    </span> */}
                     <Home
                       className={cn(
                         pathname === paths.toDashboard()
@@ -175,8 +173,7 @@ const Sidebar = () => {
               </li>
             </Link>
           </ul>
-
-          <SidebarProfile />
+          {currentUser && <SidebarProfile currentUser={currentUser} />}
         </div>
         {/* End Sidebar List */}
 

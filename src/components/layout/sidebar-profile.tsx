@@ -4,11 +4,13 @@ import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
 import AvatarProfile from '@/components/shared/avatar-profile';
 import { signOutUser } from '@/actions';
-import { useCurrentUser } from '@/hooks/use-current-user';
+import { ExtendedUser } from '@/auth';
 
-const SidebarProfile = () => {
-  const currentUser = useCurrentUser();
+interface SidebarProfileProps {
+  currentUser: ExtendedUser;
+}
 
+const SidebarProfile = ({ currentUser }: SidebarProfileProps) => {
   return (
     <div className="mb-8 flex cursor-pointer items-center space-x-2 rounded-lg bg-primary/10 px-4 py-2">
       <AvatarProfile className="size-8" />

@@ -1,5 +1,5 @@
 'use client';
-import { updateProfile, signOutUser } from '@/actions';
+import { updateProfile } from '@/actions';
 import { ExtendedUser } from '@/auth';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,7 +16,10 @@ import paths from '@/lib/paths';
 import { profileFormSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -25,36 +28,46 @@ interface ProfileFormProps {
 }
 
 const ProfileForm = ({ currentUser }: ProfileFormProps) => {
+  const { update } = useSession();
+  const router = useRouter();
   const profileForm = useForm<z.infer<typeof profileFormSchema>>({
     mode: 'onSubmit',
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      username: currentUser?.username,
-      email: currentUser?.email!,
+      username: currentUser?.username || undefined,
+      email: currentUser?.email || undefined,
     },
   });
 
   const {
-    formState: { isSubmitting, isDirty },
+    formState: { isSubmitting, isDirty, isSubmitSuccessful },
+    getValues,
+    reset,
   } = profileForm;
 
   const handleUpdateProfile = async (
     values: z.infer<typeof profileFormSchema>,
   ) => {
-    const userResponse = await updateProfile(
-      values,
-      currentUser?.email!,
-      currentUser?.username!,
-    );
-    if (userResponse?.errorMsg) {
-      notify.error(userResponse.errorMsg);
-    } else {
-      if (userResponse?.userData) {
-        notify.success(userResponse?.message);
-        await signOutUser();
+    const updatedUserData = await updateProfile(values);
+    if (updatedUserData) {
+      if (updatedUserData.emailVerified) {
+        update({
+          user: {
+            ...currentUser,
+            username: updatedUserData.username,
+          },
+        });
+        router.refresh();
+        notify.success('Profile updated!');
       }
     }
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset(getValues());
+    }
+  }, [getValues, reset, isSubmitSuccessful]);
 
   return (
     <Form {...profileForm}>

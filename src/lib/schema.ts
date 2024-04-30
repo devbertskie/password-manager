@@ -27,14 +27,10 @@ export const formLoginSchema = z.object({
 });
 
 export const profileFormSchema = z.object({
-  username: z
-    .string()
-    .transform((value) => value.replace(/\s+/g, ''))
-    .pipe(z.string().min(6, { message: 'Min at least 6 characters' })),
-  email: z
-    .string()
-    .transform((value) => value.replace(/\s+/g, ''))
-    .pipe(z.string().email('Invalid Email')),
+  username: z.optional(
+    z.string().min(6, { message: 'Min at least 6 characters' }).trim(),
+  ),
+  email: z.optional(z.string().email('Invalid Email').toLowerCase().trim()),
 });
 
 export const avatarUploadSchema = z.object({
@@ -57,11 +53,12 @@ export const avatarUploadSchema = z.object({
 
 export const credentialFormSchema = z
   .object({
-    currentPassword: z.string().min(1, 'Current Password is required'),
+    currentPassword: z.string().min(1, 'Current Password is required').trim(),
     newPassword: z
       .string()
-      .min(6, 'Password must be at least minimum of 6 characters'),
-    confirmPassword: z.string().min(1, 'Confirm Password is required'),
+      .min(6, 'Password must be at least minimum of 6 characters')
+      .trim(),
+    confirmPassword: z.string().min(1, 'Confirm Password is required').trim(),
   })
   .refine(
     (values) => {

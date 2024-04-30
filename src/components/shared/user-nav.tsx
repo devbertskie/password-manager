@@ -21,6 +21,7 @@ import { useCurrentUser } from '@/hooks/use-current-user';
 
 const UserNav = () => {
   const currentUser = useCurrentUser();
+  if (!currentUser) return null;
 
   const UserNavDropDown = () =>
     USER_NAV_PROFILE.map((list) => (

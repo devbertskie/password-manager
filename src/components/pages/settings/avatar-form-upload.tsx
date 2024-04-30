@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import { useEdgeStore } from '@/lib/edgestore';
 import { notify } from '@/lib/notification';
 import { avatarUploadSchema } from '@/lib/schema';
@@ -37,8 +38,9 @@ const getImageData = (event: ChangeEvent<HTMLInputElement>) => {
 
 const AvatarFormUpload = () => {
   const { edgestore } = useEdgeStore();
-  const { data: session, update } = useSession();
-  const [previewUrl, setPreviewUrl] = useState(session?.user.image);
+  const currentUser = useCurrentUser();
+  const { update } = useSession();
+  const [previewUrl, setPreviewUrl] = useState(currentUser?.image);
 
   const avatarForm = useForm<z.infer<typeof avatarUploadSchema>>({
     mode: 'onSubmit',
@@ -48,7 +50,7 @@ const AvatarFormUpload = () => {
     },
   });
 
-  const handleUploaProfile = async (file: File) => {
+  const handleUploadProfile = async (file: File) => {
     const { url } = await edgestore.userProfileImages.upload({
       file,
       options: {
@@ -56,22 +58,14 @@ const AvatarFormUpload = () => {
       },
     });
     if (url) {
-      const updatedImageUrl = await updateProfileImage(
-        url,
-        session?.user.email!,
-      );
-      if (updatedImageUrl instanceof Error) {
-        notify.error('Failed to update image');
-      } else {
-        const updatedSession = {
-          ...session,
+      const result = await updateProfileImage(url);
+      if (result.image_url) {
+        update({
           user: {
-            ...session?.user,
-            image: updatedImageUrl?.image_url,
+            ...currentUser,
+            image: result.image_url,
           },
-        };
-        update(updatedSession);
-        setPreviewUrl(updatedImageUrl?.image_url);
+        });
         notify.success('Image updated');
       }
     }
@@ -81,7 +75,7 @@ const AvatarFormUpload = () => {
     value: z.infer<typeof avatarUploadSchema>,
   ) => {
     const file = value.imageUrl[0];
-    await handleUploaProfile(file);
+    await handleUploadProfile(file);
   };
 
   const {
@@ -108,7 +102,7 @@ const AvatarFormUpload = () => {
                         <Loader2 className="size-4 animate-spin" />
                       </div>
                       <AvatarProfile
-                        imgSrc={previewUrl || ''}
+                        imageSrc={previewUrl || ''}
                         className="z-10 size-16 lg:size-20"
                       />
                       <Input
@@ -140,7 +134,8 @@ const AvatarFormUpload = () => {
                   <Button
                     disabled={!isDirty || isSubmitting}
                     type="submit"
-                    className="transition-300 group flex items-center rounded-md  px-4 py-3"
+                    size="sm"
+                    className="transition-300 group flex items-center rounded-md"
                   >
                     {isSubmitting ? (
                       <Loader2 className="size-4 animate-spin" />

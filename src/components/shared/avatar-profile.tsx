@@ -2,27 +2,27 @@
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
-import { useSession } from 'next-auth/react';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 interface AvatarProfileProps extends React.HTMLAttributes<HTMLElement> {
-  imgSrc?: string;
+  imageSrc?: string | undefined;
 }
 
-const AvatarProfile = ({ className, imgSrc, ...rest }: AvatarProfileProps) => {
-  // const session = await auth();
-  const { data: session } = useSession();
-
-  if (!session) return null;
-
+const AvatarProfile = ({
+  className,
+  imageSrc,
+  ...rest
+}: AvatarProfileProps) => {
+  const currentUser = useCurrentUser();
   return (
     <Avatar {...rest} className={cn(className)}>
       <AvatarImage
-        src={imgSrc || session.user.image || ''}
+        src={imageSrc || currentUser?.image || ''}
         alt="profile"
         className="object-cover"
       />
       <AvatarFallback className="uppercase">
-        {session?.user.username.substring(0, 2)}
+        {currentUser?.username.substring(0, 2)}
       </AvatarFallback>
     </Avatar>
   );

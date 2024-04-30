@@ -11,7 +11,7 @@ export const sendEmailVerification = async (
   const emailVerificationLink = `${process.env.BASE_URL}${query}`;
 
   return await resend.emails.send({
-    from: 'PassDB <onboarding@resend.dev>',
+    from: 'PassDB <noreply@myindexrepo.com>',
     to: verification.email,
     subject: 'Verify your account',
     html: `<p>Click  <a target="_blank" href=${emailVerificationLink}>Here</a> </p>`,
@@ -29,7 +29,7 @@ export const sendForgotPasswordVerification = async (
   const emailVerificationLink = `${process.env.BASE_URL}${query}`;
 
   return await resend.emails.send({
-    from: 'PassDB <onboarding@resend.dev>',
+    from: 'PassDB <noreply@myindexrepo.com>',
     to: passwordVerification.email,
     subject: 'Reset your password',
     html: `<p>Click  <a target="_blank" href=${emailVerificationLink}>Here</a> to reset your password </p>`,

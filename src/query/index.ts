@@ -19,3 +19,5 @@ export {
   deleteCredentialById,
   updateWebCredentialById,
 } from '@/query/web-credential-query';
+
+export { fetchUserByEmail, fetchUserById } from '@/query/user-query';

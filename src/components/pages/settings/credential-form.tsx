@@ -1,5 +1,5 @@
 'use client';
-import { changePassword, signOutUser } from '@/actions';
+import { changePassword } from '@/actions';
 import { ExtendedUser } from '@/auth';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { notify } from '@/lib/notification';
+
 import paths from '@/lib/paths';
 import { credentialFormSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -39,15 +39,7 @@ const CredentialForm = ({ currentUser }: CredentialFormProps) => {
   const handleUpdateCredential = async (
     values: z.infer<typeof credentialFormSchema>,
   ) => {
-    const userResponseData = await changePassword(values, currentUser?.email!);
-    if (userResponseData?.errorMsg) {
-      notify.error(userResponseData.errorMsg);
-    } else {
-      if (userResponseData?.userData) {
-        notify.success(userResponseData.message);
-        await signOutUser();
-      }
-    }
+    await changePassword(values);
   };
 
   const {
@@ -76,6 +68,7 @@ const CredentialForm = ({ currentUser }: CredentialFormProps) => {
                       type="password"
                       placeholder="Enter current password"
                       autoComplete="off"
+                      id="current-password"
                       disabled={isSubmitting}
                     />
                     <FormMessage />
@@ -94,12 +87,13 @@ const CredentialForm = ({ currentUser }: CredentialFormProps) => {
               <FormItem>
                 <FormControl>
                   <div className="flex flex-col space-y-4">
-                    <Label htmlFor="current-password">
+                    <Label htmlFor="new-password">
                       New Password <span className="ml-1 text-red-500">*</span>{' '}
                     </Label>
                     <Input
                       {...field}
                       type="password"
+                      id="new-password"
                       placeholder="Enter new password"
                       autoComplete="off"
                       disabled={isSubmitting}
@@ -119,7 +113,7 @@ const CredentialForm = ({ currentUser }: CredentialFormProps) => {
               <FormItem>
                 <FormControl>
                   <div className="flex flex-col space-y-4">
-                    <Label htmlFor="current-password">
+                    <Label htmlFor="confirm-password">
                       Confirm Password{' '}
                       <span className="ml-1 text-red-500">*</span>{' '}
                     </Label>
@@ -128,6 +122,7 @@ const CredentialForm = ({ currentUser }: CredentialFormProps) => {
                       type="password"
                       placeholder="Confirm new password"
                       autoComplete="off"
+                      id="confirm-password"
                       disabled={isSubmitting}
                     />
                     <FormMessage />
@@ -144,7 +139,8 @@ const CredentialForm = ({ currentUser }: CredentialFormProps) => {
           </Button>
           <Button
             type="submit"
-            className="bg-primary/10 text-primary hover:bg-primary/15 hover:text-foreground"
+            size="sm"
+            className="bg-primary"
             disabled={isSubmitting}
           >
             {isSubmitting && <Loader2 className="size-4 animate-spin" />}

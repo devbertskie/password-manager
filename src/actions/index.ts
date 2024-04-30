@@ -1,9 +1,3 @@
-export {
-  updateProfile,
-  updateProfileImage,
-  changePassword,
-} from '@/actions/settings-action';
-
 // AUTH
 export { forgotPassword } from '@/actions/auth/forgot-password-action';
 export { resetPassword } from '@/actions/auth/reset-password-action';
@@ -19,3 +13,8 @@ export { addCredential } from '@/actions/web-credential/add-web-credential-actio
 export { updateCredentialById } from '@/actions/web-credential/update-web-credential-action';
 export { deleteCredential } from '@/actions/web-credential/delete-credential-action';
 export { markAsImportant } from '@/actions/web-credential/mark-important-action';
+
+// SETTINGS
+export { updateProfileImage } from '@/actions/settings/update-profile-image-action';
+export { updateProfile } from '@/actions/settings/update-profile-details-action';
+export { changePassword } from '@/actions/settings/update-password-action';

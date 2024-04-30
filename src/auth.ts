@@ -2,9 +2,9 @@
 import NextAuth, { type DefaultSession } from 'next-auth';
 import authConfig from '@/auth.config';
 import { JWT } from 'next-auth/jwt';
-import { db } from '@/db';
 import { UserRole } from '@prisma/client';
 import { setFlash } from '@/components/shared/feedback';
+import { fetchUserById } from '@/query';
 
 export type ExtendedUser = {
   username: string;
@@ -37,14 +37,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     async signIn({ user }) {
       if (!user || !user.id) return false;
-      const currentUser = await db.user.findUnique({
-        where: { id: Number(user.id) },
-      });
+      const currentUser = await fetchUserById(user.id);
       if (!currentUser) return false;
       if (!currentUser.emailVerified) return false;
       setFlash({
         type: 'SUCCESS',
-        message: 'Welcome back 🎉',
+        message: `Welcome ${currentUser.username} 🎉`,
         timestamp: Date.now(),
       });
       return true;
@@ -52,13 +50,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, trigger, session }) {
       if (!token.sub) return token;
 
-      const currentUser = await db.user.findUnique({
-        where: { id: Number(token.sub) },
-      });
+      const currentUser = await fetchUserById(token.sub);
 
-      // trigger when user update the image profile
-      if (trigger === 'update' && session?.user.image) {
+      // trigger when user update the image profile or username
+      if (trigger === 'update' && session?.user) {
         token.picture = session.user.image;
+        token.username = session.user.username;
       }
 
       if (!currentUser || !currentUser.role || !currentUser.username)
@@ -68,7 +65,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.role = currentUser.role;
       return token;
     },
-    async session({ token, session, trigger }) {
+    async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
         session.user.username = token.username;
