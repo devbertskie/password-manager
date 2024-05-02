@@ -35,7 +35,6 @@ export default {
 
         return {
           ...rest,
-          id: String(rest.id),
         };
       },
     }),

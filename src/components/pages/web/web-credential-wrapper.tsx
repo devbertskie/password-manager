@@ -28,7 +28,7 @@ export default function WebCredentialWrapper({
 
         <div className="flex items-center space-x-2">
           <WebMarkAsImportant
-            isImportant={webCredential.is_important}
+            isImportant={webCredential.isImportant}
             credentialId={webCredential.id}
           />
 
