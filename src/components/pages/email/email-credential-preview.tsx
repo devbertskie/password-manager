@@ -69,7 +69,7 @@ const EmailCredentialPreview = ({
     resolver: zodResolver(emailCredentialFormSchema),
     mode: 'onSubmit',
     defaultValues: {
-      email: decryptedEmail,
+      usernameOrEmail: decryptedEmail,
       password: decryptedPassword,
       title: emailCredential.title,
       siteUrl: emailCredential.siteUrl,
@@ -203,7 +203,7 @@ const EmailCredentialPreview = ({
 
         <FormField
           control={updateForm.control}
-          name="email"
+          name="usernameOrEmail"
           render={({ field }) => (
             <FormItem>
               <FormControl>

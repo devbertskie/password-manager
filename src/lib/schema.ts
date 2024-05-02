@@ -103,7 +103,10 @@ export const resetPasswordSchema = z
 export const emailCredentialFormSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   siteUrl: z.string().url('Url is required'),
-  email: z.string().email('Email is required').min(1, 'Email is required'),
+  usernameOrEmail: z
+    .string()
+    .email('Email is required')
+    .min(1, 'Email is required'),
   password: z.string().min(1, 'Password is required'),
   isImportant: z.boolean().default(false).optional(),
 });

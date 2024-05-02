@@ -1,4 +1,5 @@
 import EmailCredentialsList from '@/components/pages/email/email-credentials-list';
+import EmailNewForm from '@/components/pages/email/email-new-form';
 import FeatureHeader from '@/components/pages/shared/feature-header';
 import FeatureSidenav from '@/components/pages/shared/feature-sidenav';
 import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
@@ -17,7 +18,7 @@ const EmailCredentialsLayout = ({ children }: EmailCredentialLayoutProps) => {
           title="Email Credentials"
           label="Manage your email credentials"
         >
-          {/* <WebNewForm /> */}
+          <EmailNewForm />
         </FeatureHeader>
         <Separator className="my-6" />
 

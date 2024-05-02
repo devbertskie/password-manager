@@ -26,3 +26,4 @@ export { fetchEmailCredentialById } from '@/actions/emails/fetch-email-credentia
 export { markEmailAsImportant } from '@/actions/emails/mark-important-action';
 export { deleteEmailCredential } from '@/actions/emails/delete-credential-action';
 export { updateEmailCredentialById } from '@/actions/emails/update-email-credential-action';
+export { addEmailCredential } from '@/actions/emails/add-email-credential-action';
