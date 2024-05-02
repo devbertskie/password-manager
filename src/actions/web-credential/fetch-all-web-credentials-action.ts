@@ -5,12 +5,12 @@ import { fetchAllWebCredentialsByUserId } from '@/query';
 
 export const fetchAllCredentialsByUser = async (limit?: number) => {
   const currentUser = await getCurrentUser();
-  if (!currentUser) {
+  if (!currentUser || !currentUser.id) {
     throw new Error('Unauthorized!');
   }
   try {
     const webCredentialsList = fetchAllWebCredentialsByUserId(
-      Number(currentUser.id),
+      currentUser.id,
       limit,
     );
 

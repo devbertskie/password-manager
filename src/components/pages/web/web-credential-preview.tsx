@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { notify } from '@/lib/notification';
+import paths from '@/lib/paths';
 import { webCredentialFormSchema } from '@/lib/schema';
 
 import { cn } from '@/lib/utils';
@@ -55,7 +56,7 @@ const WebCredentialPreview = ({
   const [copiedPassword, copyPassword] = useCopyToClipboard();
 
   const decryptedUsernameOrEmail = Crypto.AES.decrypt(
-    webCredential?.user_email,
+    webCredential?.usernameOrEmail,
     SALT_KEY,
   ).toString(Crypto.enc.Utf8);
 
@@ -71,7 +72,7 @@ const WebCredentialPreview = ({
       usernameOrEmail: decryptedUsernameOrEmail,
       password: decryptedPassword,
       title: webCredential.title,
-      siteUrl: webCredential.site_url,
+      siteUrl: webCredential.siteUrl,
     },
   });
 
@@ -81,6 +82,7 @@ const WebCredentialPreview = ({
     const updateResponse = await updateCredentialById(values, webCredential.id);
     if (updateResponse) {
       notify.success('Credential updated');
+      router.push(paths.toWebItem(updateResponse.id));
       router.refresh();
     }
   };
@@ -160,7 +162,7 @@ const WebCredentialPreview = ({
                   <div className="relative">
                     {!isEditable && (
                       <div className="absolute right-4 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2">
-                        <a href={`${webCredential.site_url}`} target="_blank">
+                        <a href={`${webCredential.siteUrl}`} target="_blank">
                           <SquareArrowUpRight className="size-4" />
                         </a>
                         {copiedUrl ? (
@@ -169,7 +171,7 @@ const WebCredentialPreview = ({
                           <Copy
                             className="size-4"
                             onClick={async () =>
-                              copyUrl(webCredential?.site_url || '')
+                              copyUrl(webCredential?.siteUrl || '')
                             }
                           />
                         )}

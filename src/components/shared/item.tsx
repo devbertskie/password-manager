@@ -8,9 +8,9 @@ export const WebCredentialItem = ({ item }: ItemProps<WebCredentialType>) => {
   const itemData: Item = {
     credentialId: item.id || '',
     title: item.title || '',
-    label: item.site_url || '',
+    label: item.siteUrl || '',
     Icon: GlobeIcon,
-    isImportant: item.is_important || false,
+    isImportant: item.isImportant || false,
     desktopLink: () => paths.toWebItem(item.id || ''),
     mobileLink: () => paths.toWebItemMobile(item.id || ''),
   };

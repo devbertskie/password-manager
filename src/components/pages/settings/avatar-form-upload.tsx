@@ -60,11 +60,11 @@ const AvatarFormUpload = () => {
     });
     if (url) {
       const result = await updateProfileImage(url);
-      if (result.image_url) {
+      if (result.imageUrl) {
         update({
           user: {
             ...currentUser,
-            image: result.image_url,
+            image: result.imageUrl,
           },
         });
         notify.success('Image updated');

@@ -35,6 +35,7 @@ import {
   Mail,
   SquareArrowUpRight,
 } from 'lucide-react';
+import paths from '@/lib/paths';
 
 interface EmailCredentialPreviewProps {
   isEditable: boolean;
@@ -55,7 +56,7 @@ const EmailCredentialPreview = ({
   const [copiedPassword, copyPassword] = useCopyToClipboard();
 
   const decryptedEmail = Crypto.AES.decrypt(
-    emailCredential?.email,
+    emailCredential?.usernameOrEmail,
     SALT_KEY,
   ).toString(Crypto.enc.Utf8);
 
@@ -84,6 +85,7 @@ const EmailCredentialPreview = ({
     );
     if (updateResponse) {
       notify.success('Credential updated');
+      router.push(paths.toEmailItem(updateResponse.id));
       router.refresh();
     }
   };

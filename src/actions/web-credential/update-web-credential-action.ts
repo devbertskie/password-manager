@@ -22,12 +22,12 @@ export const updateCredentialById = async (
       throw new Error('Something went wrong: No Existing credential');
 
     const updatedCredentailValue: CredentialDataType = {
-      user_email: encryptText(usernameOrEmail),
-      site_url: siteUrl,
+      usernameOrEmail: encryptText(usernameOrEmail),
+      siteUrl,
       password: encryptText(password),
       title,
       userId: existingCredential?.userId,
-      is_important: existingCredential?.is_important,
+      isImportant: existingCredential?.isImportant,
     };
 
     const updatedCredential = await updateWebCredentialById(
@@ -35,6 +35,7 @@ export const updateCredentialById = async (
       updatedCredentailValue,
     );
     revalidatePath(paths.toWebItem(credentialId));
+    revalidatePath(paths.toWebItemMobile(credentialId));
     revalidatePath(paths.toWeb());
 
     return updatedCredential;

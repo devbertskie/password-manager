@@ -11,12 +11,12 @@ export const fetchWebcredentialById = (id: string) => {
 };
 
 export const fetchAllWebCredentialsByUserId = (
-  userId: number,
+  userId: string,
   limit?: number,
 ) => {
   return db.webCredential.findMany({
     where: { userId },
-    orderBy: [{ is_important: 'desc' }, { updatedAt: 'desc' }],
+    orderBy: [{ isImportant: 'desc' }, { updatedAt: 'desc' }],
     take: limit || undefined,
   });
 };

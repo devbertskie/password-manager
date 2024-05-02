@@ -6,11 +6,10 @@ import { Separator } from '@/components/ui/separator';
 import React, { ReactNode, Suspense } from 'react';
 
 interface EmailCredentialLayoutProps {
-  // modal: ReactNode;
   children: ReactNode;
 }
 
-const EmailCredentialLayout = ({ children }: EmailCredentialLayoutProps) => {
+const EmailCredentialsLayout = ({ children }: EmailCredentialLayoutProps) => {
   return (
     <div className="mx-auto w-full max-w-6xl p-6 pb-16 md:p-10">
       <div className="rounded-md border border-border p-6">
@@ -31,11 +30,10 @@ const EmailCredentialLayout = ({ children }: EmailCredentialLayoutProps) => {
           </FeatureSidenav>
           <div className="flex-1">{children}</div>
         </div>
-        {/* {modal} */}
         <div className="md:hidden">{children}</div>
       </div>
     </div>
   );
 };
 
-export default EmailCredentialLayout;
+export default EmailCredentialsLayout;

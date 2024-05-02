@@ -5,7 +5,7 @@ export const fetchAllEmailCredentialsByUser = (
   limit?: number,
 ) => {
   return db.emailCredential.findMany({
-    where: { userId: Number(userId) },
+    where: { userId },
     orderBy: [{ isImportant: 'desc' }, { updatedAt: 'desc' }],
     take: limit || undefined,
   });

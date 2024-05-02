@@ -56,7 +56,7 @@ export const changePassword = async (
     const newHashedPassword = await hash(values.newPassword, 10);
 
     const updatedUser = await db.user.update({
-      where: { id: Number(currentUser.id) },
+      where: { id: currentUser.id },
       data: { password: newHashedPassword },
     });
 

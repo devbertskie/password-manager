@@ -1,6 +1,7 @@
+import React, { Suspense } from 'react';
+import EmailMobileCardWrapper from '@/components/pages/email/mobile/email-mobile-wrapper';
 import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
 import PreviewPlaceholder from '@/components/shared/preview-placeholder';
-import React, { Suspense } from 'react';
 
 const EmailCredentialsPage = () => {
   return (
@@ -9,7 +10,7 @@ const EmailCredentialsPage = () => {
 
       <div className="no-scrollbar max-h-[calc(100vh_-_21rem)] overflow-y-scroll md:hidden ">
         <Suspense fallback={<SideItemSkeleton count={10} />}>
-          {/* <WebMobileCardWrapper /> */}
+          <EmailMobileCardWrapper />
         </Suspense>
       </div>
     </div>

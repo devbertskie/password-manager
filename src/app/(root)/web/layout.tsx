@@ -8,13 +8,11 @@ import WebCredentialsList from '@/components/pages/web/web-credential-list';
 import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
 
 interface WebCredentialsRootLayoutProps {
-  modal: ReactNode;
   children: ReactNode;
 }
 
 const WebCredentialsRootLayout = ({
   children,
-  modal,
 }: WebCredentialsRootLayoutProps) => {
   return (
     <div className="mx-auto w-full max-w-6xl p-6 pb-16 md:p-10">
@@ -36,7 +34,6 @@ const WebCredentialsRootLayout = ({
           </FeatureSidenav>
           <div className="flex-1">{children}</div>
         </div>
-        {modal}
         <div className="md:hidden">{children}</div>
       </div>
     </div>

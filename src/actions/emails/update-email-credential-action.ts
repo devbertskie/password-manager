@@ -24,7 +24,7 @@ export const updateEmailCredentialById = async (
     const updatedCredential = await db.emailCredential.update({
       where: { id: credentialId },
       data: {
-        email: encryptText(email),
+        usernameOrEmail: encryptText(email),
         siteUrl,
         password: encryptText(password),
         title,
@@ -32,8 +32,9 @@ export const updateEmailCredentialById = async (
         isImportant: existingCredential?.isImportant,
       },
     });
-    revalidatePath(paths.toWebItem(credentialId));
-    revalidatePath(paths.toWeb());
+    revalidatePath(paths.toEmail());
+    revalidatePath(paths.toEmailItem(credentialId));
+    revalidatePath(paths.toEmailItemMobile(credentialId));
 
     return updatedCredential;
   } catch (error) {

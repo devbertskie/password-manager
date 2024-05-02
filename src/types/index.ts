@@ -9,9 +9,9 @@ export interface FormState {
 
 export type CredentialType = 'Web' | 'Email' | 'Note' | 'Identities';
 
-export type WebCredentialType = Partial<WebCredential> & {
+export type WebCredentialType = WebCredential & {
   __credentialType: CredentialType;
 };
-export type EmailCredentialType = Partial<EmailCredential> & {
+export type EmailCredentialType = EmailCredential & {
   __credentialType: CredentialType;
 };

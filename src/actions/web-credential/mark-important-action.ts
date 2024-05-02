@@ -21,7 +21,7 @@ export const markAsImportant = async (credentialId: string) => {
     await db.webCredential.update({
       where: { id: credentialId },
       data: {
-        is_important: !existingCredential.is_important,
+        isImportant: !existingCredential.isImportant,
       },
     });
   } catch (error) {

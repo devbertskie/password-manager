@@ -2,9 +2,8 @@ import React from 'react';
 
 import { notFound } from 'next/navigation';
 import { fetchAllCredentialsByUser } from '@/actions';
-import DataListCredentials, {
-  WebCredentialType,
-} from '@/components/pages/shared/data-list-credentials';
+import DataListCredentials from '@/components/pages/shared/data-list-credentials';
+import { WebCredentialType } from '@/types';
 
 const WebMobileCardWrapper = async () => {
   const webCredentialsList = await fetchAllCredentialsByUser();

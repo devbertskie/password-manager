@@ -10,9 +10,9 @@ export const updateProfileImage = async (imageUrl: string) => {
     if (!currentUser || !currentUser.id) throw new Error('Unauthorized');
 
     const result = await db.user.update({
-      where: { id: Number(currentUser.id) },
-      data: { image_url: imageUrl },
-      select: { image_url: true },
+      where: { id: currentUser.id },
+      data: { imageUrl },
+      select: { imageUrl: true },
     });
 
     revalidatePath(paths.toSettings());

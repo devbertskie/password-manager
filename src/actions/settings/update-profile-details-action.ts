@@ -62,7 +62,7 @@ export const updateProfile = async (
     }
 
     const userData = await db.user.update({
-      where: { id: Number(currentUser.id) },
+      where: { id: currentUser.id },
       data: {
         username,
         email,

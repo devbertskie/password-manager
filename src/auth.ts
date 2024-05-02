@@ -60,7 +60,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       if (!currentUser || !currentUser.role || !currentUser.username)
         return token;
-      token.picture = currentUser.image_url;
+      token.picture = currentUser.imageUrl;
       token.username = currentUser.username;
       token.role = currentUser.role;
       return token;

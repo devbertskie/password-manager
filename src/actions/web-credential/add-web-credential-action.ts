@@ -17,7 +17,7 @@ export const addCredential = async (
     const { title, usernameOrEmail, password, siteUrl, isImportant } = values;
     const currentUser = await getCurrentUser();
 
-    if (!currentUser) throw new Error('Unauthorized');
+    if (!currentUser || !currentUser.id) throw new Error('Unauthorized');
 
     const encryptedUsernameOrEmail = encryptText(usernameOrEmail);
     const encryptedPassword = encryptText(password);
@@ -27,10 +27,10 @@ export const addCredential = async (
     const dataCredential: CredentialDataType = {
       title,
       password: encryptedPassword,
-      user_email: encryptedUsernameOrEmail,
-      userId: Number(currentUser.id),
-      site_url: siteUrl,
-      is_important: isImportant || false,
+      usernameOrEmail: encryptedUsernameOrEmail,
+      userId: currentUser.id,
+      siteUrl,
+      isImportant: isImportant || false,
     };
 
     revalidatePath(paths.toWeb());

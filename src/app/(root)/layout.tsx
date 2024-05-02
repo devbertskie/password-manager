@@ -10,12 +10,13 @@ import { redirect } from 'next/navigation';
 import React, { ReactNode } from 'react';
 
 interface RootLayoutProps {
+  modal: ReactNode;
   children: ReactNode;
 }
 
 export const dynamic = 'force-dynamic';
 
-const RootLayout = async ({ children }: RootLayoutProps) => {
+const RootLayout = async ({ children, modal }: RootLayoutProps) => {
   const session = await auth();
   if (!session) {
     redirect(paths.toLogin());
@@ -35,6 +36,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
             {/* navbar */}
             <Navbar />
 
+            {modal}
             {children}
           </div>
         </MainContainer>
