@@ -31,3 +31,7 @@ export { addEmailCredential } from '@/actions/emails/add-email-credential-action
 // NOTE
 export { addNote } from '@/actions/note/add-note-action';
 export { fetchAllNotes } from '@/actions/note/fetch-all-notes-action';
+export { fetchNote } from '@/actions/note/fetch-note-by-id-action';
+export { deleteNote } from '@/actions/note/delete-note-action';
+export { markNoteAsImportant } from '@/actions/note/note-mark-important-action';
+export { updateNote } from '@/actions/note/update-note-action';

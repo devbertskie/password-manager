@@ -1,21 +1,31 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import EditorToolbar from '@/components/pages/note/editor-toolbar';
 import TextAlign from '@tiptap/extension-text-align';
 import Placeholder from '@tiptap/extension-placeholder';
+import { JsonObject } from '@prisma/client/runtime/library';
 
 interface TipTapEditorProps {
-  content: string;
+  content: any;
   onChange: (content: string) => void;
+  isEditable: boolean;
 }
 
-const TipTapEditor = ({ content, onChange }: TipTapEditorProps) => {
+const TipTapEditor = ({ content, onChange, isEditable }: TipTapEditorProps) => {
+  const currentContent = JSON.parse(content);
   const editor = useEditor({
+    editable: isEditable,
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        paragraph: {
+          HTMLAttributes: {
+            class: 'text-sm',
+          },
+        },
+      }),
       TextAlign.configure({
         types: ['heading', 'paragraph'],
         alignments: ['left', 'center', 'right'],
@@ -27,7 +37,7 @@ const TipTapEditor = ({ content, onChange }: TipTapEditorProps) => {
           'before:text-muted-foreground/60 before:text-[14px] before:h-0 before:pointer-events-none before:content-[attr(data-placeholder)]',
       }),
     ],
-    content: `${content}`,
+    content: currentContent,
     editorProps: {
       attributes: {
         class:
@@ -36,14 +46,28 @@ const TipTapEditor = ({ content, onChange }: TipTapEditorProps) => {
     },
     onUpdate({ editor }) {
       const result = editor.getJSON();
+
       const str = JSON.stringify(result);
       onChange(str);
     },
   });
+
+  useEffect(() => {
+    if (!editor) return undefined;
+
+    if (!isEditable) {
+      const cnt = currentContent as JsonObject;
+      if (typeof cnt === 'object') {
+        editor.commands.setContent(cnt);
+        editor.setEditable(false);
+      }
+    }
+    editor.setEditable(isEditable);
+  }, [editor, isEditable, currentContent]);
   return (
     <div className="flex min-h-[250px] flex-col justify-stretch space-y-4">
-      <EditorToolbar editor={editor} />
-      <EditorContent data-placeholder="What is this about?" editor={editor} />
+      {isEditable && <EditorToolbar editor={editor} />}
+      <EditorContent editor={editor} />
     </div>
   );
 };

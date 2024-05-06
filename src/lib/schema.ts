@@ -113,14 +113,14 @@ export const emailCredentialFormSchema = z.object({
 
 // NOTE
 
-const literalSchema = z.union([z.string(), z.number(), z.boolean(), z.null()]);
+const literalSchema = z.string();
 
 type Literal = z.infer<typeof literalSchema>;
 
-type Json = Literal | { [key: string]: Json } | Json[];
+type Json = Literal | { [key: string]: Json };
 
 const jsonSchema: z.ZodType<Json> = z.lazy(() =>
-  z.union([literalSchema, z.array(jsonSchema), z.record(jsonSchema)]),
+  z.union([literalSchema, z.record(jsonSchema)]),
 );
 
 export const noteFormSchema = z.object({
@@ -128,7 +128,7 @@ export const noteFormSchema = z.object({
   content: z
     .string()
     .min(6, { message: 'Minimum of 6 characters' })
-    .max(1000, { message: 'Maximum of 1000 characters' })
+    // .max(1000, { message: 'Maximum of 1000 characters' })
     .trim()
     .transform((str, ctx): z.infer<typeof jsonSchema> => {
       try {

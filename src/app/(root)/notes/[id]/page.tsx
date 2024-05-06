@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 
 import CredentialItemSkeleton from '@/components/pages/shared/credential-item-skeleton';
 import { notFound } from 'next/navigation';
+import NotePreviewPage from '@/components/pages/note/note-preview-page';
 
 interface NotePreviewListProps {
   params: {
@@ -17,7 +18,7 @@ const NotePreviewList = ({ params }: NotePreviewListProps) => {
   return (
     <div className="space-y-3">
       <Suspense fallback={<CredentialItemSkeleton />}>
-        {/* <EmailPreviewPage params={params} /> */}
+        <NotePreviewPage params={params} />
       </Suspense>
     </div>
   );

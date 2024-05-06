@@ -43,7 +43,7 @@ const NoteNewForm = () => {
     defaultValues: {
       title: '',
       content: '',
-    } as any,
+    },
   });
 
   const handleAddNote = async (values: z.infer<typeof noteFormSchema>) => {
@@ -54,7 +54,7 @@ const NoteNewForm = () => {
     if (noteData) {
       handleCloseForm();
       notify.success('New note added');
-      // router.push(paths.toWebItem(noteData.id));
+      router.push(paths.toNoteItem(noteData.id));
       router.refresh();
     }
   };
@@ -132,6 +132,7 @@ const NoteNewForm = () => {
                       <div className="flex flex-col space-y-2">
                         <Label className="add-required text-sm">Note</Label>
                         <TipTapEditor
+                          isEditable
                           content={field.value}
                           onChange={field.onChange}
                         />
