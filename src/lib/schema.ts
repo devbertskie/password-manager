@@ -110,3 +110,33 @@ export const emailCredentialFormSchema = z.object({
   password: z.string().min(1, 'Password is required'),
   isImportant: z.boolean().default(false).optional(),
 });
+
+// NOTE
+
+const literalSchema = z.union([z.string(), z.number(), z.boolean(), z.null()]);
+
+type Literal = z.infer<typeof literalSchema>;
+
+type Json = Literal | { [key: string]: Json } | Json[];
+
+const jsonSchema: z.ZodType<Json> = z.lazy(() =>
+  z.union([literalSchema, z.array(jsonSchema), z.record(jsonSchema)]),
+);
+
+export const noteFormSchema = z.object({
+  title: z.string().min(6, 'Minimumn of 6 characters').trim(),
+  content: z
+    .string()
+    .min(6, { message: 'Minimum of 6 characters' })
+    .max(1000, { message: 'Maximum of 1000 characters' })
+    .trim()
+    .transform((str, ctx): z.infer<typeof jsonSchema> => {
+      try {
+        return JSON.parse(str);
+      } catch (error) {
+        ctx.addIssue({ code: 'custom', message: 'Invalid JSON' });
+        return z.NEVER;
+      }
+    }),
+  isImportant: z.boolean().default(false).optional(),
+});
