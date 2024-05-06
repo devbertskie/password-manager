@@ -78,7 +78,7 @@ const NoteNewForm = () => {
         className="flex items-center space-x-1"
       >
         <Plus className="w-4" />
-        <span> New Credential</span>
+        <span> Add Note</span>
       </Button>
 
       <Form {...noteForm}>

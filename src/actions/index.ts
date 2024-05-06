@@ -30,3 +30,4 @@ export { addEmailCredential } from '@/actions/emails/add-email-credential-action
 
 // NOTE
 export { addNote } from '@/actions/note/add-note-action';
+export { fetchAllNotes } from '@/actions/note/fetch-all-notes-action';

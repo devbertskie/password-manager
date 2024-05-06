@@ -1,3 +1,4 @@
+import NoteList from '@/components/pages/note/note-list';
 import NoteNewForm from '@/components/pages/note/note-new-form';
 import FeatureHeader from '@/components/pages/shared/feature-header';
 import FeatureSidenav from '@/components/pages/shared/feature-sidenav';
@@ -22,7 +23,7 @@ const NotesLayout = ({ children }: EmailCredentialLayoutProps) => {
           {/* sidenav hear */}
           <FeatureSidenav>
             <Suspense fallback={<SideItemSkeleton count={8} />}>
-              {/* <EmailCredentialsList /> */}
+              <NoteList />
             </Suspense>
           </FeatureSidenav>
           <div className="flex-1">{children}</div>

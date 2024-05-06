@@ -27,3 +27,5 @@ export {
   fetchEmailCredentialById,
   deleteEmailCredentialById,
 } from '@/query/email-credential-query';
+
+export { fetchAllNotesByCurrentUser, fetchNoteById } from '@/query/note-query';

@@ -4,11 +4,18 @@ import { Info } from 'lucide-react';
 import FeatureItemList from '@/components/pages/shared/feature-item-list';
 import {
   EmailCredentialItem,
+  NoteItem,
   WebCredentialItem,
 } from '@/components/shared/item';
-import { EmailCredentialType, WebCredentialType } from '@/types';
+import { CredentialType } from '@/types';
 
-type CredentialTarget = WebCredentialType | EmailCredentialType;
+export type CredentialTarget = {
+  title: string;
+  label: string;
+  isImportant: boolean;
+  credentialId: string;
+  __credentialType: CredentialType;
+};
 
 export interface ItemProps<T extends CredentialTarget> {
   item: T;
@@ -19,6 +26,8 @@ const FeatureItem = <T extends CredentialTarget>({ item }: ItemProps<T>) => {
       return <WebCredentialItem item={item} />;
     case 'Email':
       return <EmailCredentialItem item={item} />;
+    case 'Note':
+      return <NoteItem item={item} />;
     default:
       return null;
   }
@@ -45,7 +54,7 @@ export default function DataListCredentials<T extends CredentialTarget>({
   return (
     <FeatureItemList>
       {list.map((item: T) => {
-        return <FeatureItem key={item.id} item={item} />;
+        return <FeatureItem key={item.credentialId} item={item} />;
       })}
     </FeatureItemList>
   );
