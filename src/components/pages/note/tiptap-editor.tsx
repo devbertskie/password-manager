@@ -39,7 +39,7 @@ const TipTapEditor = ({ content, onChange, isEditable }: TipTapEditorProps) => {
     editorProps: {
       attributes: {
         class:
-          'rounded-md border-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 min-h-[200px] font-lexend disabled:cursor-not-allowed ring-offset-background border p-4 prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl',
+          'rounded-md border-input focus-visible:outline-none focus-visible:ring-2 max-h-[25rem] custom-scroll overflow-y-scroll focus-visible:ring-ring focus-visible:ring-offset-2 min-h-[200px] font-lexend disabled:cursor-not-allowed ring-offset-background border p-4 prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl',
       },
     },
     onUpdate({ editor }) {

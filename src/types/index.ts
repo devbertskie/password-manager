@@ -5,4 +5,4 @@ export interface FormState {
   timestamp: number;
 }
 
-export type CredentialType = 'Web' | 'Email' | 'Note' | 'Identities';
+export type CredentialType = 'Web' | 'Email' | 'Note';

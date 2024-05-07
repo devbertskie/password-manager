@@ -84,7 +84,7 @@ const NoteNewForm = () => {
       <Form {...noteForm}>
         <Dialog open={openDialog} onOpenChange={handleCloseForm}>
           <DialogContent
-            className="top-[calc(100vh_-_60%)] max-w-md sm:top-[calc(100vh_-_70%)] md:max-w-lg"
+            className="top-[calc(100vh_-_50%)] max-w-md sm:top-[calc(100vh_-_70%)] md:max-w-lg"
             onEscapeKeyDown={(e) => e.preventDefault()}
             // onPointerDown={(e) => e.preventDefault()}
             onInteractOutside={(e) => e.preventDefault()}
