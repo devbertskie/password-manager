@@ -43,7 +43,7 @@ const NotePreview = ({
     defaultValues: {
       title: noteData.title,
       content: JSON.stringify(noteData.content),
-    },
+    } as any,
   });
 
   const onUpdateForm = async (values: z.infer<typeof noteFormSchema>) => {

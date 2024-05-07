@@ -28,6 +28,9 @@ export const addNote = async (values: z.infer<typeof noteFormSchema>) => {
 
     return newNote;
   } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     throw new Error('Something went wrong!');
   }
 };

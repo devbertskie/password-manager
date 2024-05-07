@@ -43,7 +43,7 @@ const NoteNewForm = () => {
     defaultValues: {
       title: '',
       content: '',
-    },
+    } as any,
   });
 
   const handleAddNote = async (values: z.infer<typeof noteFormSchema>) => {

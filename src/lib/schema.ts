@@ -113,14 +113,14 @@ export const emailCredentialFormSchema = z.object({
 
 // NOTE
 
-const literalSchema = z.string();
+const literalSchema = z.union([z.string(), z.number(), z.boolean(), z.null()]);
 
 type Literal = z.infer<typeof literalSchema>;
 
-type Json = Literal | { [key: string]: Json };
+type Json = Literal | { [key: string]: Json } | Json[];
 
 const jsonSchema: z.ZodType<Json> = z.lazy(() =>
-  z.union([literalSchema, z.record(jsonSchema)]),
+  z.union([literalSchema, z.array(jsonSchema), z.record(jsonSchema)]),
 );
 
 export const noteFormSchema = z.object({

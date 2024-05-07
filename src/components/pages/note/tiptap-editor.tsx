@@ -1,24 +1,19 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useEditor, EditorContent, Content } from '@tiptap/react';
+import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import EditorToolbar from '@/components/pages/note/editor-toolbar';
 import TextAlign from '@tiptap/extension-text-align';
 import Placeholder from '@tiptap/extension-placeholder';
-import { JsonObject } from '@prisma/client/runtime/library';
-import { ZodEffects, z } from 'zod';
-import { noteFormSchema } from '@/lib/schema';
 
 interface TipTapEditorProps {
-  content: string;
+  content: any;
   onChange: (content: string) => void;
   isEditable: boolean;
 }
 
 const TipTapEditor = ({ content, onChange, isEditable }: TipTapEditorProps) => {
-  const currentContent =
-    content && typeof content === 'string' ? JSON.parse(content) : '';
   const editor = useEditor({
     editable: isEditable,
     extensions: [
@@ -40,7 +35,7 @@ const TipTapEditor = ({ content, onChange, isEditable }: TipTapEditorProps) => {
           'before:text-muted-foreground/60 before:text-[14px] before:h-0 before:pointer-events-none before:content-[attr(data-placeholder)]',
       }),
     ],
-    content: currentContent,
+    content: '',
     editorProps: {
       attributes: {
         class:
@@ -58,15 +53,13 @@ const TipTapEditor = ({ content, onChange, isEditable }: TipTapEditorProps) => {
   useEffect(() => {
     if (!editor) return undefined;
 
-    // if (!isEditable) {
-    //   const cnt = currentContent as JsonObject;
-    //   if (typeof cnt === 'object') {
-    //     editor.commands.setContent(cnt);
-    //     editor.setEditable(false);
-    //   }
-    // }
+    if (!isEditable) {
+      const cnt = JSON.parse(content);
+      editor.commands.setContent(cnt);
+      editor.setEditable(false);
+    }
     editor.setEditable(isEditable);
-  }, [editor, isEditable, currentContent]);
+  }, [editor, isEditable, content]);
   return (
     <div className="flex min-h-[250px] flex-col justify-stretch space-y-4">
       {isEditable && <EditorToolbar editor={editor} />}
