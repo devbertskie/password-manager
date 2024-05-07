@@ -1,21 +1,24 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react';
+import { useEditor, EditorContent, Content } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import EditorToolbar from '@/components/pages/note/editor-toolbar';
 import TextAlign from '@tiptap/extension-text-align';
 import Placeholder from '@tiptap/extension-placeholder';
 import { JsonObject } from '@prisma/client/runtime/library';
+import { ZodEffects, z } from 'zod';
+import { noteFormSchema } from '@/lib/schema';
 
 interface TipTapEditorProps {
-  content: any;
+  content: string;
   onChange: (content: string) => void;
   isEditable: boolean;
 }
 
 const TipTapEditor = ({ content, onChange, isEditable }: TipTapEditorProps) => {
-  const currentContent = JSON.parse(content);
+  const currentContent =
+    content && typeof content === 'string' ? JSON.parse(content) : '';
   const editor = useEditor({
     editable: isEditable,
     extensions: [
@@ -55,13 +58,13 @@ const TipTapEditor = ({ content, onChange, isEditable }: TipTapEditorProps) => {
   useEffect(() => {
     if (!editor) return undefined;
 
-    if (!isEditable) {
-      const cnt = currentContent as JsonObject;
-      if (typeof cnt === 'object') {
-        editor.commands.setContent(cnt);
-        editor.setEditable(false);
-      }
-    }
+    // if (!isEditable) {
+    //   const cnt = currentContent as JsonObject;
+    //   if (typeof cnt === 'object') {
+    //     editor.commands.setContent(cnt);
+    //     editor.setEditable(false);
+    //   }
+    // }
     editor.setEditable(isEditable);
   }, [editor, isEditable, currentContent]);
   return (

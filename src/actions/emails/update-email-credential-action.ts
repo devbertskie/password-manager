@@ -16,7 +16,7 @@ export const updateEmailCredentialById = async (
     throw new Error('Something went wrong: No ID');
   }
   try {
-    const { email, title, siteUrl, password } = values;
+    const { usernameOrEmail, title, siteUrl, password } = values;
     const existingCredential = await fetchEmailCredentialById(credentialId);
     if (!existingCredential)
       throw new Error('Something went wrong: No Existing credential');
@@ -24,7 +24,7 @@ export const updateEmailCredentialById = async (
     const updatedCredential = await db.emailCredential.update({
       where: { id: credentialId },
       data: {
-        usernameOrEmail: encryptText(email),
+        usernameOrEmail: encryptText(usernameOrEmail),
         siteUrl,
         password: encryptText(password),
         title,
