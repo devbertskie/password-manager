@@ -6,6 +6,7 @@ import WebNewForm from '@/components/pages/web/web-new-form';
 import { Separator } from '@/components/ui/separator';
 import WebCredentialsList from '@/components/pages/web/web-credential-list';
 import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
+import LayoutPager from '@/components/shared/layout-pager';
 
 interface WebCredentialsRootLayoutProps {
   children: ReactNode;
@@ -15,7 +16,8 @@ const WebCredentialsRootLayout = ({
   children,
 }: WebCredentialsRootLayoutProps) => {
   return (
-    <div className="mx-auto w-full max-w-6xl p-6 pb-16 md:p-10">
+    <div className="mx-auto w-full max-w-6xl space-y-4 p-6 pb-16 md:p-10">
+      <LayoutPager type="Web" />
       <div className="rounded-md border border-border p-6">
         <FeatureHeader
           title="Web Credentials"

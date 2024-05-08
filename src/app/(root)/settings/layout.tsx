@@ -2,10 +2,12 @@ import { Separator } from '@/components/ui/separator';
 import React, { PropsWithChildren } from 'react';
 import { SETTINGS_LIST } from '@/constants';
 import SidebarNav from '@/components/pages/settings/sidebar-nav';
+import LayoutPager from '@/components/shared/layout-pager';
 
 const SettingsLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="w-full space-y-6  p-8 pb-16 lg:mx-auto lg:max-w-4xl lg:p-10">
+    <div className="w-full space-y-4  p-8 pb-16 lg:mx-auto lg:max-w-4xl lg:p-10">
+      <LayoutPager />
       <div className="rounded-md border border-border p-6">
         {/* start header */}
         <div className="space-y-0.5">
