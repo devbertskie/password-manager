@@ -19,6 +19,7 @@ import {
   fetchEmailCredentialById,
   fetchNote,
 } from '@/actions';
+import { EmailCredential, Note, WebCredential } from '@prisma/client';
 
 const capitalize = (str: string) =>
   `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
@@ -38,19 +39,25 @@ const LayoutPager = ({ type }: LayoutPagerProps) => {
   const params = useParams();
 
   const getSlugTitle = async (dynamicRoute: string): Promise<string> => {
+    let existingData = null;
     switch (type) {
       case 'Web':
-        const existingWeb = await fetchCredentialById(dynamicRoute);
-        return existingWeb ? existingWeb.title : '';
+        existingData = (await fetchCredentialById(
+          dynamicRoute,
+        )) as WebCredential;
+        break;
       case 'Email':
-        const existingEmail = await fetchEmailCredentialById(dynamicRoute);
-        return existingEmail ? existingEmail.title : '';
+        existingData = (await fetchEmailCredentialById(
+          dynamicRoute,
+        )) as EmailCredential;
+        break;
       case 'Note':
-        const existingNote = await fetchNote(dynamicRoute);
-        return existingNote ? existingNote.title : '';
+        existingData = (await fetchNote(dynamicRoute)) as Note;
+        break;
       default:
-        return dynamicRoute;
+        existingData = null;
     }
+    return existingData ? existingData.title : '';
   };
   const callbackSlutTitle = useCallback(getSlugTitle, [type]);
 
