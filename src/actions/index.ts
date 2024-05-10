@@ -35,3 +35,6 @@ export { fetchNote } from '@/actions/note/fetch-note-by-id-action';
 export { deleteNote } from '@/actions/note/delete-note-action';
 export { markNoteAsImportant } from '@/actions/note/note-mark-important-action';
 export { updateNote } from '@/actions/note/update-note-action';
+
+// Search
+export { searchGlobally } from '@/actions/search/global-search-action';
