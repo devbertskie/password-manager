@@ -1,6 +1,7 @@
 import CredentialSkeleton from '@/components/pages/shared/credential-item-skeleton';
 import WebPreviewPage from '@/components/pages/web/web-preview';
 import { fetchAllCredentials } from '@/query';
+
 import { notFound } from 'next/navigation';
 
 import React, { Suspense } from 'react';

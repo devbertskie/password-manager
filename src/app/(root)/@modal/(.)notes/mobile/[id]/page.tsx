@@ -5,11 +5,18 @@ import ModalWrapper from '@/components/pages/shared/modal-wrapper';
 import { notFound } from 'next/navigation';
 
 import NotePreviewPage from '@/components/pages/note/note-preview-page';
+import { fetchAllNotes } from '@/query';
 
 interface NoteMobilePopUpProps {
   params: {
     id: string;
   };
+}
+export async function generateStaticParams() {
+  const credentials = await fetchAllNotes();
+  return credentials.map((credential) => ({
+    id: credential.id,
+  }));
 }
 
 export default function NoteMobilePopUp({ params }: NoteMobilePopUpProps) {

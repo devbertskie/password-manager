@@ -18,3 +18,7 @@ export const fetchNoteById = (noteId: string) => {
 export const deleteNoteById = (noteId: string) => {
   return db.note.delete({ where: { id: noteId } });
 };
+
+export const fetchAllNotes = () => {
+  return db.note.findMany();
+};

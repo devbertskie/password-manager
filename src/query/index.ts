@@ -26,10 +26,12 @@ export {
   fetchAllEmailCredentialsByUser,
   fetchEmailCredentialById,
   deleteEmailCredentialById,
+  fetchAllEmails,
 } from '@/query/email-credential-query';
 
 export {
   fetchAllNotesByCurrentUser,
   fetchNoteById,
   deleteNoteById,
+  fetchAllNotes,
 } from '@/query/note-query';
