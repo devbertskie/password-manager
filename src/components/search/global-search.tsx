@@ -17,7 +17,7 @@ const GlobalSearch = () => {
   const [isOpenSearch, toggleIsOpenSearch, setIsOpenSearch] = useToggle(false);
   const [search, setSearch] = useState('');
 
-  const [searchResult] = useDebounceValue(search.trim(), 1000, {
+  const [searchResult] = useDebounceValue(search.trim(), 500, {
     leading: true,
   });
   const handleCloseSearch = () => {
@@ -37,6 +37,7 @@ const GlobalSearch = () => {
           return;
         }
         e.preventDefault();
+        setSearch('');
         toggleIsOpenSearch();
       }
     };
