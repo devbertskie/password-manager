@@ -1,20 +1,22 @@
 import React from 'react';
 
 import { notFound } from 'next/navigation';
-import { fetchAllEmailCredentials } from '@/actions';
+import { getUsersData } from '@/actions';
 import DataListCredentials, {
   CredentialTarget,
 } from '@/components/pages/shared/data-list-credentials';
 import { formatDistance } from 'date-fns';
 
 const EmailMobileCardWrapper = async () => {
-  const emailCredentialsList = await fetchAllEmailCredentials();
+  const usersData = await getUsersData();
 
-  if (!emailCredentialsList) {
+  if (!usersData) {
     return notFound();
   }
 
-  const emailCredentialData: CredentialTarget[] = emailCredentialsList.map(
+  const { currentEmailCredentials } = usersData;
+
+  const emailCredentialData: CredentialTarget[] = currentEmailCredentials.map(
     (credential) => {
       const formattedDate = formatDistance(credential.createdAt, new Date(), {
         addSuffix: true,

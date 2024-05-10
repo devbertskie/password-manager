@@ -1,10 +1,10 @@
 'use server';
 
+import { db } from '@/db';
 import { encryptText } from '@/lib/encrypt-text';
 import paths from '@/lib/paths';
 import { webCredentialFormSchema } from '@/lib/schema';
-import { fetchWebcredentialById, updateWebCredentialById } from '@/query';
-import { CredentialDataType } from '@/query/web-credential-query';
+import { fetchWebcredentialById } from '@/query';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
@@ -21,19 +21,17 @@ export const updateCredentialById = async (
     if (!existingCredential)
       throw new Error('Something went wrong: No Existing credential');
 
-    const updatedCredentailValue: CredentialDataType = {
-      usernameOrEmail: encryptText(usernameOrEmail),
-      siteUrl,
-      password: encryptText(password),
-      title,
-      userId: existingCredential?.userId,
-      isImportant: existingCredential?.isImportant,
-    };
-
-    const updatedCredential = await updateWebCredentialById(
-      credentialId,
-      updatedCredentailValue,
-    );
+    const updatedCredential = await db.webCredential.update({
+      where: { id: credentialId },
+      data: {
+        siteUrl,
+        title,
+        usernameOrEmail: encryptText(usernameOrEmail),
+        password: encryptText(password),
+        userId: existingCredential?.userId,
+        isImportant: existingCredential?.isImportant,
+      },
+    });
     revalidatePath(paths.toWebItem(credentialId));
     revalidatePath(paths.toWebItemMobile(credentialId));
     revalidatePath(paths.toWeb());

@@ -7,7 +7,6 @@ export { verifyUserEmail } from '@/actions/auth/verify-user-email-action';
 export { registerUser } from '@/actions/auth/register-user-action';
 
 // WEB CREDENTIALS
-export { fetchAllCredentialsByUser } from '@/actions/web-credential/fetch-all-web-credentials-action';
 export { fetchCredentialById } from '@/actions/web-credential/fetch-web-credential-by-id-action';
 export { addCredential } from '@/actions/web-credential/add-web-credential-action';
 export { updateCredentialById } from '@/actions/web-credential/update-web-credential-action';
@@ -21,7 +20,6 @@ export { changePassword } from '@/actions/settings/update-password-action';
 
 // EMAILS
 
-export { fetchAllEmailCredentials } from '@/actions/emails/fetch-all-email-credentials-action';
 export { fetchEmailCredentialById } from '@/actions/emails/fetch-email-credential-by-id-action';
 export { markEmailAsImportant } from '@/actions/emails/mark-important-action';
 export { deleteEmailCredential } from '@/actions/emails/delete-credential-action';
@@ -30,7 +28,6 @@ export { addEmailCredential } from '@/actions/emails/add-email-credential-action
 
 // NOTE
 export { addNote } from '@/actions/note/add-note-action';
-export { fetchAllNotes } from '@/actions/note/fetch-all-notes-action';
 export { fetchNote } from '@/actions/note/fetch-note-by-id-action';
 export { deleteNote } from '@/actions/note/delete-note-action';
 export { markNoteAsImportant } from '@/actions/note/note-mark-important-action';
@@ -38,3 +35,6 @@ export { updateNote } from '@/actions/note/update-note-action';
 
 // Search
 export { searchGlobally } from '@/actions/search/global-search-action';
+
+// USER
+export { getUsersData } from '@/actions/users/users-credential-list-action';

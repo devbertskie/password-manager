@@ -1,20 +1,22 @@
 import React from 'react';
 
 import { notFound } from 'next/navigation';
-import { fetchAllNotes } from '@/actions';
+import { getUsersData } from '@/actions';
 import DataListCredentials, {
   CredentialTarget,
 } from '@/components/pages/shared/data-list-credentials';
 import { formatDistance } from 'date-fns';
 
 const NoteMobileCardWrapper = async () => {
-  const noteLists = await fetchAllNotes();
+  const usersData = await getUsersData();
 
-  if (!noteLists) {
+  if (!usersData) {
     return notFound();
   }
 
-  const noteData: CredentialTarget[] = noteLists.map((credential) => {
+  const { currentNotes } = usersData;
+
+  const noteData: CredentialTarget[] = currentNotes.map((credential) => {
     const formattedDate = formatDistance(credential.createdAt, new Date(), {
       addSuffix: true,
     });

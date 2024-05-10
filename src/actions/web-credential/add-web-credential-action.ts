@@ -1,11 +1,10 @@
 'use server';
 
+import { db } from '@/db';
 import { getCurrentUser } from '@/lib/current-user';
 import { encryptText } from '@/lib/encrypt-text';
 import paths from '@/lib/paths';
 import { webCredentialFormSchema } from '@/lib/schema';
-import { CredentialDataType } from '@/query/web-credential-query';
-import { createWebCredential } from '@/query';
 
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
@@ -22,20 +21,18 @@ export const addCredential = async (
     const encryptedUsernameOrEmail = encryptText(usernameOrEmail);
     const encryptedPassword = encryptText(password);
 
-    // save to db
-
-    const dataCredential: CredentialDataType = {
-      title,
-      password: encryptedPassword,
-      usernameOrEmail: encryptedUsernameOrEmail,
-      userId: currentUser.id,
-      siteUrl,
-      isImportant: isImportant || false,
-    };
+    const newWebCredentialData = await db.webCredential.create({
+      data: {
+        title,
+        password: encryptedPassword,
+        usernameOrEmail: encryptedUsernameOrEmail,
+        userId: currentUser.id,
+        siteUrl,
+        isImportant: isImportant || false,
+      },
+    });
 
     revalidatePath(paths.toWeb());
-    const newWebCredentialData = await createWebCredential(dataCredential);
-
     return newWebCredentialData;
   } catch (error) {
     throw new Error('Something went wrong');

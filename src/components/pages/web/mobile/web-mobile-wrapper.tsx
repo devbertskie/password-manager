@@ -1,20 +1,22 @@
 import React from 'react';
 
 import { notFound } from 'next/navigation';
-import { fetchAllCredentialsByUser } from '@/actions';
+import { getUsersData } from '@/actions';
 import DataListCredentials, {
   CredentialTarget,
 } from '@/components/pages/shared/data-list-credentials';
 import { formatDistance } from 'date-fns';
 
 const WebMobileCardWrapper = async () => {
-  const webCredentialsList = await fetchAllCredentialsByUser();
+  const usersData = await getUsersData();
 
-  if (!webCredentialsList) {
+  if (!usersData) {
     return notFound();
   }
 
-  const webCredentialData: CredentialTarget[] = webCredentialsList.map(
+  const { currentWebCredentials } = usersData;
+
+  const webCredentialData: CredentialTarget[] = currentWebCredentials.map(
     (credential) => {
       const formattedDate = formatDistance(credential.createdAt, new Date(), {
         addSuffix: true,

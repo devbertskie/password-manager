@@ -1,4 +1,4 @@
-import { fetchAllEmailCredentials } from '@/actions';
+import { getUsersData } from '@/actions';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import DataListCredentials, {
@@ -7,13 +7,15 @@ import DataListCredentials, {
 import { formatDistance } from 'date-fns';
 
 export default async function EmailCredentialsList() {
-  const emailCredentialsList = await fetchAllEmailCredentials();
+  const usersData = await getUsersData();
 
-  if (!emailCredentialsList) {
+  if (!usersData) {
     return notFound();
   }
 
-  const emailCredentialData: CredentialTarget[] = emailCredentialsList.map(
+  const { currentEmailCredentials } = usersData;
+
+  const emailCredentialData: CredentialTarget[] = currentEmailCredentials.map(
     (credential) => {
       const formattedDate = formatDistance(credential.createdAt, new Date(), {
         addSuffix: true,

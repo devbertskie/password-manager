@@ -1,20 +1,21 @@
 import React from 'react';
-import { fetchAllCredentialsByUser } from '@/actions';
 
 import { notFound } from 'next/navigation';
 import DataListCredentials, {
   CredentialTarget,
 } from '@/components/pages/shared/data-list-credentials';
 import { formatDistance } from 'date-fns';
+import { getUsersData } from '@/actions/users/users-credential-list-action';
 
 const WebCredentialsList = async () => {
-  const webCredentialsList = await fetchAllCredentialsByUser();
-
-  if (!webCredentialsList) {
+  const userData = await getUsersData();
+  if (!userData) {
     return notFound();
   }
 
-  const webCredentialData: CredentialTarget[] = webCredentialsList.map(
+  const { currentWebCredentials } = userData;
+
+  const webCredentialData: CredentialTarget[] = currentWebCredentials.map(
     (credential) => {
       const formattedDate = formatDistance(credential.createdAt, new Date(), {
         addSuffix: true,
