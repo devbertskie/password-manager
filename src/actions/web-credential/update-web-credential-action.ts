@@ -28,6 +28,7 @@ export const updateCredentialById = async (
       title,
       userId: existingCredential?.userId,
       isImportant: existingCredential?.isImportant,
+      isDeleted: existingCredential.isDeleted,
     };
 
     const updatedCredential = await updateWebCredentialById(

@@ -35,6 +35,7 @@ model WebCredential {
   isImportant Boolean @map("is_important") @default(false)   
   usernameOrEmail  String  @map("username_or_email")
   password  String
+  isDeleted Boolean @map("is_deleted") @default(false)
   userId String @map("user_id")
 
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -49,6 +50,7 @@ model EmailCredential {
   isImportant Boolean @map("is_important") @default(false)   
   usernameOrEmail  String @map("username_or_email")
   password  String
+  isDeleted Boolean @map("is_deleted") @default(false)
   userId String @map("user_id")
 
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -60,7 +62,8 @@ model Note {
   id        String    @id @default(uuid())
   title     String   @unique
   content Json
-  isImportant Boolean @map("is_important") @default(false)   
+  isImportant Boolean @map("is_important") @default(false)
+  isDeleted Boolean @map("is_deleted") @default(false)   
   userId String @map("user_id")
 
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade)

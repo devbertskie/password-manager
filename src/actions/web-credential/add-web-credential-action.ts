@@ -31,6 +31,7 @@ export const addCredential = async (
       userId: currentUser.id,
       siteUrl,
       isImportant: isImportant || false,
+      isDeleted: false,
     };
 
     revalidatePath(paths.toWeb());
