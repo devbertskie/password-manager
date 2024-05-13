@@ -14,10 +14,10 @@ export default function RecentlyAddedSkeleton() {
             key={index}
             className="group flex items-center gap-4 rounded-sm px-3 py-2"
           >
-            <Skeleton className="size-10 rounded-full" />
+            <Skeleton className="hidden size-10 rounded-full md:block" />
             <div className="grid w-full gap-1">
-              <Skeleton className="h-2.5 w-40" />
-              <Skeleton className="h-2.5 w-24" />
+              <Skeleton className="h-2.5 w-32 md:w-40" />
+              <Skeleton className="h-2.5 w-20 md:w-24" />
             </div>
             <div className="transition-300 ml-auto flex items-center justify-between font-medium group-hover:text-primary">
               <Skeleton className="h-3 w-10" />
