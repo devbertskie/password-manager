@@ -6,11 +6,8 @@ import GoBackButton from '@/components/shared/go-back';
 
 export default function NotFoundPage() {
   return (
-    <Card className="w-[400px] border-0">
-      {/* <CardHeader className="text-center">
-        <CardTitle className="text-xl md:text-3xl">404</CardTitle>
-      </CardHeader> */}
-      <CardContent className="flex flex-col items-center justify-center space-y-4 p-6">
+    <Card className="w-[400px] border border-primary">
+      <CardContent className="flex flex-col items-center justify-center space-y-8 p-6">
         <Image
           src={notFound}
           height={300}
@@ -18,6 +15,9 @@ export default function NotFoundPage() {
           alt="not-found"
           className="object-cover opacity-75"
         />
+        <p className="text-center text-sm capitalize text-primary underline md:text-lg">
+          The page your lokking for was not found
+        </p>
 
         <GoBackButton />
       </CardContent>

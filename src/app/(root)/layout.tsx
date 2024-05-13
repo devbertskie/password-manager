@@ -8,6 +8,7 @@ import paths from '@/lib/paths';
 import { redirect } from 'next/navigation';
 
 import React, { ReactNode } from 'react';
+import FooterLayout from '@/components/layout/footer';
 
 interface RootLayoutProps {
   modal: ReactNode;
@@ -38,6 +39,7 @@ const RootLayout = async ({ children, modal }: RootLayoutProps) => {
 
             {modal}
             {children}
+            <FooterLayout />
           </div>
         </MainContainer>
       </div>

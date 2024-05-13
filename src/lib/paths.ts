@@ -16,6 +16,7 @@ const paths = {
   toSettings: () => '/settings',
   toChangePassword: () => '/settings/credential',
   toForgotPassword: () => '/forgot-password',
+  toTrash: () => '/bin',
 };
 
 export default paths;

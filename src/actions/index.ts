@@ -38,3 +38,7 @@ export { updateNote } from '@/actions/note/update-note-action';
 
 // Search
 export { searchGlobally } from '@/actions/search/global-search-action';
+
+// dashboard
+export { usersWithCount } from '@/actions/dashboard/metric-count-action';
+export { recentItems } from '@/actions/dashboard/recent-items-actions';

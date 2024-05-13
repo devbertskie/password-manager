@@ -54,7 +54,7 @@ const GlobalSearch = () => {
         }}
         className="transition-300 flex cursor-pointer items-center justify-between gap-x-2 rounded-md border border-primary/20 bg-transparent px-3 py-1 tracking-wide text-primary hover:bg-primary/20  hover:text-white md:w-[230px]"
       >
-        <p className="hidden font-thin md:block">Search credential...</p>
+        <p className="hidden font-thin md:block">Search manager...</p>
         <Search className="size-4 md:hidden" />
         <kbd className="pointer-events-none inline-flex h-5 select-none">
           <p className="text-[12px] font-semibold">⌘K</p>
@@ -67,7 +67,7 @@ const GlobalSearch = () => {
             <Input
               autoFocus={isOpenSearch}
               type="text"
-              placeholder="Search credentials"
+              placeholder="Search passmanager..."
               className="max-w-fit rounded-none border-none pl-8 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
