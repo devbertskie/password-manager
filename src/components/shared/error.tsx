@@ -15,11 +15,8 @@ interface ErrorPageProps {
 
 export default function ErrorPage({ error, reset }: ErrorPageProps) {
   return (
-    <Card className="w-[400px] border-0">
-      {/* <CardHeader className="text-center">
-        <CardTitle className="text-xl md:text-3xl">404</CardTitle>
-      </CardHeader> */}
-      <CardContent className="flex flex-col items-center justify-center space-y-4 p-6">
+    <Card className="w-[400px] border border-destructive">
+      <CardContent className="flex flex-col items-center justify-center space-y-8 p-6">
         <Image
           src={errorImage}
           height={300}
@@ -27,8 +24,13 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
           alt="not-found"
           className="object-cover opacity-75"
         />
-        {JSON.stringify(error)}
-        <Button onClick={() => reset()}>Try again</Button>
+        <p className="text-sm capitalize text-destructive underline md:text-lg">
+          Unexpected Error occur
+        </p>
+        <p className="hidden">{error.message}</p>
+        <Button variant="destructive" onClick={() => reset()}>
+          Try again
+        </Button>
       </CardContent>
     </Card>
   );

@@ -38,3 +38,7 @@ export { searchGlobally } from '@/actions/search/global-search-action';
 
 // USER
 export { getUsersData } from '@/actions/users/users-credential-list-action';
+
+// dashboard
+export { usersWithCount } from '@/actions/dashboard/metric-count-action';
+export { recentItems } from '@/actions/dashboard/recent-items-actions';
