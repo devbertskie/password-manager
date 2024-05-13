@@ -26,6 +26,8 @@ export const getUsersData = cache(async () => {
         username: false,
         role: false,
         id: false,
+        updatedAt: false,
+        createdAt: false,
       },
     });
 
