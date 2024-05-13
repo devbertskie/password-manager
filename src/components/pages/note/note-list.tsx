@@ -1,4 +1,4 @@
-import { fetchAllNotes } from '@/actions';
+import { getUsersData } from '@/actions';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import DataListCredentials, {
@@ -7,13 +7,15 @@ import DataListCredentials, {
 import { formatDistance } from 'date-fns';
 
 export default async function NoteList() {
-  const noteLists = await fetchAllNotes();
+  const usersData = await getUsersData();
 
-  if (!noteLists) {
+  if (!usersData) {
     return notFound();
   }
 
-  const noteData: CredentialTarget[] = noteLists.map((credential) => {
+  const { currentNotes } = usersData;
+
+  const noteData: CredentialTarget[] = currentNotes.map((credential) => {
     const formattedDate = formatDistance(credential.createdAt, new Date(), {
       addSuffix: true,
     });
