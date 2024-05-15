@@ -30,6 +30,7 @@ export const addEmailCredential = async (
         userId: currentUser.id,
         siteUrl,
         isImportant,
+        isDeleted: false,
       },
     });
     revalidatePath(paths.toEmail());

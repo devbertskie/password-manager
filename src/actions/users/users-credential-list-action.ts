@@ -11,12 +11,15 @@ export const getUsersData = cache(async () => {
       where: { id: currentUsers.id },
       select: {
         webCredentials: {
+          where: { isDeleted: false },
           orderBy: [{ isImportant: 'desc' }, { updatedAt: 'desc' }],
         },
         emailCredentials: {
+          where: { isDeleted: false },
           orderBy: [{ isImportant: 'desc' }, { updatedAt: 'desc' }],
         },
         notes: {
+          where: { isDeleted: false },
           orderBy: [{ isImportant: 'desc' }, { updatedAt: 'desc' }],
         },
         password: false,

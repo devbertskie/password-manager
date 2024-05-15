@@ -1,7 +1,11 @@
 import { db } from '@/db';
 
 export const fetchWebcredentialById = (id: string) => {
-  return db.webCredential.findUnique({ where: { id } });
+  return db.webCredential.findFirst({
+    where: {
+      AND: [{ id }, { isDeleted: false }],
+    },
+  });
 };
 
 export const deleteCredentialById = (credentialId: string) => {

@@ -21,6 +21,7 @@ export const addNote = async (values: z.infer<typeof noteFormSchema>) => {
         isImportant,
         content: contentJson,
         userId: currentUser.id,
+        isDeleted: false,
       },
     });
 

@@ -1,9 +1,9 @@
 'use server';
 
 import { setFlash } from '@/components/shared/feedback';
+import { db } from '@/db';
 import { getCurrentUser } from '@/lib/current-user';
 import paths from '@/lib/paths';
-import { deleteNoteById } from '@/query';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -12,7 +12,10 @@ export const deleteNote = async (noteId: string) => {
     const currentUser = await getCurrentUser();
     if (!currentUser) throw new Error('Unauthorized');
 
-    await deleteNoteById(noteId);
+    await db.note.update({
+      where: { id: noteId },
+      data: { isDeleted: true },
+    });
   } catch (error) {
     throw new Error('Something went wrong');
   }
@@ -20,7 +23,7 @@ export const deleteNote = async (noteId: string) => {
   revalidatePath(paths.toNotes());
   setFlash({
     type: 'SUCCESS',
-    message: 'Note deleted',
+    message: 'Note moved to trash',
     timestamp: Date.now(),
   });
   redirect(paths.toNotes());

@@ -16,7 +16,7 @@ export default function NotFoundPage() {
           className="object-cover opacity-75"
         />
         <p className="text-center text-sm capitalize text-primary underline md:text-lg">
-          The page your lokking for was not found
+          The page your looking for was not found
         </p>
 
         <GoBackButton />

@@ -1,7 +1,11 @@
 import { db } from '@/db';
 
 export const fetchEmailCredentialById = (id: string) => {
-  return db.emailCredential.findUnique({ where: { id } });
+  return db.emailCredential.findFirst({
+    where: {
+      AND: [{ id }, { isDeleted: false }],
+    },
+  });
 };
 
 export const deleteEmailCredentialById = (id: string) => {

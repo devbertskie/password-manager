@@ -42,3 +42,8 @@ export { getUsersData } from '@/actions/users/users-credential-list-action';
 // dashboard
 export { usersWithCount } from '@/actions/dashboard/metric-count-action';
 export { recentItems } from '@/actions/dashboard/recent-items-actions';
+
+// trash
+export { fetchAllDeletedItems } from '@/actions/trash/fetch-all-deleted-items-action';
+export { restoreCredential } from '@/actions/trash/restore-credential-action';
+export { deleteTrashCredential } from '@/actions/trash/delete-credential-action';

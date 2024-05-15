@@ -19,30 +19,51 @@ export const searchGlobally = async (query: string) => {
       include: {
         webCredentials: {
           where: {
-            title: {
-              contains: searchQuery,
-              mode: 'insensitive',
-            },
+            AND: [
+              {
+                title: {
+                  contains: searchQuery,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                isDeleted: false,
+              },
+            ],
           },
           select: { title: true, id: true },
           take: 3,
         },
         emailCredentials: {
           where: {
-            title: {
-              contains: searchQuery,
-              mode: 'insensitive',
-            },
+            AND: [
+              {
+                title: {
+                  contains: searchQuery,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                isDeleted: false,
+              },
+            ],
           },
           select: { title: true, id: true },
           take: 3,
         },
         notes: {
           where: {
-            title: {
-              contains: searchQuery,
-              mode: 'insensitive',
-            },
+            AND: [
+              {
+                title: {
+                  contains: searchQuery,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                isDeleted: false,
+              },
+            ],
           },
           select: { title: true, id: true },
           take: 3,

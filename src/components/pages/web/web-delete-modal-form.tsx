@@ -29,8 +29,8 @@ export default function WebDeleteModalForm({
     <AlertModalWrapper
       isOpen={isOpen}
       onClose={onClose}
-      title="Delete this credential?"
-      description="This action cannot be undone. Continue?"
+      title="Move to trash?"
+      description="This can be restore anytime. Continue?"
     >
       <form action={dispatch}>
         <DeleteButton />

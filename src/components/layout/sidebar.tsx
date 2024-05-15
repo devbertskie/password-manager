@@ -174,9 +174,9 @@ const Sidebar = () => {
               </li>
             </Link>
             <Link
-              href={paths.toSettings()}
+              href={paths.toTrash()}
               className={cn(
-                pathname === paths.toSettings()
+                pathname === paths.toTrash()
                   ? 'bg-primary'
                   : 'hover:bg-primary/10',
                 'transition-300 group rounded-md px-3 py-2',
@@ -187,7 +187,7 @@ const Sidebar = () => {
                   <div className="flex items-center space-x-2">
                     <Trash2
                       className={cn(
-                        pathname === paths.toSettings()
+                        pathname === paths.toTrash()
                           ? 'text-accent'
                           : 'group-hover:text-destructive',
                         'transition-300 size-5',
@@ -195,7 +195,7 @@ const Sidebar = () => {
                     />
                     <span
                       className={cn(
-                        pathname === paths.toSettings()
+                        pathname === paths.toTrash()
                           ? 'text-accent'
                           : 'group-hover:text-destructive',
                         'transition-300',

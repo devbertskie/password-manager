@@ -1,7 +1,11 @@
 import { db } from '@/db';
 
 export const fetchNoteById = (noteId: string) => {
-  return db.note.findUnique({ where: { id: noteId } });
+  return db.note.findFirst({
+    where: {
+      AND: [{ id: noteId }, { isDeleted: false }],
+    },
+  });
 };
 
 export const deleteNoteById = (noteId: string) => {

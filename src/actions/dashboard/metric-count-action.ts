@@ -13,9 +13,21 @@ export const usersWithCount = async () => {
       select: {
         _count: {
           select: {
-            webCredentials: true,
-            notes: true,
-            emailCredentials: true,
+            webCredentials: {
+              where: {
+                isDeleted: false,
+              },
+            },
+            notes: {
+              where: {
+                isDeleted: false,
+              },
+            },
+            emailCredentials: {
+              where: {
+                isDeleted: false,
+              },
+            },
           },
         },
       },

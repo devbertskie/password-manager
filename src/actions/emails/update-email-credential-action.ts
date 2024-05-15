@@ -30,6 +30,7 @@ export const updateEmailCredentialById = async (
         title,
         userId: existingCredential?.userId,
         isImportant: existingCredential?.isImportant,
+        isDeleted: existingCredential.isDeleted,
       },
     });
     revalidatePath(paths.toEmail());

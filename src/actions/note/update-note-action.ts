@@ -28,6 +28,7 @@ export const updateNote = async (
         title,
         content: contentJson,
         isImportant: existingNote?.isImportant,
+        isDeleted: existingNote.isDeleted,
       },
     });
     revalidatePath(paths.toNotes());

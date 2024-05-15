@@ -13,14 +13,23 @@ export const recentItems = async (): Promise<RecentlyAddedProps | null> => {
       where: { id: currentUser.id },
       select: {
         webCredentials: {
+          where: {
+            isDeleted: false,
+          },
           orderBy: { updatedAt: 'desc' },
           take: 2,
         },
         emailCredentials: {
+          where: {
+            isDeleted: false,
+          },
           orderBy: { updatedAt: 'desc' },
           take: 2,
         },
         notes: {
+          where: {
+            isDeleted: false,
+          },
           orderBy: { updatedAt: 'desc' },
           take: 2,
         },
