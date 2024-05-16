@@ -110,7 +110,6 @@ export default function CredentialItem({
                 </h3>
                 <p className="truncate text-xs  sm:text-sm">{label}</p>
               </div>
-              {/* <Star className="xs:block hidden size-5 sm:size-6" /> */}
             </div>
           </Link>
         </CardContent>

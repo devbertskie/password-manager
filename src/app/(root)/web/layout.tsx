@@ -30,9 +30,8 @@ const WebCredentialsRootLayout = ({
           <Separator className="my-6" />
 
           <div className="hidden space-x-6 md:flex">
-            {/* sidenav hear */}
             <FeatureSidenav>
-              <Suspense fallback={<SideItemSkeleton count={8} />}>
+              <Suspense fallback={<SideItemSkeleton count={10} />}>
                 <WebCredentialsList />
               </Suspense>
             </FeatureSidenav>
