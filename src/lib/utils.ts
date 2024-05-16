@@ -38,3 +38,15 @@ export const removeKeysFromQuery = ({
     { skipNull: true },
   );
 };
+
+export const getPaginatedData = (
+  totalItems: number,
+  limit: number,
+  currentPage: number,
+) => {
+  const totalPages = Math.ceil(totalItems / limit);
+  const startIndex = (currentPage - 1) * limit;
+  const endIndex = currentPage * limit;
+
+  return { totalPages, startIndex, endIndex };
+};

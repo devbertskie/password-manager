@@ -1,35 +1,34 @@
 'use client';
-import React, { ComponentProps } from 'react';
+import React from 'react';
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
 } from '@/components/ui/pagination';
-import paths from '@/lib/paths';
-
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
-import PaginationHandle from './pagination-handle';
+import PaginationHandle from '@/components/shared/pagination-handle';
 
-type TrashPaginationProps = {
+type PaginationProps = {
   currentPageNumber: number;
   totalItems: number;
-} & ComponentProps<typeof Link>;
+  currentPath: string;
+};
 
-const TrashPagination = ({
+const PagePagination = ({
   currentPageNumber,
   totalItems,
-}: TrashPaginationProps) => {
+  currentPath,
+}: PaginationProps) => {
   const isLastItem = currentPageNumber === totalItems;
 
   const previousPage =
     currentPageNumber - 1 === 1
-      ? paths.toTrash()
-      : `${paths.toTrash()}?page=${currentPageNumber - 1}`;
+      ? currentPath
+      : `${currentPath}?page=${currentPageNumber - 1}`;
 
   const nextPage =
     currentPageNumber !== totalItems
-      ? `${paths.toTrash()}?page=${currentPageNumber + 1}`
+      ? `${currentPath}?page=${currentPageNumber + 1}`
       : '';
 
   return (
@@ -76,4 +75,4 @@ const TrashPagination = ({
   );
 };
 
-export default TrashPagination;
+export default PagePagination;

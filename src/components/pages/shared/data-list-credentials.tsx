@@ -40,17 +40,6 @@ interface FeatureItemProps<T extends CredentialTarget> {
 export default function DataListCredentials<T extends CredentialTarget>({
   list,
 }: FeatureItemProps<T>) {
-  if (list.length === 0) {
-    return (
-      <li className="-ml-2 flex min-h-[200px] flex-col items-center justify-center space-y-2">
-        <Info className="size-8 text-primary/40" />
-        <h3 className="font-space text-sm text-muted-foreground/70">
-          You have no credentials yet!
-        </h3>
-      </li>
-    );
-  }
-
   return (
     <FeatureItemList>
       {list.map((item: T) => {

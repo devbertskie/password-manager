@@ -1,7 +1,11 @@
 'use client';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import {
+  notFound,
+  useSearchParams,
+  useSelectedLayoutSegment,
+} from 'next/navigation';
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -33,10 +37,18 @@ export default function CredentialItem({
   },
 }: CredentialItemProps) {
   const segment = useSelectedLayoutSegment();
+  const searchParams = useSearchParams();
+  const currentPage = searchParams.get('page') || '1';
+  if (currentPage === '0') return notFound();
+  const parsedQuery = Number(currentPage);
+  if (isNaN(parsedQuery)) return notFound();
+
+  const renderDesktopLink =
+    parsedQuery === 1 ? desktopLink() : `${desktopLink()}?page=${currentPage}`;
 
   return (
     <>
-      <Link href={desktopLink()} className="hidden  md:block">
+      <Link href={renderDesktopLink} className="hidden  md:block">
         <li
           className={cn(
             segment === credentialId

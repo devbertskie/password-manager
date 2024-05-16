@@ -1,8 +1,8 @@
+'use server';
 import { db } from '@/db';
 import { getCurrentUser } from '@/lib/current-user';
-import { cache } from 'react';
 
-export const getUsersData = cache(async () => {
+export const getUsersData = async () => {
   try {
     const currentUsers = await getCurrentUser();
     if (!currentUsers || !currentUsers.id) throw new Error('Unauthorized');
@@ -46,4 +46,4 @@ export const getUsersData = cache(async () => {
   } catch (error) {
     throw new Error('Something went wrong');
   }
-});
+};

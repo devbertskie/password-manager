@@ -3,6 +3,7 @@
 import { TrashPageProps } from '@/components/pages/trash/trash-page';
 import { db } from '@/db';
 import { getCurrentUser } from '@/lib/current-user';
+import { getPaginatedData } from '@/lib/utils';
 import { cache } from 'react';
 
 const allDeletedQuery = cache((userId: string) => {
@@ -86,9 +87,11 @@ export const fetchAllDeletedItems = async (
       (a, b) => b.updatedAt.getTime() - a.updatedAt.getTime(),
     );
     const totalItems = deletedItems.length;
-    const totalPages = Math.ceil(totalItems / limit);
-    const startIndex = (currentPage - 1) * limit;
-    const endIndex = currentPage * limit;
+    const { totalPages, startIndex, endIndex } = getPaginatedData(
+      totalItems,
+      limit,
+      currentPage,
+    );
     const sortedDeletedCredentials = sortedItemsDeleted.slice(
       startIndex,
       endIndex,

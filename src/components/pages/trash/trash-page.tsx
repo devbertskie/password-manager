@@ -1,3 +1,4 @@
+import React, { ReactNode } from 'react';
 import { fetchAllDeletedItems } from '@/actions';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -20,10 +21,10 @@ import { cn } from '@/lib/utils';
 import { CredentialType } from '@/types';
 import { formatDistance } from 'date-fns';
 import { MoreHorizontal, Trash2 } from 'lucide-react';
-import React, { ReactNode } from 'react';
-import TrashPagination from '@/components/pages/trash/trash-pagination';
-import TrashRestoreModalForm from './trash-restore-modal-form';
-import TrashDeleteModalForm from './trash-delete-modal-form';
+import TrashRestoreModalForm from '@/components/pages/trash/trash-restore-modal-form';
+import TrashDeleteModalForm from '@/components/pages/trash/trash-delete-modal-form';
+import PagePagination from '@/components/shared/pagination';
+import paths from '@/lib/paths';
 
 export interface TrashPageProps {
   type: CredentialType;
@@ -152,8 +153,8 @@ const TrashPage = async ({ currentPage }: ITrashPageProps) => {
             <strong>{deletedItems.totalItems}</strong> items
           </div>
           {deletedItems.totalPages !== 1 && (
-            <TrashPagination
-              href=""
+            <PagePagination
+              currentPath={paths.toTrash()}
               currentPageNumber={currentPage}
               totalItems={deletedItems.totalPages || 1}
             />
