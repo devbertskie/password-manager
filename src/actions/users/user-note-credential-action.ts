@@ -2,9 +2,9 @@
 
 import { getCurrentUser } from '@/lib/current-user';
 import { getPaginatedData } from '@/lib/utils';
-import { allWebCredentialsByUser } from '@/query';
+import { allNotesByUser } from '@/query';
 
-export const getUserWebCredentialData = async (
+export const getUserNoteCredentialData = async (
   limit: number,
   currentPage: number,
 ) => {
@@ -12,30 +12,30 @@ export const getUserWebCredentialData = async (
     const currentUsers = await getCurrentUser();
     if (!currentUsers || !currentUsers.id) throw new Error('Unauthorized');
 
-    const credentialResponse = await allWebCredentialsByUser(currentUsers.id);
+    const credentialResponse = await allNotesByUser(currentUsers.id);
 
     if (!credentialResponse) return null;
 
-    const { webCredentials } = credentialResponse;
+    const { notes } = credentialResponse;
 
-    const sortedWebCredential = webCredentials.sort(
+    const sortedNotesCredential = notes.sort(
       (a, b) => Number(b.isImportant) - Number(a.isImportant),
     );
 
-    const totalItems = webCredentials.length;
+    const totalItems = notes.length;
     const { totalPages, startIndex, endIndex } = getPaginatedData(
       totalItems,
       limit,
       currentPage,
     );
 
-    const currentWebCredentials = sortedWebCredential.slice(
+    const currentNotesCredentials = sortedNotesCredential.slice(
       startIndex,
       endIndex,
     );
 
     return {
-      currentWebCredentials,
+      currentNotesCredentials,
       totalPages,
       totalItems,
     };

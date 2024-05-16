@@ -37,8 +37,9 @@ export { updateNote } from '@/actions/note/update-note-action';
 export { searchGlobally } from '@/actions/search/global-search-action';
 
 // USER
-export { getUsersData } from '@/actions/users/users-credential-list-action';
 export { getUserWebCredentialData } from '@/actions/users/user-web-credential-action';
+export { getUserEmailCredentialData } from '@/actions/users/user-email-credential-action';
+export { getUserNoteCredentialData } from '@/actions/users/user-note-credential-action';
 
 // dashboard
 export { usersWithCount } from '@/actions/dashboard/metric-count-action';

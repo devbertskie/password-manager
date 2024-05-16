@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-
 import { notFound, useSearchParams } from 'next/navigation';
 import DataListCredentials, {
   CredentialTarget,
@@ -9,9 +8,9 @@ import DataListCredentials, {
 import { formatDistance } from 'date-fns';
 import { useToggle } from 'usehooks-ts';
 import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
-import { Info } from 'lucide-react';
-import { PAGE_LIMIT } from '@/components/pages/web/web-pagination';
 import { getUserWebCredentialData } from '@/actions';
+import { PAGE_LIMIT } from '@/constants';
+import ItemEmptyPage from '@/components/pages/shared/item-empty-page';
 
 const WebCredentialsList = () => {
   // eslint-disable-next-line no-unused-vars
@@ -75,12 +74,7 @@ const WebCredentialsList = () => {
 
   if (currentWebCredentials.length === 0) {
     displayCredential = (
-      <li className="-ml-2 flex min-h-[200px] flex-col items-center justify-center space-y-2">
-        <Info className="size-8 text-primary/40" />
-        <h3 className="font-space text-sm text-muted-foreground/70">
-          You have no credentials yet!
-        </h3>
-      </li>
+      <ItemEmptyPage label="You have no web credentials yet!" />
     );
   } else {
     displayCredential = (

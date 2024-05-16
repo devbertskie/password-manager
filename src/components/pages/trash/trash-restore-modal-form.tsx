@@ -12,6 +12,7 @@ import { AlertDialogCancel } from '@/components/ui/alert-dialog';
 import { CredentialType } from '@/types';
 import { useFormToastMessage } from '@/hooks/use-form-toast-message';
 import { useRouter } from 'next/navigation';
+import paths from '@/lib/paths';
 
 interface TrashRestoreModalFormProps {
   credentialId: string;

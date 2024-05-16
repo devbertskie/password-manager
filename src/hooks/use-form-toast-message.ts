@@ -1,10 +1,12 @@
 'use client';
 import { notify } from '@/lib/notification';
 import { FormState } from '@/types';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 const useFormToastMessage = (formState: FormState) => {
   const previousTimestamp = useRef(formState.timestamp);
+  const router = useRouter();
 
   const showToast =
     formState.message && formState.timestamp !== previousTimestamp.current;
@@ -17,9 +19,16 @@ const useFormToastMessage = (formState: FormState) => {
         notify.success(formState.message);
       }
 
+      router.refresh();
       previousTimestamp.current = formState.timestamp;
     }
-  }, [formState.message, formState.timestamp, formState.status, showToast]);
+  }, [
+    formState.message,
+    formState.timestamp,
+    formState.status,
+    showToast,
+    router,
+  ]);
 };
 
 export { useFormToastMessage };

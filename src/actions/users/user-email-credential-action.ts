@@ -1,10 +1,9 @@
 'use server';
-
 import { getCurrentUser } from '@/lib/current-user';
 import { getPaginatedData } from '@/lib/utils';
-import { allWebCredentialsByUser } from '@/query';
+import { allEmailCredentialsByUser } from '@/query';
 
-export const getUserWebCredentialData = async (
+export const getUserEmailCredentialData = async (
   limit: number,
   currentPage: number,
 ) => {
@@ -12,30 +11,30 @@ export const getUserWebCredentialData = async (
     const currentUsers = await getCurrentUser();
     if (!currentUsers || !currentUsers.id) throw new Error('Unauthorized');
 
-    const credentialResponse = await allWebCredentialsByUser(currentUsers.id);
+    const credentialResponse = await allEmailCredentialsByUser(currentUsers.id);
 
     if (!credentialResponse) return null;
 
-    const { webCredentials } = credentialResponse;
+    const { emailCredentials } = credentialResponse;
 
-    const sortedWebCredential = webCredentials.sort(
+    const sortedEmailCredential = emailCredentials.sort(
       (a, b) => Number(b.isImportant) - Number(a.isImportant),
     );
 
-    const totalItems = webCredentials.length;
+    const totalItems = emailCredentials.length;
     const { totalPages, startIndex, endIndex } = getPaginatedData(
       totalItems,
       limit,
       currentPage,
     );
 
-    const currentWebCredentials = sortedWebCredential.slice(
+    const currentEmailCredentials = sortedEmailCredential.slice(
       startIndex,
       endIndex,
     );
 
     return {
-      currentWebCredentials,
+      currentEmailCredentials,
       totalPages,
       totalItems,
     };

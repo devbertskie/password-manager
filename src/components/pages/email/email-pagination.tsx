@@ -1,60 +1,60 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
-import { getUserWebCredentialData } from '@/actions';
+import { getUserEmailCredentialData } from '@/actions';
 import PagePagination from '@/components/shared/pagination';
 import { CardFooter } from '@/components/ui/card';
 import paths from '@/lib/paths';
-import { WebCredential } from '@prisma/client';
+import { EmailCredential } from '@prisma/client';
 import { notFound, useSearchParams } from 'next/navigation';
 import { PAGE_LIMIT } from '@/constants';
 import PaginationSkeleton from '@/components/shared/pagination-skeleton';
 
 export const dynamic = 'force-dynamic';
 
-interface WebPaginationProps {
-  currentWebCredentials: WebCredential[];
+interface EmailPaginationProps {
+  currentEmailCredentials: EmailCredential[];
   totalPages: number;
   totalItems: number;
 }
 
-const WebPagination = () => {
-  const [webCredentials, setWebCredentials] =
-    useState<WebPaginationProps | null>(null);
+const EmailPagination = () => {
+  const [emailCredentials, setEmailCredentials] =
+    useState<EmailPaginationProps | null>(null);
   const searchParams = useSearchParams();
   const currentPage = searchParams.get('page') || '1';
   if (currentPage === '0') return notFound();
   const parsedQuery = Number(currentPage);
   if (isNaN(parsedQuery)) return notFound();
 
-  const getWebCredentials = useCallback(async (currentPageNumber: number) => {
-    const webData = await getUserWebCredentialData(
+  const getEmailCredentials = useCallback(async (currentPageNumber: number) => {
+    const emailData = await getUserEmailCredentialData(
       PAGE_LIMIT,
       currentPageNumber,
     );
-    if (webData) {
-      setWebCredentials(webData);
+    if (emailData) {
+      setEmailCredentials(emailData);
     }
   }, []);
 
   useEffect(() => {
-    getWebCredentials(parsedQuery);
-  }, [parsedQuery, getWebCredentials]);
+    getEmailCredentials(parsedQuery);
+  }, [parsedQuery, getEmailCredentials]);
 
-  if (!webCredentials) {
+  if (!emailCredentials) {
     return <PaginationSkeleton />;
   }
 
-  const { currentWebCredentials, totalItems, totalPages } = webCredentials;
+  const { currentEmailCredentials, totalItems, totalPages } = emailCredentials;
   return (
     <CardFooter className="flex flex-row items-center border-t px-6 py-4">
       <div className="text-xs text-muted-foreground">
-        Showing <strong>1-{currentWebCredentials.length}</strong> of{' '}
+        Showing <strong>1-{currentEmailCredentials.length}</strong> of{' '}
         <strong>{totalItems}</strong> items
       </div>
       {totalPages !== 1 && (
         <PagePagination
-          currentPath={paths.toWeb()}
+          currentPath={paths.toEmail()}
           currentPageNumber={parsedQuery}
           totalItems={totalPages || 1}
         />
@@ -63,4 +63,4 @@ const WebPagination = () => {
   );
 };
 
-export default WebPagination;
+export default EmailPagination;

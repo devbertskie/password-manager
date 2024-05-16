@@ -25,6 +25,7 @@ import TrashRestoreModalForm from '@/components/pages/trash/trash-restore-modal-
 import TrashDeleteModalForm from '@/components/pages/trash/trash-delete-modal-form';
 import PagePagination from '@/components/shared/pagination';
 import paths from '@/lib/paths';
+import { redirect } from 'next/navigation';
 
 export interface TrashPageProps {
   type: CredentialType;
@@ -60,7 +61,7 @@ const TrashPage = async ({ currentPage }: ITrashPageProps) => {
   }
 
   if (currentPage > deletedItems.totalPages) {
-    return <EmptyTrash />;
+    return redirect(paths.toTrash());
   }
 
   if (deletedItems.sortedDeletedCredentials?.length === 0) {
@@ -146,7 +147,7 @@ const TrashPage = async ({ currentPage }: ITrashPageProps) => {
         </Table>
       </CardContent>
       {deletedItems.sortedDeletedCredentials.length > 0 && (
-        <CardFooter className="flex flex-row items-center border-t bg-primary/10 px-6 py-4">
+        <CardFooter className="flex flex-row items-center border-t px-6 py-4">
           <div className="text-xs text-muted-foreground">
             Showing{' '}
             <strong>1-{deletedItems.sortedDeletedCredentials.length}</strong> of{' '}

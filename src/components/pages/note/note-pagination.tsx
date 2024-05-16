@@ -1,60 +1,60 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
-import { getUserWebCredentialData } from '@/actions';
+import { getUserNoteCredentialData } from '@/actions';
 import PagePagination from '@/components/shared/pagination';
 import { CardFooter } from '@/components/ui/card';
 import paths from '@/lib/paths';
-import { WebCredential } from '@prisma/client';
+import { Note } from '@prisma/client';
 import { notFound, useSearchParams } from 'next/navigation';
 import { PAGE_LIMIT } from '@/constants';
 import PaginationSkeleton from '@/components/shared/pagination-skeleton';
 
 export const dynamic = 'force-dynamic';
 
-interface WebPaginationProps {
-  currentWebCredentials: WebCredential[];
+interface NotePaginationProps {
+  currentNotesCredentials: Note[];
   totalPages: number;
   totalItems: number;
 }
 
-const WebPagination = () => {
-  const [webCredentials, setWebCredentials] =
-    useState<WebPaginationProps | null>(null);
+const NotePagination = () => {
+  const [notesCredentials, setNotesCredentials] =
+    useState<NotePaginationProps | null>(null);
   const searchParams = useSearchParams();
   const currentPage = searchParams.get('page') || '1';
   if (currentPage === '0') return notFound();
   const parsedQuery = Number(currentPage);
   if (isNaN(parsedQuery)) return notFound();
 
-  const getWebCredentials = useCallback(async (currentPageNumber: number) => {
-    const webData = await getUserWebCredentialData(
+  const getNotesCredentials = useCallback(async (currentPageNumber: number) => {
+    const notesData = await getUserNoteCredentialData(
       PAGE_LIMIT,
       currentPageNumber,
     );
-    if (webData) {
-      setWebCredentials(webData);
+    if (notesData) {
+      setNotesCredentials(notesData);
     }
   }, []);
 
   useEffect(() => {
-    getWebCredentials(parsedQuery);
-  }, [parsedQuery, getWebCredentials]);
+    getNotesCredentials(parsedQuery);
+  }, [parsedQuery, getNotesCredentials]);
 
-  if (!webCredentials) {
+  if (!notesCredentials) {
     return <PaginationSkeleton />;
   }
 
-  const { currentWebCredentials, totalItems, totalPages } = webCredentials;
+  const { currentNotesCredentials, totalItems, totalPages } = notesCredentials;
   return (
     <CardFooter className="flex flex-row items-center border-t px-6 py-4">
       <div className="text-xs text-muted-foreground">
-        Showing <strong>1-{currentWebCredentials.length}</strong> of{' '}
+        Showing <strong>1-{currentNotesCredentials.length}</strong> of{' '}
         <strong>{totalItems}</strong> items
       </div>
       {totalPages !== 1 && (
         <PagePagination
-          currentPath={paths.toWeb()}
+          currentPath={paths.toNotes()}
           currentPageNumber={parsedQuery}
           totalItems={totalPages || 1}
         />
@@ -63,4 +63,4 @@ const WebPagination = () => {
   );
 };
 
-export default WebPagination;
+export default NotePagination;

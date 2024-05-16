@@ -17,7 +17,13 @@ export {
   deleteCredentialById,
 } from '@/query/web-credential-query';
 
-export { fetchUserByEmail, fetchUserById } from '@/query/user-query';
+export {
+  fetchUserByEmail,
+  fetchUserById,
+  allWebCredentialsByUser,
+  allEmailCredentialsByUser,
+  allNotesByUser,
+} from '@/query/user-query';
 
 export {
   fetchEmailCredentialById,

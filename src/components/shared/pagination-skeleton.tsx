@@ -1,8 +1,8 @@
+import React from 'react';
 import { CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import React from 'react';
 
-const WebPaginationSkeleton = () => {
+const PaginationSkeleton = () => {
   return (
     <CardFooter className="flex flex-row items-center justify-between border-t bg-primary/10 px-6 py-4">
       <div className="text-xs text-muted-foreground">
@@ -16,4 +16,4 @@ const WebPaginationSkeleton = () => {
   );
 };
 
-export default WebPaginationSkeleton;
+export default PaginationSkeleton;
