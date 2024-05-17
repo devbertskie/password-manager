@@ -30,6 +30,7 @@ import { notify } from '@/lib/notification';
 import { notFound, useRouter } from 'next/navigation';
 import { Switch } from '@/components/ui/switch';
 import paths from '@/lib/paths';
+import { initiateUpdate } from '@/lib/utils';
 
 const EmailNewForm = () => {
   const router = useRouter();
@@ -60,7 +61,7 @@ const EmailNewForm = () => {
     if (emailCredentialData) {
       handleCloseForm();
       notify.success('New crendential added');
-      router.push(paths.toEmailItem(emailCredentialData.id));
+      router.push(initiateUpdate(paths.toEmail()));
       router.refresh();
     }
   };

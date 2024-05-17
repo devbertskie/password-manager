@@ -5,36 +5,41 @@ import { notFound, useSearchParams } from 'next/navigation';
 import DataListCredentials, {
   CredentialTarget,
 } from '@/components/pages/shared/data-list-credentials';
+import { getUserWebCredentialData } from '@/actions';
 import { formatDistance } from 'date-fns';
 import { useToggle } from 'usehooks-ts';
 import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
-import { getUserWebCredentialData } from '@/actions';
 import { PAGE_LIMIT } from '@/constants';
 import ItemEmptyPage from '@/components/pages/shared/item-empty-page';
 
 const WebCredentialsList = () => {
   // eslint-disable-next-line no-unused-vars
-  const [isLoading, toggleIsLoading, setIsLoading] = useToggle(false);
-  const [currentWebCredentials, setCurrentWebCredentials] = useState<
-    CredentialTarget[]
-  >([]);
+  const [isLoading, toggleIsLoading, setIsLoading] = useToggle(true);
+  const [webCredentials, setWebCredentials] = useState<{
+    currentWebCredentials: CredentialTarget[];
+    totalPages: number;
+    totalItems: number;
+  } | null>(null);
+
   const searchParams = useSearchParams();
   const currentPage = searchParams.get('page') || '1';
+  const updated = searchParams.get('updated');
   if (currentPage === '0') return notFound();
   const parsedQuery = Number(currentPage);
+
   if (isNaN(parsedQuery)) return notFound();
 
   const getCurrentWebCredentials = useCallback(
     async (currentPageNumber: number) => {
       try {
         setIsLoading(true);
-        const userData = await getUserWebCredentialData(
+        const webData = await getUserWebCredentialData(
           PAGE_LIMIT,
           currentPageNumber,
         );
 
-        if (userData) {
-          const { currentWebCredentials } = userData;
+        if (webData) {
+          const { currentWebCredentials, totalPages, totalItems } = webData;
           const webCredentialData: CredentialTarget[] =
             currentWebCredentials.map((credential) => {
               const formattedDate = formatDistance(
@@ -52,8 +57,11 @@ const WebCredentialsList = () => {
                 __credentialType: 'Web',
               };
             });
-
-          setCurrentWebCredentials(webCredentialData);
+          setWebCredentials({
+            currentWebCredentials: webCredentialData,
+            totalItems,
+            totalPages,
+          });
         }
       } finally {
         setIsLoading(false);
@@ -63,8 +71,10 @@ const WebCredentialsList = () => {
   );
 
   useEffect(() => {
-    getCurrentWebCredentials(parsedQuery);
-  }, [parsedQuery, getCurrentWebCredentials]);
+    if (parsedQuery || updated) {
+      getCurrentWebCredentials(parsedQuery);
+    }
+  }, [parsedQuery, getCurrentWebCredentials, updated]);
 
   let displayCredential: ReactNode;
 
@@ -72,13 +82,26 @@ const WebCredentialsList = () => {
     return <SideItemSkeleton count={8} />;
   }
 
-  if (currentWebCredentials.length === 0) {
+  if (!webCredentials) {
+    return <ItemEmptyPage label="You have no web credentials yet!" />;
+  }
+
+  if (
+    parsedQuery > webCredentials.totalPages &&
+    webCredentials.currentWebCredentials.length === 0
+  ) {
+    return notFound();
+  }
+
+  if (webCredentials.currentWebCredentials.length === 0) {
     displayCredential = (
       <ItemEmptyPage label="You have no web credentials yet!" />
     );
   } else {
     displayCredential = (
-      <DataListCredentials<CredentialTarget> list={currentWebCredentials} />
+      <DataListCredentials<CredentialTarget>
+        list={webCredentials.currentWebCredentials}
+      />
     );
   }
 

@@ -26,6 +26,7 @@ import TrashDeleteModalForm from '@/components/pages/trash/trash-delete-modal-fo
 import PagePagination from '@/components/shared/pagination';
 import paths from '@/lib/paths';
 import { redirect } from 'next/navigation';
+import { PAGE_LIMIT } from '@/constants';
 
 export interface TrashPageProps {
   type: CredentialType;
@@ -34,8 +35,6 @@ export interface TrashPageProps {
   createdAt: Date;
   updatedAt: Date;
 }
-
-const PAGE_LIMIT = 8;
 
 interface ITrashPageProps {
   currentPage: number;
@@ -60,7 +59,13 @@ const TrashPage = async ({ currentPage }: ITrashPageProps) => {
     return <EmptyTrash />;
   }
 
-  if (currentPage > deletedItems.totalPages) {
+  if (
+    deletedItems.sortedDeletedCredentials.length === 0 &&
+    deletedItems.totalItems > 0
+  ) {
+    if (deletedItems.totalPages > 1) {
+      return redirect(`${paths.toTrash()}?page=${currentPage - 1}`);
+    }
     return redirect(paths.toTrash());
   }
 

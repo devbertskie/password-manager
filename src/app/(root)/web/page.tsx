@@ -3,7 +3,7 @@ import WebMobileCardWrapper from '@/components/pages/web/mobile/web-mobile-wrapp
 import PreviewPlaceholder from '@/components/shared/preview-placeholder';
 import React, { Suspense } from 'react';
 
-const WebCredentialsPage = () => {
+const WebCredentialsPage = async () => {
   return (
     <div>
       <PreviewPlaceholder label="Please select web credential to preview!" />

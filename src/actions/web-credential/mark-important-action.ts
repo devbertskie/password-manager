@@ -1,12 +1,16 @@
 'use server';
 
+import { setFlash } from '@/components/shared/feedback';
 import { db } from '@/db';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { toFormState } from '@/helpers/to-form-state';
 import paths from '@/lib/paths';
+import { initiateUpdate } from '@/lib/utils';
 import { fetchWebcredentialById } from '@/query';
-import { revalidatePath } from 'next/cache';
+import { WebCredential } from '@prisma/client';
+import { redirect } from 'next/navigation';
 
+let webCredential: WebCredential;
 export const markAsImportant = async (credentialId: string) => {
   try {
     if (!credentialId) {
@@ -18,7 +22,7 @@ export const markAsImportant = async (credentialId: string) => {
       return toFormState('ERROR', 'Failed to update credential');
     }
 
-    await db.webCredential.update({
+    webCredential = await db.webCredential.update({
       where: { id: credentialId },
       data: {
         isImportant: !existingCredential.isImportant,
@@ -27,9 +31,11 @@ export const markAsImportant = async (credentialId: string) => {
   } catch (error) {
     fromErrorsToFormState(error);
   }
-  revalidatePath(paths.toWeb());
-  revalidatePath(paths.toWebItem(credentialId));
-  revalidatePath(paths.toWebItemMobile(credentialId));
+  setFlash({
+    type: 'SUCCESS',
+    message: 'Credential updated',
+    timestamp: Date.now(),
+  });
 
-  return toFormState('SUCCESS', 'Credential updated');
+  redirect(initiateUpdate(paths.toWebItem(webCredential.id)));
 };

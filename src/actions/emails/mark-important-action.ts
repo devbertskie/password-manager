@@ -1,12 +1,16 @@
 'use server';
 
+import { setFlash } from '@/components/shared/feedback';
 import { db } from '@/db';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { toFormState } from '@/helpers/to-form-state';
 import paths from '@/lib/paths';
+import { initiateUpdate } from '@/lib/utils';
 import { fetchEmailCredentialById } from '@/query';
-import { revalidatePath } from 'next/cache';
+import { EmailCredential } from '@prisma/client';
+import { redirect } from 'next/navigation';
 
+let emailCredential: EmailCredential;
 export const markEmailAsImportant = async (credentialId: string) => {
   try {
     if (!credentialId) {
@@ -18,7 +22,7 @@ export const markEmailAsImportant = async (credentialId: string) => {
       return toFormState('ERROR', 'Failed to update credential');
     }
 
-    await db.emailCredential.update({
+    emailCredential = await db.emailCredential.update({
       where: { id: credentialId },
       data: {
         isImportant: !existingCredential.isImportant,
@@ -27,9 +31,11 @@ export const markEmailAsImportant = async (credentialId: string) => {
   } catch (error) {
     return fromErrorsToFormState(error);
   }
-  revalidatePath(paths.toEmail());
-  revalidatePath(paths.toEmailItem(credentialId));
-  revalidatePath(paths.toEmailItemMobile(credentialId));
+  setFlash({
+    type: 'SUCCESS',
+    message: 'Credential updated',
+    timestamp: Date.now(),
+  });
 
-  return toFormState('SUCCESS', 'Credential updated');
+  redirect(initiateUpdate(paths.toEmailItem(emailCredential.id)));
 };

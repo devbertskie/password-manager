@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useEffect } from 'react';
 import { updateCredentialById } from '@/actions';
 import { Button } from '@/components/ui/button';
 import {
@@ -15,7 +16,7 @@ import { notify } from '@/lib/notification';
 import paths from '@/lib/paths';
 import { webCredentialFormSchema } from '@/lib/schema';
 
-import { cn } from '@/lib/utils';
+import { cn, initiateUpdate } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { WebCredential } from '@prisma/client';
 import Crypto from 'crypto-js';
@@ -32,7 +33,6 @@ import {
   SquareArrowUpRight,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCopyToClipboard, useToggle } from 'usehooks-ts';
 import { z } from 'zod';
@@ -82,7 +82,8 @@ const WebCredentialPreview = ({
     const updateResponse = await updateCredentialById(values, webCredential.id);
     if (updateResponse) {
       notify.success('Credential updated');
-      router.push(paths.toWebItem(updateResponse.id));
+
+      router.push(initiateUpdate(paths.toWebItem(updateResponse.id)));
       router.refresh();
     }
   };

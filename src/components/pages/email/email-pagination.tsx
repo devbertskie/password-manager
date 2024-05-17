@@ -23,6 +23,7 @@ const EmailPagination = () => {
     useState<EmailPaginationProps | null>(null);
   const searchParams = useSearchParams();
   const currentPage = searchParams.get('page') || '1';
+  const isUpdated = searchParams.get('updated');
   if (currentPage === '0') return notFound();
   const parsedQuery = Number(currentPage);
   if (isNaN(parsedQuery)) return notFound();
@@ -38,8 +39,10 @@ const EmailPagination = () => {
   }, []);
 
   useEffect(() => {
-    getEmailCredentials(parsedQuery);
-  }, [parsedQuery, getEmailCredentials]);
+    if (parsedQuery || isUpdated) {
+      getEmailCredentials(parsedQuery);
+    }
+  }, [parsedQuery, getEmailCredentials, isUpdated]);
 
   if (!emailCredentials) {
     return <PaginationSkeleton />;

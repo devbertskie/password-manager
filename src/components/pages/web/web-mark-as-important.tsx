@@ -3,7 +3,6 @@
 import { markAsImportant } from '@/actions';
 import { Button } from '@/components/ui/button';
 import { EmptyFormState } from '@/helpers/from-errors-to-formstate';
-import { useFormToastMessage } from '@/hooks/use-form-toast-message';
 import { cn } from '@/lib/utils';
 
 import React from 'react';
@@ -22,8 +21,6 @@ export default function WebMarkAsImportant({
     markAsImportant.bind(null, credentialId),
     EmptyFormState,
   );
-
-  useFormToastMessage(formState);
 
   return (
     <form action={dispatch}>

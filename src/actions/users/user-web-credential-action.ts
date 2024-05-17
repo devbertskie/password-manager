@@ -1,5 +1,4 @@
 'use server';
-
 import { getCurrentUser } from '@/lib/current-user';
 import { getPaginatedData } from '@/lib/utils';
 import { allWebCredentialsByUser } from '@/query';
@@ -9,35 +8,28 @@ export const getUserWebCredentialData = async (
   currentPage: number,
 ) => {
   try {
-    const currentUsers = await getCurrentUser();
-    if (!currentUsers || !currentUsers.id) throw new Error('Unauthorized');
+    const currentUser = await getCurrentUser();
+    if (!currentUser || !currentUser.id) throw new Error('Unauthorized');
 
-    const credentialResponse = await allWebCredentialsByUser(currentUsers.id);
+    // const skipIndex = currentPage <= 1 ? 0 : (currentPage - 1) * limit;
 
-    if (!credentialResponse) return null;
+    const credentials = await allWebCredentialsByUser(currentUser.id);
 
-    const { webCredentials } = credentialResponse;
-
-    const sortedWebCredential = webCredentials.sort(
+    const sortedCredentials = credentials.sort(
       (a, b) => Number(b.isImportant) - Number(a.isImportant),
     );
-
-    const totalItems = webCredentials.length;
-    const { totalPages, startIndex, endIndex } = getPaginatedData(
+    const totalItems = credentials.length;
+    const { totalPages, endIndex, startIndex } = getPaginatedData(
       totalItems,
       limit,
       currentPage,
     );
-
-    const currentWebCredentials = sortedWebCredential.slice(
-      startIndex,
-      endIndex,
-    );
+    const currentWebCredentials = sortedCredentials.slice(startIndex, endIndex);
 
     return {
       currentWebCredentials,
-      totalPages,
       totalItems,
+      totalPages,
     };
   } catch (error) {
     throw new Error('Something went wrong');

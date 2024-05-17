@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { notify } from '@/lib/notification';
 import { noteFormSchema } from '@/lib/schema';
-import { cn } from '@/lib/utils';
+import { cn, initiateUpdate } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Note } from '@prisma/client';
 import { FileText, Loader2 } from 'lucide-react';
@@ -50,7 +50,7 @@ const NotePreview = ({
     const updatedNote = await updateNote(values, noteData.id);
     if (updatedNote) {
       notify.success('Credential updated');
-      router.push(paths.toNoteItem(updatedNote.id));
+      router.push(initiateUpdate(paths.toNoteItem(updatedNote.id)));
       router.refresh();
     }
   };

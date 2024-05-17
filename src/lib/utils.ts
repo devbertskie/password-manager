@@ -7,13 +7,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const formUrlQuery = ({ params, key, value }: UrlQueryParams) => {
+export const formUrlQuery = ({ params, key, value, to }: UrlQueryParams) => {
   const currentUrl = qs.parse(params);
   currentUrl[key] = value;
 
   return qs.stringifyUrl(
     {
-      url: window.location.pathname,
+      url: to || window.location.pathname,
       query: currentUrl,
     },
     { skipNull: true },
@@ -49,4 +49,15 @@ export const getPaginatedData = (
   const endIndex = currentPage * limit;
 
   return { totalPages, startIndex, endIndex };
+};
+
+export const initiateUpdate = (pathname: string) => {
+  const urlQuery = formUrlQuery({
+    params: '',
+    key: 'updated',
+    value: Date.now().toString(),
+    to: pathname,
+  });
+
+  return urlQuery;
 };

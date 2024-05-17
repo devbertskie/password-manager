@@ -11,6 +11,7 @@ export interface UrlQueryParams {
   params: string;
   key: string;
   value: string | null;
+  to?: string;
 }
 
 export interface RemovedUrlQueryParams {

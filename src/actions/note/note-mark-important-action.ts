@@ -1,12 +1,16 @@
 'use server';
 
+import { setFlash } from '@/components/shared/feedback';
 import { db } from '@/db';
 import { fromErrorsToFormState } from '@/helpers/from-errors-to-formstate';
 import { toFormState } from '@/helpers/to-form-state';
 import paths from '@/lib/paths';
+import { initiateUpdate } from '@/lib/utils';
 import { fetchNoteById } from '@/query';
-import { revalidatePath } from 'next/cache';
+import { Note } from '@prisma/client';
+import { redirect } from 'next/navigation';
 
+let note: Note;
 export const markNoteAsImportant = async (credentialId: string) => {
   try {
     if (!credentialId) {
@@ -18,7 +22,7 @@ export const markNoteAsImportant = async (credentialId: string) => {
       return toFormState('ERROR', 'Failed to update note');
     }
 
-    await db.note.update({
+    note = await db.note.update({
       where: { id: credentialId },
       data: {
         isImportant: !existingNote.isImportant,
@@ -27,9 +31,12 @@ export const markNoteAsImportant = async (credentialId: string) => {
   } catch (error) {
     return fromErrorsToFormState(error);
   }
-  revalidatePath(paths.toNotes());
-  revalidatePath(paths.toNoteItem(credentialId));
-  revalidatePath(paths.toNoteItemMobile(credentialId));
 
-  return toFormState('SUCCESS', 'Note updated');
+  setFlash({
+    type: 'SUCCESS',
+    message: 'Credential updated',
+    timestamp: Date.now(),
+  });
+
+  redirect(initiateUpdate(paths.toNoteItem(note.id)));
 };

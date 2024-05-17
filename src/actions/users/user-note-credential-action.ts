@@ -9,35 +9,29 @@ export const getUserNoteCredentialData = async (
   currentPage: number,
 ) => {
   try {
-    const currentUsers = await getCurrentUser();
-    if (!currentUsers || !currentUsers.id) throw new Error('Unauthorized');
+    const currentUser = await getCurrentUser();
+    if (!currentUser || !currentUser.id) throw new Error('Unauthorized');
 
-    const credentialResponse = await allNotesByUser(currentUsers.id);
+    const credentials = await allNotesByUser(currentUser.id);
 
-    if (!credentialResponse) return null;
-
-    const { notes } = credentialResponse;
-
-    const sortedNotesCredential = notes.sort(
+    const sortedCredentials = credentials.sort(
       (a, b) => Number(b.isImportant) - Number(a.isImportant),
     );
-
-    const totalItems = notes.length;
-    const { totalPages, startIndex, endIndex } = getPaginatedData(
+    const totalItems = credentials.length;
+    const { totalPages, endIndex, startIndex } = getPaginatedData(
       totalItems,
       limit,
       currentPage,
     );
-
-    const currentNotesCredentials = sortedNotesCredential.slice(
+    const currentNotesCredentials = sortedCredentials.slice(
       startIndex,
       endIndex,
     );
 
     return {
       currentNotesCredentials,
-      totalPages,
       totalItems,
+      totalPages,
     };
   } catch (error) {
     throw new Error('Something went wrong');

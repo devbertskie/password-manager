@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { markNoteAsImportant } from '@/actions';
 import { Button } from '@/components/ui/button';
 import { EmptyFormState } from '@/helpers/from-errors-to-formstate';
-import { useFormToastMessage } from '@/hooks/use-form-toast-message';
 import { cn } from '@/lib/utils';
 import { useFormState } from 'react-dom';
 
@@ -19,8 +19,6 @@ export default function NoteMarkAsImportant({
     markNoteAsImportant.bind(null, credentialId),
     EmptyFormState,
   );
-
-  useFormToastMessage(formState);
 
   return (
     <form action={dispatch}>

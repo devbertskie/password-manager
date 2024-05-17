@@ -1,10 +1,10 @@
+/* eslint-disable no-unused-vars */
 'use client';
 import React from 'react';
 import AlertModalWrapper from '@/components/pages/shared/feature-alert-modal-wrapper';
 import DeleteButton from '@/components/pages/shared/delete-button-submit';
 import { useFormState } from 'react-dom';
 import { EmptyFormState } from '@/helpers/from-errors-to-formstate';
-import { useFormToastMessage } from '@/hooks/use-form-toast-message';
 import { deleteNote } from '@/actions';
 
 interface NoteDeleteModalFormProps {
@@ -22,8 +22,6 @@ export default function NoteDeleteModalForm({
     deleteNote.bind(null, credentialId),
     EmptyFormState,
   );
-
-  useFormToastMessage(formState);
 
   return (
     <AlertModalWrapper

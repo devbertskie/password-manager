@@ -31,6 +31,7 @@ import { Switch } from '@/components/ui/switch';
 import paths from '@/lib/paths';
 import TipTapEditor from '@/components/pages/note/tiptap-editor';
 import { addNote } from '@/actions';
+import { initiateUpdate } from '@/lib/utils';
 
 const NoteNewForm = () => {
   const router = useRouter();
@@ -54,7 +55,7 @@ const NoteNewForm = () => {
     if (noteData) {
       handleCloseForm();
       notify.success('New note added');
-      router.push(paths.toNoteItem(noteData.id));
+      router.push(initiateUpdate(paths.toNotes()));
       router.refresh();
     }
   };

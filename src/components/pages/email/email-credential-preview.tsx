@@ -19,7 +19,7 @@ import { Input } from '@/components/ui/input';
 import { notify } from '@/lib/notification';
 import { emailCredentialFormSchema } from '@/lib/schema';
 
-import { cn } from '@/lib/utils';
+import { cn, initiateUpdate } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EmailCredential } from '@prisma/client';
 import Crypto from 'crypto-js';
@@ -85,7 +85,7 @@ const EmailCredentialPreview = ({
     );
     if (updateResponse) {
       notify.success('Credential updated');
-      router.push(paths.toEmailItem(updateResponse.id));
+      router.push(initiateUpdate(paths.toEmailItem(updateResponse.id)));
       router.refresh();
     }
   };

@@ -23,6 +23,7 @@ const NotePagination = () => {
     useState<NotePaginationProps | null>(null);
   const searchParams = useSearchParams();
   const currentPage = searchParams.get('page') || '1';
+  const isUpdated = searchParams.get('updated');
   if (currentPage === '0') return notFound();
   const parsedQuery = Number(currentPage);
   if (isNaN(parsedQuery)) return notFound();
@@ -38,8 +39,10 @@ const NotePagination = () => {
   }, []);
 
   useEffect(() => {
-    getNotesCredentials(parsedQuery);
-  }, [parsedQuery, getNotesCredentials]);
+    if (parsedQuery || isUpdated) {
+      getNotesCredentials(parsedQuery);
+    }
+  }, [parsedQuery, getNotesCredentials, isUpdated]);
 
   if (!notesCredentials) {
     return <PaginationSkeleton />;

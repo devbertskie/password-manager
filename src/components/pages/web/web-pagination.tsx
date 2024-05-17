@@ -10,8 +10,6 @@ import { notFound, useSearchParams } from 'next/navigation';
 import { PAGE_LIMIT } from '@/constants';
 import PaginationSkeleton from '@/components/shared/pagination-skeleton';
 
-export const dynamic = 'force-dynamic';
-
 interface WebPaginationProps {
   currentWebCredentials: WebCredential[];
   totalPages: number;
@@ -23,6 +21,8 @@ const WebPagination = () => {
     useState<WebPaginationProps | null>(null);
   const searchParams = useSearchParams();
   const currentPage = searchParams.get('page') || '1';
+  const isUpdated = searchParams.get('updated');
+
   if (currentPage === '0') return notFound();
   const parsedQuery = Number(currentPage);
   if (isNaN(parsedQuery)) return notFound();
@@ -38,27 +38,28 @@ const WebPagination = () => {
   }, []);
 
   useEffect(() => {
-    getWebCredentials(parsedQuery);
-  }, [parsedQuery, getWebCredentials]);
+    if (isUpdated || parsedQuery) {
+      getWebCredentials(parsedQuery);
+    }
+  }, [parsedQuery, getWebCredentials, isUpdated]);
 
   if (!webCredentials) {
     return <PaginationSkeleton />;
   }
 
   const { currentWebCredentials, totalItems, totalPages } = webCredentials;
+
   return (
     <CardFooter className="flex flex-row items-center border-t px-6 py-4">
       <div className="text-xs text-muted-foreground">
         Showing <strong>1-{currentWebCredentials.length}</strong> of{' '}
         <strong>{totalItems}</strong> items
       </div>
-      {totalPages !== 1 && (
-        <PagePagination
-          currentPath={paths.toWeb()}
-          currentPageNumber={parsedQuery}
-          totalItems={totalPages || 1}
-        />
-      )}
+      <PagePagination
+        currentPath={paths.toWeb()}
+        currentPageNumber={parsedQuery}
+        totalItems={totalPages || 1}
+      />
     </CardFooter>
   );
 };

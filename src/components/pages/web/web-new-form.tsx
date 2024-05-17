@@ -30,6 +30,7 @@ import { notify } from '@/lib/notification';
 import { notFound, useRouter } from 'next/navigation';
 import { Switch } from '@/components/ui/switch';
 import paths from '@/lib/paths';
+import { initiateUpdate } from '@/lib/utils';
 
 const WebNewForm = () => {
   const router = useRouter();
@@ -58,7 +59,7 @@ const WebNewForm = () => {
     if (webCredentialData) {
       handleCloseForm();
       notify.success('New crendential added');
-      router.push(paths.toWebItem(webCredentialData.id));
+      router.push(initiateUpdate(paths.toWeb()));
       router.refresh();
     }
   };
