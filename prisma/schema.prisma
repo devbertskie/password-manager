@@ -61,7 +61,7 @@ model EmailCredential {
 model Note {
   id        String    @id @default(uuid())
   title     String   @unique
-  content Json
+  content Json?
   isImportant Boolean @map("is_important") @default(false)
   isDeleted Boolean @map("is_deleted") @default(false)   
   userId String @map("user_id")
