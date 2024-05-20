@@ -55,7 +55,7 @@ const NoteNewForm = () => {
     if (noteData) {
       handleCloseForm();
       notify.success('New note added');
-      router.push(initiateUpdate(paths.toNotes()));
+      router.push(initiateUpdate(paths.toNoteItem(noteData.id)));
       router.refresh();
     }
   };

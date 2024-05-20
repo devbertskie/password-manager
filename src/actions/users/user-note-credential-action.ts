@@ -7,6 +7,7 @@ import { allNotesByUser } from '@/query';
 export const getUserNoteCredentialData = async (
   limit: number,
   currentPage: number,
+  currentId?: string,
 ) => {
   try {
     const currentUser = await getCurrentUser();
@@ -14,22 +15,33 @@ export const getUserNoteCredentialData = async (
 
     const credentials = await allNotesByUser(currentUser.id);
 
-    const sortedCredentials = credentials.sort(
-      (a, b) => Number(b.isImportant) - Number(a.isImportant),
-    );
     const totalItems = credentials.length;
     const { totalPages, endIndex, startIndex } = getPaginatedData(
       totalItems,
       limit,
       currentPage,
     );
-    const currentNotesCredentials = sortedCredentials.slice(
-      startIndex,
-      endIndex,
-    );
+    let currentNotesCredentials = credentials.slice(startIndex, endIndex);
 
+    if (currentId) {
+      const existingCredential = credentials.find(
+        (cred) => cred.id === currentId,
+      );
+      if (!existingCredential) return null;
+
+      if (!currentNotesCredentials.includes(existingCredential)) {
+        currentNotesCredentials.pop();
+        currentNotesCredentials.unshift(existingCredential);
+      } else {
+        currentNotesCredentials = [...currentNotesCredentials];
+      }
+    }
+
+    const sortedCredentials = currentNotesCredentials.sort(
+      (a, b) => Number(b.isImportant) - Number(a.isImportant),
+    );
     return {
-      currentNotesCredentials,
+      currentNotesCredentials: sortedCredentials,
       totalItems,
       totalPages,
     };

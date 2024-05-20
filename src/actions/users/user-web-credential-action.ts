@@ -6,6 +6,7 @@ import { allWebCredentialsByUser } from '@/query';
 export const getUserWebCredentialData = async (
   limit: number,
   currentPage: number,
+  currentId?: string,
 ) => {
   try {
     const currentUser = await getCurrentUser();
@@ -15,19 +16,31 @@ export const getUserWebCredentialData = async (
 
     const credentials = await allWebCredentialsByUser(currentUser.id);
 
-    const sortedCredentials = credentials.sort(
-      (a, b) => Number(b.isImportant) - Number(a.isImportant),
-    );
     const totalItems = credentials.length;
     const { totalPages, endIndex, startIndex } = getPaginatedData(
       totalItems,
       limit,
       currentPage,
     );
-    const currentWebCredentials = sortedCredentials.slice(startIndex, endIndex);
+    let currentWebCredentials = credentials.slice(startIndex, endIndex);
+    if (currentId) {
+      const existingCredential = credentials.find(
+        (cred) => cred.id === currentId,
+      );
+      if (!existingCredential) return null;
 
+      if (!currentWebCredentials.includes(existingCredential)) {
+        currentWebCredentials.pop();
+        currentWebCredentials.unshift(existingCredential);
+      } else {
+        currentWebCredentials = [...currentWebCredentials];
+      }
+    }
+    const sortedCredentials = currentWebCredentials.sort(
+      (a, b) => Number(b.isImportant) - Number(a.isImportant),
+    );
     return {
-      currentWebCredentials,
+      currentWebCredentials: sortedCredentials,
       totalItems,
       totalPages,
     };

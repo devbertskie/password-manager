@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 
-import { notFound, useSearchParams } from 'next/navigation';
+import { notFound, useParams, useSearchParams } from 'next/navigation';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import DataListCredentials, {
   CredentialTarget,
@@ -23,6 +23,9 @@ const EmailCredentialsList = () => {
   } | null>(null);
 
   const searchParams = useSearchParams();
+  const params = useParams();
+  const currentId =
+    params && typeof params.id === 'string' ? params.id : undefined;
   const currentPage = searchParams.get('page') || '1';
   const updated = searchParams.get('updated');
   if (currentPage === '0') return notFound();
@@ -31,12 +34,13 @@ const EmailCredentialsList = () => {
   if (isNaN(parsedQuery)) return notFound();
 
   const getCurrentEmailCredentials = useCallback(
-    async (currentPageNumber: number) => {
+    async (currentPageNumber: number, currentId?: string) => {
       try {
         setIsLoading(true);
         const emailData = await getUserEmailCredentialData(
           PAGE_LIMIT,
           currentPageNumber,
+          currentId,
         );
 
         if (emailData) {
@@ -73,9 +77,9 @@ const EmailCredentialsList = () => {
 
   useEffect(() => {
     if (parsedQuery || updated) {
-      getCurrentEmailCredentials(parsedQuery);
+      getCurrentEmailCredentials(parsedQuery, currentId);
     }
-  }, [parsedQuery, getCurrentEmailCredentials, updated]);
+  }, [parsedQuery, getCurrentEmailCredentials, updated, currentId]);
 
   let displayCredential: ReactNode;
 

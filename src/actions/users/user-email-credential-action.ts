@@ -6,6 +6,7 @@ import { allEmailCredentialsByUser } from '@/query';
 export const getUserEmailCredentialData = async (
   limit: number,
   currentPage: number,
+  currentId?: string,
 ) => {
   try {
     const currentUser = await getCurrentUser();
@@ -13,22 +14,33 @@ export const getUserEmailCredentialData = async (
 
     const credentials = await allEmailCredentialsByUser(currentUser.id);
 
-    const sortedCredentials = credentials.sort(
-      (a, b) => Number(b.isImportant) - Number(a.isImportant),
-    );
     const totalItems = credentials.length;
     const { totalPages, endIndex, startIndex } = getPaginatedData(
       totalItems,
       limit,
       currentPage,
     );
-    const currentEmailCredentials = sortedCredentials.slice(
-      startIndex,
-      endIndex,
-    );
+    let currentEmailCredentials = credentials.slice(startIndex, endIndex);
 
+    if (currentId) {
+      const existingCredential = credentials.find(
+        (cred) => cred.id === currentId,
+      );
+      if (!existingCredential) return null;
+
+      if (!currentEmailCredentials.includes(existingCredential)) {
+        currentEmailCredentials.pop();
+        currentEmailCredentials.unshift(existingCredential);
+      } else {
+        currentEmailCredentials = [...currentEmailCredentials];
+      }
+    }
+
+    const sortedCredentials = currentEmailCredentials.sort(
+      (a, b) => Number(b.isImportant) - Number(a.isImportant),
+    );
     return {
-      currentEmailCredentials,
+      currentEmailCredentials: sortedCredentials,
       totalItems,
       totalPages,
     };

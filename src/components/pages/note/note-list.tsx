@@ -2,7 +2,7 @@
 'use client';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { getUserNoteCredentialData } from '@/actions';
-import { notFound, useSearchParams } from 'next/navigation';
+import { notFound, useParams, useSearchParams } from 'next/navigation';
 import DataListCredentials, {
   CredentialTarget,
 } from '@/components/pages/shared/data-list-credentials';
@@ -22,6 +22,9 @@ const NoteList = () => {
   } | null>(null);
 
   const searchParams = useSearchParams();
+  const params = useParams();
+  const currentId =
+    params && typeof params.id === 'string' ? params.id : undefined;
   const currentPage = searchParams.get('page') || '1';
   const updated = searchParams.get('updated');
   if (currentPage === '0') return notFound();
@@ -30,12 +33,13 @@ const NoteList = () => {
   if (isNaN(parsedQuery)) return notFound();
 
   const getCurrentNoteCredentials = useCallback(
-    async (currentPageNumber: number) => {
+    async (currentPageNumber: number, currentId?: string) => {
       try {
         setIsLoading(true);
         const noteData = await getUserNoteCredentialData(
           PAGE_LIMIT,
           currentPageNumber,
+          currentId,
         );
 
         if (noteData) {
@@ -72,9 +76,9 @@ const NoteList = () => {
 
   useEffect(() => {
     if (parsedQuery || updated) {
-      getCurrentNoteCredentials(parsedQuery);
+      getCurrentNoteCredentials(parsedQuery, currentId);
     }
-  }, [parsedQuery, getCurrentNoteCredentials, updated]);
+  }, [parsedQuery, getCurrentNoteCredentials, updated, currentId]);
 
   let displayCredential: ReactNode;
 

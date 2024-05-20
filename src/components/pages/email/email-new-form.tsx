@@ -61,7 +61,7 @@ const EmailNewForm = () => {
     if (emailCredentialData) {
       handleCloseForm();
       notify.success('New crendential added');
-      router.push(initiateUpdate(paths.toEmail()));
+      router.push(initiateUpdate(paths.toEmailItem(emailCredentialData.id)));
       router.refresh();
     }
   };

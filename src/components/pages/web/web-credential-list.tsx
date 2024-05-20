@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-import { notFound, useSearchParams } from 'next/navigation';
+import { notFound, useParams, useSearchParams } from 'next/navigation';
 import DataListCredentials, {
   CredentialTarget,
 } from '@/components/pages/shared/data-list-credentials';
@@ -22,6 +22,9 @@ const WebCredentialsList = () => {
   } | null>(null);
 
   const searchParams = useSearchParams();
+  const params = useParams();
+  const currentId =
+    params && typeof params.id === 'string' ? params.id : undefined;
   const currentPage = searchParams.get('page') || '1';
   const updated = searchParams.get('updated');
   if (currentPage === '0') return notFound();
@@ -30,12 +33,13 @@ const WebCredentialsList = () => {
   if (isNaN(parsedQuery)) return notFound();
 
   const getCurrentWebCredentials = useCallback(
-    async (currentPageNumber: number) => {
+    async (currentPageNumber: number, currentId?: string) => {
       try {
         setIsLoading(true);
         const webData = await getUserWebCredentialData(
           PAGE_LIMIT,
           currentPageNumber,
+          currentId,
         );
 
         if (webData) {
@@ -72,9 +76,9 @@ const WebCredentialsList = () => {
 
   useEffect(() => {
     if (parsedQuery || updated) {
-      getCurrentWebCredentials(parsedQuery);
+      getCurrentWebCredentials(parsedQuery, currentId);
     }
-  }, [parsedQuery, getCurrentWebCredentials, updated]);
+  }, [parsedQuery, getCurrentWebCredentials, updated, currentId]);
 
   let displayCredential: ReactNode;
 

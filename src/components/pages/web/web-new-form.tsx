@@ -59,7 +59,7 @@ const WebNewForm = () => {
     if (webCredentialData) {
       handleCloseForm();
       notify.success('New crendential added');
-      router.push(initiateUpdate(paths.toWeb()));
+      router.push(initiateUpdate(paths.toWebItem(webCredentialData.id)));
       router.refresh();
     }
   };

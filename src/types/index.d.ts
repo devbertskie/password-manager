@@ -9,7 +9,7 @@ export type CredentialType = 'Web' | 'Email' | 'Note';
 
 export interface UrlQueryParams {
   params: string;
-  key: string;
+  key: 'updated' | 'page';
   value: string | null;
   to?: string;
 }
