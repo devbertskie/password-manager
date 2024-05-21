@@ -14,8 +14,6 @@ Pass Manager is an open-source web app that simplifies password and note managem
 
 - [Contribution](#contribution)
 
-- [License](#license)
-
 ## Features
 
 - Access your encrypted password file through the user authentication page. Safeguard your passwords with an additional layer of security using user credentials.
@@ -109,9 +107,3 @@ To get a copy of Passwords up and running on your local machine, follow these st
 ## Contribution
 
 Contributions to Passwords are welcomed and encouraged! If you're interested in improving the app, adding new features, fixing bugs, or enhancing documentation, your contributions are highly valued.
-
-## License
-
-Passwords is open-source software released under the MIT License.
-
-The MIT License (MIT) is a permissive open-source license that allows you to use, modify, and distribute the software in your projects, both commercial and non-commercial, while providing attribution to the original authors.
