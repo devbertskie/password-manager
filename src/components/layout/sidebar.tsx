@@ -4,7 +4,6 @@ import {
   ChevronLeft,
   Home,
   Settings,
-  ShieldCheck,
   SquareAsterisk,
   Trash2,
 } from 'lucide-react';
@@ -90,43 +89,6 @@ const Sidebar = () => {
                       )}
                     >
                       Dashboard
-                    </span>
-                  </div>
-                </>
-              </li>
-            </Link>
-            <h3 className="-mx-4 block border-l border-primary bg-primary/10 px-6 py-3 text-xs  uppercase text-muted-foreground">
-              All Passwords
-            </h3>
-            <Link
-              href={paths.toPasswords()}
-              className={cn(
-                pathname === paths.toPasswords()
-                  ? 'bg-primary'
-                  : 'hover:bg-primary/10',
-                'transition-300 group rounded-md px-3 py-2',
-              )}
-            >
-              <li>
-                <>
-                  <div className="flex items-center space-x-2">
-                    <ShieldCheck
-                      className={cn(
-                        pathname === paths.toPasswords()
-                          ? 'text-accent'
-                          : 'group-hover:text-primary',
-                        'transition-300 size-5 ',
-                      )}
-                    />
-                    <span
-                      className={cn(
-                        pathname === paths.toPasswords()
-                          ? 'text-accent'
-                          : 'group-hover:text-primary',
-                        'transition-300',
-                      )}
-                    >
-                      Passwords
                     </span>
                   </div>
                 </>
