@@ -22,7 +22,7 @@ const lexend = Lexend({
 export const metadata: Metadata = {
   title: {
     template: '%s | Password Manager',
-    default: 'Secure your Accounts',
+    default: 'Credential',
   },
 };
 

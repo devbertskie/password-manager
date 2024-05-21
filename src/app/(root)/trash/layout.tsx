@@ -1,7 +1,12 @@
+import React, { ReactNode } from 'react';
 import FeatureHeader from '@/components/pages/shared/feature-header';
 import LayoutPager from '@/components/shared/layout-pager';
 import { Separator } from '@/components/ui/separator';
-import React, { ReactNode } from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Trash',
+};
 
 interface TrashLayoutLayoutProps {
   children: ReactNode;

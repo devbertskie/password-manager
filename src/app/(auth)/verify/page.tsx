@@ -1,6 +1,11 @@
+import React from 'react';
 import VerificationForm from '@/components/pages/auth/verification-form';
 import { notFound } from 'next/navigation';
-import React from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Confirmation',
+};
 
 interface VerifyPageProps {
   searchParams: {

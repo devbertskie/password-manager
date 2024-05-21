@@ -8,6 +8,11 @@ import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
 import LayoutPager from '@/components/shared/layout-pager';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Notes',
+};
 
 interface EmailCredentialLayoutProps {
   children: ReactNode;

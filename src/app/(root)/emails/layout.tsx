@@ -1,3 +1,4 @@
+import React, { ReactNode, Suspense } from 'react';
 import EmailCredentialsList from '@/components/pages/email/email-credentials-list';
 import EmailNewForm from '@/components/pages/email/email-new-form';
 import EmailPagination from '@/components/pages/email/email-pagination';
@@ -7,7 +8,11 @@ import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
 import LayoutPager from '@/components/shared/layout-pager';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import React, { ReactNode, Suspense } from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Email Accounts',
+};
 
 interface EmailCredentialLayoutProps {
   children: ReactNode;
@@ -20,8 +25,8 @@ const EmailCredentialsLayout = ({ children }: EmailCredentialLayoutProps) => {
       <Card>
         <CardContent className="p-4">
           <FeatureHeader
-            title="Email Credentials"
-            label="Manage your email credentials"
+            title="Email Accounts"
+            label="Manage your email accounts"
           >
             <EmailNewForm />
           </FeatureHeader>

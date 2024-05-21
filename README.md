@@ -1,4 +1,4 @@
-# Pass Manager
+# Password Manager
 
 Pass Manager is an open-source web app that simplifies password and note management, offering a secure and user-friendly experience. Built with Next.js 14.
 
@@ -106,4 +106,4 @@ To get a copy of Passwords up and running on your local machine, follow these st
 
 ## Contribution
 
-Contributions to Passwords are welcomed and encouraged! If you're interested in improving the app, adding new features, fixing bugs, or enhancing documentation, your contributions are highly valued.
+Contributions to Password Manager are welcomed and encouraged! If you're interested in improving the app, adding new features, fixing bugs, or enhancing documentation, your contributions are highly valued.

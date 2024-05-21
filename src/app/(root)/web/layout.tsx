@@ -1,5 +1,5 @@
-import FeatureHeader from '@/components/pages/shared/feature-header';
 import React, { ReactNode, Suspense } from 'react';
+import FeatureHeader from '@/components/pages/shared/feature-header';
 import FeatureSidenav from '@/components/pages/shared/feature-sidenav';
 import WebNewForm from '@/components/pages/web/web-new-form';
 import { Separator } from '@/components/ui/separator';
@@ -8,6 +8,11 @@ import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
 import LayoutPager from '@/components/shared/layout-pager';
 import { Card, CardContent } from '@/components/ui/card';
 import WebPagination from '@/components/pages/web/web-pagination';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Web Logins',
+};
 
 interface WebCredentialsRootLayoutProps {
   children: ReactNode;
@@ -21,10 +26,7 @@ const WebCredentialsRootLayout = ({
       <LayoutPager type="Web" />
       <Card>
         <CardContent className="p-4">
-          <FeatureHeader
-            title="Web Credentials"
-            label="Manage your web credentials"
-          >
+          <FeatureHeader title="Web Logins" label="Manage your web accounts">
             <WebNewForm />
           </FeatureHeader>
           <Separator className="my-6" />

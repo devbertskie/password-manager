@@ -1,10 +1,14 @@
 import React from 'react';
 
 import { redirect } from 'next/navigation';
-
 import paths from '@/lib/paths';
 import LoginForm from '@/components/pages/auth/login-form';
 import { auth } from '@/auth';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Login',
+};
 
 const LoginPage = async () => {
   const session = await auth();

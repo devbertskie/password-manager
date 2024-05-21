@@ -1,7 +1,7 @@
+import React, { Suspense } from 'react';
 import SideItemSkeleton from '@/components/pages/shared/side-item-skeleton';
 import WebMobileCardWrapper from '@/components/pages/web/mobile/web-mobile-wrapper';
 import PreviewPlaceholder from '@/components/shared/preview-placeholder';
-import React, { Suspense } from 'react';
 
 const WebCredentialsPage = async () => {
   return (

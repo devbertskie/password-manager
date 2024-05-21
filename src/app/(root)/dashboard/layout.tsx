@@ -1,5 +1,11 @@
-import LayoutPager from '@/components/shared/layout-pager';
 import React, { ReactNode } from 'react';
+import LayoutPager from '@/components/shared/layout-pager';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+};
+
 interface DashboardLayoutProps {
   children: ReactNode;
 }

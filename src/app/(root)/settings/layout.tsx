@@ -1,8 +1,16 @@
-import { Separator } from '@/components/ui/separator';
 import React, { PropsWithChildren } from 'react';
+import { Separator } from '@/components/ui/separator';
 import { SETTINGS_LIST } from '@/constants';
 import SidebarNav from '@/components/pages/settings/sidebar-nav';
 import LayoutPager from '@/components/shared/layout-pager';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Password Manager',
+    default: 'Settings',
+  },
+};
 
 const SettingsLayout = ({ children }: PropsWithChildren) => {
   return (

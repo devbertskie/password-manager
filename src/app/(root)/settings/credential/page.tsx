@@ -1,7 +1,12 @@
-import { Separator } from '@/components/ui/separator';
 import React from 'react';
+import { Separator } from '@/components/ui/separator';
 import CredentialForm from '@/components/pages/settings/credential-form';
 import { getCurrentUser } from '@/lib/current-user';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Change Password',
+};
 
 const Credential = async () => {
   const currentUser = await getCurrentUser();
