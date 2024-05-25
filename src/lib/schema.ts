@@ -13,7 +13,7 @@ export const formRegisterSchema = z.object({
     .trim(),
   password: z
     .string()
-    .min(6, { message: 'Username must contain at least 6 characters' })
+    .min(6, { message: 'Password must contain at least 6 characters' })
     .trim(),
 });
 
