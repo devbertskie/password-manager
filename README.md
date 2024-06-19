@@ -59,7 +59,7 @@ To get a copy of Passwords up and running on your local machine, follow these st
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/bertorepo/password-manager.git
+   git clone https://github.com/devbertskie/password-manager.git
    ```
 
    After successful cloned. Head over to the project directory
